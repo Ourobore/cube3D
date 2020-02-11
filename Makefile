@@ -1,6 +1,9 @@
 RSRCS	=	./srcs
 
 SRCS	=	$(RSRCS)/get_map_file.c \
+			$(RSRCS)/parse_file.c \
+			$(RSRCS)/map_validity.c \
+			$(RSRCS)/get_next_line.c \
 			$(RSRCS)/utils.c \
 			$(RSRCS)/error.c
 

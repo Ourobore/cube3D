@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 11:36:22 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/07 14:58:21 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/02/11 18:07:11 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,36 @@
 
 int main(int ac, char **av)
 {
-	char **map;
+	char **map_file;
 	char *map_path;
+	s_map map;
 	int i = 0;
 	//int j = 0;
 
 	(void)ac;
 	map_path = av[1];
+	map = init_map();
 	printf("\n==================MAIN================\n");
 	
-	map = get_map_file(map_path);
-	while (map[i])
-		printf("%s\n", map[i++]);
+	map_file = get_map_file(map_path);
+	while (map_file[i])
+		printf("%s\n", map_file[i++]);
+	/*
+	printf("[%d]\n", all_identifiants(map_file));
+	//while (map_file[i])
+	//	printf("%s\n", map_file[i++]);
 	
+	map = parse_file(map_file);
+	free_double_array(map_file);
+	printf("%s\n", map.north_texture);
+	printf("%s\n", map.south_texture);
+	printf("%s\n", map.west_texture);
+	printf("%s\n", map.east_texture);
+	printf("%s\n", map.sprite_texture);
+	printf("%d %d\n", map.resolution[0], map.resolution[1]);
+	printf("%d %d %d\n", map.floor_color[0], map.floor_color[1], map.floor_color[2]);
+	printf("%d %d %d\n", map.ceiling_color[0], map.ceiling_color[1], map.ceiling_color[2]);
+*/
 	printf("\n======================================\n");
-	//system("leaks Cube3D");
+	system("leaks Cube3D");
 }
