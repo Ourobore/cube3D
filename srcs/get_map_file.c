@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 10:01:37 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/12 17:44:26 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:52:58 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,27 @@ char	**get_map_file(char *map_path)
 	int		r;
 	int		fd;
 	char	*line;
-	char	**map_file;
+	char	**map;
 
 	i = 0;
 	fd = open(map_path, O_RDONLY);
-	if (!(map_file = ft_calloc(sizeof(char*), nb_lines(map_path) + 1)))
+	if (!(map = ft_calloc(sizeof(char*), nb_lines(map_path) + 1)))
 		calloc_error();
 	while ((r = get_next_line(fd, &line)))
 	{
+		if (i > NB_ELEMENTS && blank_line(line))
+			map_error();
 		if (!blank_line(line))
-			map_file[i++] = space_trim(ft_strdup(line));
-		
+			map[i++] = space_trim(ft_strdup(line));
 		free(line);
 	}
-	if (!blank_line(line))
-		map_file[i] = space_trim(ft_strdup(line));
+	(blank_line(line) ? map_error() : (map[i] = space_trim(ft_strdup(line))));
 	free(line);
 	i = NB_ELEMENTS;
-	while (map_file[i])
-		((map_file[i] = rm_map_spaces(map_file[i])) && i++);
+	while (map[i])
+		((map[i] = rm_map_spaces(map[i])) && i++);
 	close(fd);
-	return (map_file);
+	return (map);
 }
 
 int		blank_line(char *line)

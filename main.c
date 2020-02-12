@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 11:36:22 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/12 16:59:22 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/02/12 20:46:22 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int main(int ac, char **av)
 	map_file = get_map_file(map_path);
 	while (map_file[i])
 		printf("%s\n", map_file[i++]);
-	
-	//gerer les lignes vides et les caracteres qui ne sont pas a leur place
+
 
 	printf("\n###############################################\n");
 	map = parse_file(map_file);
@@ -47,7 +46,9 @@ int main(int ac, char **av)
 		printf("%s\n", map.map[i]);
 		i++;
 	}
-	//printf("\n###############################################\n");
+	printf("\n###############################################\n");
+
+	printf("MAP_VALIDITY: [%d]\n", map_validity(map));
 
 	printf("\n======================================\n");
 	system("leaks Cube3D");

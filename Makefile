@@ -29,7 +29,7 @@ $(NAME)	:	$(OBJS)
 			@make -C ./libft
 			cp $(LIBFT) ./$(LIB)
 			ar -rcs $(LIB) $(OBJS)
-			gcc $(FLAGS) -g -fsanitize=address main.c $(LIB) -o $(NAME)
+			gcc $(FLAGS) -g main.c $(LIB) -o $(NAME)
 
 clean	:	
 			rm -rf $(OBJS)

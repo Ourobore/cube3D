@@ -6,22 +6,15 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 13:55:35 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/12 16:32:35 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/02/12 20:43:06 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube3d.h"
 
-t_map	init_map()
+t_map	init_map(void)
 {
 	t_map	map;
-	
-	if (!(map.resolution = ft_calloc(sizeof(int), 2)))
-		calloc_error();
-	if (!(map.floor_color = ft_calloc(sizeof(int), 3)))
-		calloc_error();
-	if (!(map.ceiling_color = ft_calloc(sizeof(int), 3)))
-		calloc_error();
 
 	return (map);
 }
@@ -76,7 +69,7 @@ char	*space_trim(char *s)
 void	free_double_array(char **double_array)
 {
 	int i;
-	
+
 	i = 0;
 	while (double_array[i])
 	{

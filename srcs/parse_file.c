@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:41:55 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/12 17:08:54 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:54:23 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_map	parse_file(char **map_file)
 {
-	int 	i;
-	int 	j;
+	int		i;
+	int		j;
 	char	**parse;
 	t_map	map;
 
@@ -96,10 +96,10 @@ int		*get_values(char *line, char sep, int nb_values)
 
 char	**get_map(char **map_file)
 {
-	int i;
-	int j;
-	char **map;
-	
+	int		i;
+	int		j;
+	char	**map;
+
 	j = 0;
 	i = NB_ELEMENTS;
 	while (map_file[i])
