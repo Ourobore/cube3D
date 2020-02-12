@@ -5,6 +5,7 @@ SRCS	=	$(RSRCS)/get_map_file.c \
 			$(RSRCS)/map_validity.c \
 			$(RSRCS)/get_next_line.c \
 			$(RSRCS)/utils.c \
+			$(RSRCS)/utils2.c \
 			$(RSRCS)/error.c
 
 OBJS	:=	${SRCS:.c=.o}
