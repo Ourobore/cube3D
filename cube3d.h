@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 10:39:44 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/12 20:40:30 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/02/13 12:00:50 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int		valid_color(int	*values, int error_number);
 int		valid_path(char *path, int error_number);
 int		closed_map(char **map, int error_number);
 int		player_verification(char **map, int error_number);
+int		map_verification(char **map, int i, int j, int len);
 
 /*
 **Utility functions
@@ -71,6 +72,7 @@ int		player_verification(char **map, int error_number);
 int		get_next_line(int fd, char **line);
 int		is_whitespace(char c);
 int		only_spaces(char *s);
+int		only_number(char *s);
 int		nb_lines(char *map_path);
 int		blank_line(char *line);
 void	free_double_array(char **double_array);

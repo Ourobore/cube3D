@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:41:55 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/12 18:54:23 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/02/13 13:09:39 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,17 +79,15 @@ int		*get_values(char *line, char sep, int nb_values)
 	split = ft_split(&line[i], sep);
 	i = 0;
 	while (split[i])
-		i++;
+		if (!only_number(split[i++]))
+			map_error();
 	if (i != nb_values)
 		map_error();
-	i = 0;
+	i = -1;
 	if (!(values = ft_calloc(sizeof(int), nb_values)))
 		calloc_error();
-	while (i < nb_values)
-	{
+	while (i++ < nb_values - 1)
 		values[i] = ft_atoi(split[i]);
-		i++;
-	}
 	free_double_array(split);
 	return (values);
 }

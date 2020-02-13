@@ -6,11 +6,25 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 17:01:29 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/12 20:39:30 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/02/13 13:12:00 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube3d.h"
+
+int		only_number(char *s)
+{
+	int i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] < '0' || s[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 int		is_map_character(char c)
 {
@@ -38,6 +52,21 @@ int		only_map_characters(char **map_file)
 	return (1);
 }
 
+int		map_verification(char **map, int i, int j, int len)
+{
+	int	line_len;
+
+	line_len = ft_strlen(map[i]);
+	if ((i == 0 && map[i][j] != '1') || \
+		(i == len - 1 && map[i][j] != '1') || \
+		(j == 0 && map[i][j] != '1') || \
+		(j == line_len - 1 && map[i][j] != '1') || \
+		(i != 0 && i != len - 1 && map[i][j] != '1' && \
+		(j >= ft_strlen(map[i - 1]) || j >= ft_strlen(map[i + 1]))))
+		return (0);
+	return (1);
+}
+
 int		player_verification(char **map, int error_number)
 {
 	int	i;
@@ -54,7 +83,7 @@ int		player_verification(char **map, int error_number)
 			if (is_map_character(map[i][j]) == 'N' || \
 				is_map_character(map[i][j]) == 'S' || \
 				is_map_character(map[i][j]) == 'W' || \
-				is_map_character(map[i][j]) == 'S')
+				is_map_character(map[i][j]) == 'E')
 				player++;
 			j++;
 		}

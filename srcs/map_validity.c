@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 13:23:38 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/12 20:18:11 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/02/13 13:13:02 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,9 @@ int		closed_map(char **map, int error_number)
 	while (map[i])
 	{
 		j = 0;
-		line_len = ft_strlen(map[i]);
 		while (map[i][j])
 		{
-			if ((i == 0 && map[i][j] != '1') || \
-				(i == len && map[i][j] != '1') || \
-				(j == 0 && map[i][j] != '1') || \
-				(j == line_len && map[i][j] != '1'))
+			if (!map_verification(map, i, j, len))
 				map_validity_error(error_number);
 			j++;
 		}
