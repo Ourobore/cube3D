@@ -6,11 +6,11 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 15:01:54 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/11 18:10:28 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/02/13 13:50:32 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube3d.h"
+#include "parsing.h"
 
 char	*concatenation(char *str, char c)
 {

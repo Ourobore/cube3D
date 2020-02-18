@@ -6,11 +6,11 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 10:14:06 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/13 11:13:44 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/02/14 16:24:20 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube3d.h"
+#include "parsing.h"
 
 void	calloc_error(void)
 {

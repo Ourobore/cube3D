@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cube3d.h                                           :+:      :+:    :+:   */
+/*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/03 10:39:44 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/17 11:35:46 by lchapren         ###   ########.fr       */
+/*   Created: 2020/02/13 13:54:05 by lchapren          #+#    #+#             */
+/*   Updated: 2020/02/13 13:55:02 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUBE3D_H
-# define CUBE3D_H
+#ifndef MAP_H
+# define MAP_H
 
-# include "./libft/libft.h"
-# include "srcs/map.h"
-# include "srcs/window.h"
-# include "srcs/parsing/parsing.h"
-# include "srcs/mlx/mymlx.h"
+typedef struct	s_map
+{
+	int		*resolution;
+	int		*floor_color;
+	int		*ceiling_color;
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <errno.h>
-# include <math.h>
-# include <mlx.h>
+	char	*sprite_texture;
+	char	*north_texture;
+	char	*south_texture;
+	char	*west_texture;
+	char	*east_texture;
 
-# define NB_ELEMENTS 8
-
+	char	**map;
+}				t_map;
 
 #endif

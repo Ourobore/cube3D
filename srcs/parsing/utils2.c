@@ -6,11 +6,11 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 17:01:29 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/13 13:12:00 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/02/13 13:50:07 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube3d.h"
+#include "parsing.h"
 
 int		only_number(char *s)
 {

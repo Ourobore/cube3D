@@ -6,11 +6,11 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 13:55:35 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/12 20:43:06 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/02/13 13:50:02 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube3d.h"
+#include "parsing.h"
 
 t_map	init_map(void)
 {

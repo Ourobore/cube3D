@@ -6,11 +6,11 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 13:23:38 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/13 13:13:02 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/02/13 13:49:48 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube3d.h"
+#include "parsing.h"
 
 int		map_validity(t_map map)
 {
@@ -35,10 +35,10 @@ int		valid_resolution(int *resolution, int error_number)
 		resolution[0] = 500;
 	if (resolution[1] < 500)
 		resolution[1] = 500;
-	if (resolution[0] > 5120)
-		resolution[0] = 5120;
-	if (resolution[1] > 2880)
-		resolution[1] = 2880;
+	if (resolution[0] > 2560)
+		resolution[0] = 2560;
+	if (resolution[1] > 1440)
+		resolution[1] = 1440;
 	return (1);
 }
 

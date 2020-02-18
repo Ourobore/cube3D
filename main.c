@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 11:36:22 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/12 20:46:22 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/02/18 16:12:58 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,17 @@
 
 int main(int ac, char **av)
 {
-	char **map_file;
 	char *map_path;
 	t_map map;
 	int i = 0;
-	//int j = 0;
 
 	(void)ac;
 	map_path = ft_strdup(av[1]);
 	map = init_map();
 	printf("\n==================MAIN================\n");
-	
-	map_file = get_map_file(map_path);
-	while (map_file[i])
-		printf("%s\n", map_file[i++]);
-
+	map = parse_file(get_map_file(map_path));
 
 	printf("\n###############################################\n");
-	map = parse_file(map_file);
 	printf("%s\n", map.north_texture);
 	printf("%s\n", map.south_texture);
 	printf("%s\n", map.west_texture);
@@ -46,10 +39,13 @@ int main(int ac, char **av)
 		printf("%s\n", map.map[i]);
 		i++;
 	}
-	printf("\n###############################################\n");
-
+	printf("###############################################\n");
 	printf("MAP_VALIDITY: [%d]\n", map_validity(map));
+	printf("###############################################\n");
 
+	t_mlx window;
+	window = start_mlx(map);
+	main_mlx_loop(window, map);
 	printf("\n======================================\n");
 	system("leaks Cube3D");
 	

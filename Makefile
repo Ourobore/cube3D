@@ -1,12 +1,14 @@
 RSRCS	=	./srcs
 
-SRCS	=	$(RSRCS)/get_map_file.c \
-			$(RSRCS)/parse_file.c \
-			$(RSRCS)/map_validity.c \
-			$(RSRCS)/get_next_line.c \
-			$(RSRCS)/utils.c \
-			$(RSRCS)/utils2.c \
-			$(RSRCS)/error.c
+SRCS	=	$(RSRCS)/parsing/get_map_file.c \
+			$(RSRCS)/parsing/parse_file.c \
+			$(RSRCS)/parsing/map_validity.c \
+			$(RSRCS)/parsing/get_next_line.c \
+			$(RSRCS)/parsing/utils.c \
+			$(RSRCS)/parsing/utils2.c \
+			$(RSRCS)/parsing/error.c \
+			$(RSRCS)/mlx/mlx.c \
+			$(RSRCS)/mlx/images.c
 
 OBJS	:=	${SRCS:.c=.o}
 
@@ -29,7 +31,7 @@ $(NAME)	:	$(OBJS)
 			@make -C ./libft
 			cp $(LIBFT) ./$(LIB)
 			ar -rcs $(LIB) $(OBJS)
-			gcc $(FLAGS) -g main.c $(LIB) -o $(NAME)
+			gcc $(FLAGS) -g3 -fsanitize=address main.c $(LIB) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
 
 clean	:	
 			rm -rf $(OBJS)
