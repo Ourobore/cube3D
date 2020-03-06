@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:41:55 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/13 13:49:43 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/02/21 09:45:21 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int		*get_values(char *line, char sep, int nb_values)
 	split = ft_split(&line[i], sep);
 	i = 0;
 	while (split[i])
-		if (!only_number(split[i++]))
+		if ((split[i] = ft_strtrim(split[i], " ")) && !only_number(split[i++]))
 			map_error();
 	if (i != nb_values)
 		map_error();

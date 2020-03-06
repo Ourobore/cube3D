@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:41:02 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/14 16:24:17 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/02/19 10:26:49 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int		map_validity(t_map map);
 int		valid_resolution(int *resolution, int error_number);
 int		valid_color(int	*values, int error_number);
 int		valid_path(char *path, int error_number);
+int		valid_map_path(char *map_path);
 int		closed_map(char **map, int error_number);
 int		player_verification(char **map, int error_number);
 int		map_verification(char **map, int i, int j, int len);

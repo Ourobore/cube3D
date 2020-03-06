@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 11:36:22 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/18 16:12:58 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/03/05 10:47:57 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int main(int ac, char **av)
 
 	(void)ac;
 	map_path = ft_strdup(av[1]);
+	valid_map_path(map_path);
+	
 	map = init_map();
 	printf("\n==================MAIN================\n");
 	map = parse_file(get_map_file(map_path));
@@ -43,10 +45,17 @@ int main(int ac, char **av)
 	printf("MAP_VALIDITY: [%d]\n", map_validity(map));
 	printf("###############################################\n");
 
-	t_mlx window;
-	window = start_mlx(map);
-	main_mlx_loop(window, map);
+	t_player player;
+	player = initial_player_position(map.map);
+	printf("[%f][%f][%f][%f]\n", player.position_x, player.position_y, player.direction_x, player.direction_y);
+
+	t_data data;
+	data.mlx = start_mlx(map);
+	data.map = map;
+	data.player = player;
+	raycasting(data);
+	//main_mlx_loop(data);
 	printf("\n======================================\n");
-	system("leaks Cube3D");
+	//system("leaks Cube3D");
 	
 }

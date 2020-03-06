@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.h                                              :+:      :+:    :+:   */
+/*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/13 13:54:05 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/19 14:25:09 by lchapren         ###   ########.fr       */
+/*   Created: 2020/02/19 13:36:00 by lchapren          #+#    #+#             */
+/*   Updated: 2020/03/06 13:45:20 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_H
-# define MAP_H
+#ifndef PLAYER_H
+# define PLAYER_H
 
-typedef struct	s_map
+typedef struct	s_player
 {
-	int		*resolution;
-	int		*floor_color;
-	int		*ceiling_color;
-
-	char	*sprite_texture;
-	char	*north_texture;
-	char	*south_texture;
-	char	*west_texture;
-	char	*east_texture;
-
-	char	**map;
-}				t_map;
+	float	position_x;
+	float	position_y;
+	float	direction_x;
+	float	direction_y;
+	int		dda_x;
+	int		dda_y;
+	float	speed;
+	float	crouch;
+}				t_player;
 
 #endif

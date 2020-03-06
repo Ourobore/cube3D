@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 11:33:03 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/17 12:02:10 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/03/01 13:10:25 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 
 typedef struct	s_mlx
 {
-	void *mlx_ptr;
-	void *window_ptr;
+	void	*mlx_ptr;
+	void	*window_ptr;
+	void	*image;
+	int		*image_data;
 }				t_mlx;
 
 #endif

@@ -8,7 +8,9 @@ SRCS	=	$(RSRCS)/parsing/get_map_file.c \
 			$(RSRCS)/parsing/utils2.c \
 			$(RSRCS)/parsing/error.c \
 			$(RSRCS)/mlx/mlx.c \
-			$(RSRCS)/mlx/images.c
+			$(RSRCS)/mlx/images.c \
+			$(RSRCS)/mlx/raycasting.c \
+			$(RSRCS)/mlx/utils.c
 
 OBJS	:=	${SRCS:.c=.o}
 
@@ -31,7 +33,7 @@ $(NAME)	:	$(OBJS)
 			@make -C ./libft
 			cp $(LIBFT) ./$(LIB)
 			ar -rcs $(LIB) $(OBJS)
-			gcc $(FLAGS) -g3 -fsanitize=address main.c $(LIB) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
+			gcc $(FLAGS) -g3 main.c $(LIB) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
 
 clean	:	
 			rm -rf $(OBJS)

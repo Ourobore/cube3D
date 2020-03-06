@@ -6,45 +6,44 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:05:37 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/18 16:41:34 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/03/05 14:26:27 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "mymlx.h"
 
-t_mlx	main_mlx_loop(t_mlx window, t_map map)
+t_data	main_mlx_loop(t_data data)
 {
-	int i = 0;
-	int j = 0;
-	void *test;
-	void *w;
-
-	fill_new_image(window, map);
-	mlx_hook(window.window_ptr, KEYPRESS, KEYPRESSMASK, key_hook, &window);
-	mlx_loop(window.mlx_ptr);
-	return (window);
+	fill_new_image(data);
+	mlx_hook(data.mlx.window_ptr, KEYPRESS, KEYPRESSMASK, key_hook, &data);
+	mlx_loop(data.mlx.mlx_ptr);
+	return (data);
 }
 
 t_mlx	start_mlx(t_map map)
 {
-	t_mlx window;
-	window.mlx_ptr = mlx_init();
-	window.window_ptr = mlx_new_window(window.mlx_ptr, map.resolution[0], map.resolution[1], "Cube3D");
-	return (window);
+	t_mlx w;
+
+	w.mlx_ptr = mlx_init();
+	w.window_ptr = \
+	mlx_new_window(w.mlx_ptr, map.resolution[0], map.resolution[1], "Cube3D");
+	return (w);
 }
 
-int		key_hook(int key, t_mlx *param)
+int		key_hook(int key, t_data *data)
 {
-	//ft_putnbr_fd(key, 1);
+	ft_putnbr_fd(key, 1);
 	if (key == 53)
 	{
-		mlx_destroy_window(param->mlx_ptr, param->window_ptr);
+		mlx_destroy_window(data->mlx.mlx_ptr, data->mlx.window_ptr);
 		write(1, "Clean exit (escape button)\n", 27);
+		//system("leaks Cube3D");
 		exit(0);
 	}
 	if (key == 46)
 		write(1, "Toogle map\n", 11);
+	if (key == 49)
+		fill_new_image(*data);
 	write(1, "Key\n", 4);
 	return (1);
 }
