@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 09:51:49 by lchapren          #+#    #+#             */
-/*   Updated: 2020/03/06 14:31:43 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/03/08 12:14:23 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,21 @@ t_data raycasting(t_data data)
 	float distance;
 	float *direction;
 
-	direction = new_direction(data, data.player.direction_x, data.player.direction_y, angle);
-	distance = get_distance(data, direction, i, angle);
+	int bpp;
+	int line_length;
+	int endian;
+	void *image;
+	int *image_data;
+
+	//Declaration de bpp endian et line_length supprimees
+	//data.mlx.image = mlx_new_image(data.mlx.mlx_ptr, data.map.resolution[0], data.map.resolution[1]);
+	//data.mlx.image_data = (int*)mlx_get_data_addr(image, &bpp, &line_length, &endian);
+	if (data.mlx.image)
+		mlx_destroy_image (data.mlx.mlx_ptr, data.mlx.image);
+	data.mlx.image = mlx_new_image(data.mlx.mlx_ptr, data.map.resolution[0], data.map.resolution[1]);
+	data.mlx.image_data = (int*)mlx_get_data_addr(data.mlx.image, &bpp, &line_length, &endian);
+	//direction = new_direction(data, data.player.direction_x, data.player.direction_y, angle);
+	distance = get_distance(&data, direction, i, angle);
 	/*i = 0;
 	angle = -1 * FOV / 2;
 	if (!(direction = ft_calloc(sizeof(int), 2)))
@@ -37,13 +50,14 @@ t_data raycasting(t_data data)
 		angle += FOV / (float)data.map.resolution[0];
 		i++;
 	}*/
+	mlx_put_image_to_window(data.mlx.mlx_ptr, data.mlx.window_ptr, data.mlx.image, 0, 0);
 	mlx_hook(data.mlx.window_ptr, KEYPRESS, KEYPRESSMASK, key_hook, &data);
 	mlx_loop(data.mlx.mlx_ptr);
 	//mlx_put_image_to_window(data.mlx.mlx_ptr, data.mlx.window_ptr, data.mlx.image, 0, 0);
 	return (data);
 }
 
-float get_distance(t_data data, float *direction, int x, float angle)
+float get_distance(t_data *data, float *direction, int x, float angle)
 {
 	int a = 0;
 	float camera_x;
@@ -62,14 +76,14 @@ float get_distance(t_data data, float *direction, int x, float angle)
 	int draw_start;
 	int draw_end;
 	int i;
-	float	*plane;
+	float *plane;
 
-	while (a < data.map.resolution[0])
+	while (a < data->map.resolution[0])
 	{
-		camera_x = 2 * a / (float)(data.map.resolution[0]) - 1;
-		plane = new_direction(data, data.player.direction_x, data.player.direction_y, 90);
-		raydir_x = data.player.direction_x + plane[0] * camera_x;
-		raydir_y = data.player.direction_y + plane[1] * camera_x;
+		camera_x = 2 * a / (float)(data->map.resolution[0]) - 1;
+		plane = new_direction(*data, data->player.direction_x, data->player.direction_y, 90);
+		raydir_x = data->player.direction_x + plane[0] * camera_x;
+		raydir_y = data->player.direction_y + plane[1] * camera_x;
 		//printf("X: %f\tY: %f\n", raydir_x, raydir_y);
 
 		hit = 0;
@@ -77,28 +91,28 @@ float get_distance(t_data data, float *direction, int x, float angle)
 		//delta_y = (direction[0] == 0) ? 0.0 : ((direction[1] == 0) ? 1.0 : fabs(1 / direction[1]));
 		delta_x = sqrt(1 + (pow(raydir_y, 2) / (pow(raydir_x, 2))));
 		delta_y = sqrt(1 + (pow(raydir_x, 2) / (pow(raydir_y, 2))));
-		data.player.dda_x = (int)data.player.position_x;
-		data.player.dda_y = (int)data.player.position_y;
+		data->player.dda_x = (int)data->player.position_x;
+		data->player.dda_y = (int)data->player.position_y;
 
 		if (raydir_x < 0.0)
 		{
 			step_x = -1.0;
-			side_x = (data.player.position_x - data.player.dda_x) * delta_x;
+			side_x = (data->player.position_x - data->player.dda_x) * delta_x;
 		}
 		else
 		{
 			step_x = 1.0;
-			side_x = (data.player.dda_x + 1.0 - data.player.position_x) * delta_x;
+			side_x = (data->player.dda_x + 1.0 - data->player.position_x) * delta_x;
 		}
 		if (raydir_y < 0.0)
 		{
 			step_y = -1.0;
-			side_y = (data.player.position_y - data.player.dda_y) * delta_y;
+			side_y = (data->player.position_y - data->player.dda_y) * delta_y;
 		}
 		else
 		{
 			step_y = 1.0;
-			side_y = (data.player.dda_y + 1.0 - data.player.position_y) * delta_y;
+			side_y = (data->player.dda_y + 1.0 - data->player.position_y) * delta_y;
 		}
 
 		while (hit == 0)
@@ -106,50 +120,67 @@ float get_distance(t_data data, float *direction, int x, float angle)
 			if (side_x < side_y)
 			{
 				side_x += delta_x;			 // agrandis le rayon
-				data.player.dda_x += step_x; // prochaine case ou case précédente sur X
+				data->player.dda_x += step_x; // prochaine case ou case précédente sur X
 				side = 0;					 // orientation du mur
 			}
 			else
 			{
 				side_y += delta_y;			 // agrandis le rayon
-				data.player.dda_y += step_y; // prochaine case ou case précédente sur Y
+				data->player.dda_y += step_y; // prochaine case ou case précédente sur Y
 				side = 1;					 // orientation du mur
 			}
 			// si le rayon rencontre un mur
-			if (data.map.map[data.player.dda_x][data.player.dda_y] != '0')
+			if (data->map.map[data->player.dda_x][data->player.dda_y] != '0')
 				hit = 1; // stoppe la boucle
 		}
 		//distance = sqrt(pow(data.player.position_x - data.player.dda_x, 2) + pow(data.player.position_y - data.player.dda_y, 2));
 		//printf("DISTANCE: %f\n", distance);
-		
+
 		if (side == 0)
-			distance = fabs((data.player.dda_x - data.player.position_x + (1.0 - step_x) / 2.0) / raydir_x);
+			distance = fabs((data->player.dda_x - data->player.position_x + (1.0 - step_x) / 2.0) / raydir_x);
 		else
-			distance = fabs((data.player.dda_y - data.player.position_y + (1.0 - step_y) / 2.0) / raydir_y);
-	
+			distance = fabs((data->player.dda_y - data->player.position_y + (1.0 - step_y) / 2.0) / raydir_y);
+
 		//distance *= cos((angle * 2 * PI) / 180);
 
 		printf("X: %f\tY: %f\tDISTANCE: %f\n", raydir_x, raydir_y, distance);
-		line_length = (int)(data.map.resolution[1] / distance);
+		line_length = (int)(data->map.resolution[1] / distance);
 		//printf("LINE_LENGTH: %d\n", line_length);
-		draw_start = (int)(-line_length / 2.0 + data.map.resolution[1] / 2.0);
-		draw_end = (int)(line_length / 2.0 + data.map.resolution[1] / 2.0);
+		draw_start = (int)(-line_length / 2.0 + data->map.resolution[1] / 2.0);
+		draw_end = (int)(line_length / 2.0 + data->map.resolution[1] / 2.0);
 		if (draw_start < 0)
 			draw_start = 0;
-		if (draw_end >= data.map.resolution[1])
-			draw_end = data.map.resolution[1] - 1;
+		if (draw_end >= data->map.resolution[1])
+			draw_end = data->map.resolution[1] - 1;
 
 		i = 0;
-		i = draw_start;
-		while (i < draw_end && side == 0)
+		/*
+		while (i < data->map.resolution[1])
 		{
-			mlx_pixel_put(data.mlx.mlx_ptr, data.mlx.window_ptr, a, i, 16777215);
+			mlx_pixel_put(data->mlx.mlx_ptr, data->mlx.window_ptr, a, i, 0);
 			i++;
-		}
-		while (i < draw_end && side == 1)
+		}*/
+		//i = draw_start;
+		while (i < data->map.resolution[1])
 		{
-			mlx_pixel_put(data.mlx.mlx_ptr, data.mlx.window_ptr, a, i, 13158600);
-			i++;
+			if (i > draw_start && i < draw_end && side == 0)
+			{
+				data->mlx.image_data[a + (i * data->map.resolution[0])] = 16777215;
+				//mlx_pixel_put(data->mlx.mlx_ptr, data->mlx.window_ptr, a, i, 16777215);
+				i++;
+			}
+			else if (i > draw_start && i < draw_end && side == 1)
+			{
+				data->mlx.image_data[a + (i * data->map.resolution[0])] = 13158600;
+				//mlx_pixel_put(data->mlx.mlx_ptr, data->mlx.window_ptr, a, i, 13158600);
+				i++;
+			}
+			else
+			{
+				data->mlx.image_data[a + (i * data->map.resolution[0])] = 0;
+				//mlx_pixel_put(data->mlx.mlx_ptr, data->mlx.window_ptr, a, i, 0);
+				i++;
+			}
 		}
 		a++;
 	}

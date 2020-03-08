@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:05:37 by lchapren          #+#    #+#             */
-/*   Updated: 2020/03/05 14:26:27 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/03/08 11:46:45 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ t_mlx	start_mlx(t_map map)
 
 int		key_hook(int key, t_data *data)
 {
+	float *new_dir;
+	
 	ft_putnbr_fd(key, 1);
 	if (key == 53)
 	{
@@ -39,6 +41,22 @@ int		key_hook(int key, t_data *data)
 		write(1, "Clean exit (escape button)\n", 27);
 		//system("leaks Cube3D");
 		exit(0);
+	}
+	if (key == 123)
+	{
+		new_dir  = new_direction(*data, data->player.direction_x, data->player.direction_y, -3);
+		data->player.direction_x = new_dir[0];
+		data->player.direction_y = new_dir[1];
+		//mlx_destroy_image (data.mlx.mlx_ptr, data.mlx.image);
+		raycasting(*data);
+	}
+	if (key == 124)
+	{
+		new_dir  = new_direction(*data, data->player.direction_x, data->player.direction_y, 3);
+		data->player.direction_x = new_dir[0];
+		data->player.direction_y = new_dir[1];
+		//mlx_destroy_image (data.mlx.mlx_ptr, data.mlx.image);
+		raycasting(*data);
 	}
 	if (key == 46)
 		write(1, "Toogle map\n", 11);

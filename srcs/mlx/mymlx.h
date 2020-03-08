@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:05:46 by lchapren          #+#    #+#             */
-/*   Updated: 2020/03/06 11:57:03 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/03/08 11:10:29 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char		*fill_new_image(t_data data);
 ** Raycasting functiuns
 */
 t_data	raycasting(t_data data);
-float		get_distance(t_data data, float *direction, int x, float angle);
+float		get_distance(t_data *data, float *direction, int x, float angle);
 float		vertical_wall(t_data *data, float *direction);
 float		horizontal_wall(t_data *data, float *direction);
 float		*new_direction(t_data data, float direction_x, float direction_y, int angle);
