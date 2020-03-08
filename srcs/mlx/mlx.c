@@ -6,19 +6,11 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:05:37 by lchapren          #+#    #+#             */
-/*   Updated: 2020/03/08 11:46:45 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/03/08 16:39:46 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mymlx.h"
-
-t_data	main_mlx_loop(t_data data)
-{
-	fill_new_image(data);
-	mlx_hook(data.mlx.window_ptr, KEYPRESS, KEYPRESSMASK, key_hook, &data);
-	mlx_loop(data.mlx.mlx_ptr);
-	return (data);
-}
 
 t_mlx	start_mlx(t_map map)
 {
@@ -32,7 +24,8 @@ t_mlx	start_mlx(t_map map)
 
 int		key_hook(int key, t_data *data)
 {
-	float *new_dir;
+	float	angle;
+	float	*new_dir;
 	
 	ft_putnbr_fd(key, 1);
 	if (key == 53)
@@ -42,9 +35,22 @@ int		key_hook(int key, t_data *data)
 		//system("leaks Cube3D");
 		exit(0);
 	}
+	if (key == 13 || key == 0 || key == 1 || key == 2)
+	{
+		if (key == 13)
+			angle = 0;
+		if (key == 0)
+			angle = -90;
+		if (key == 1)
+			angle = 180;
+		if (key == 2)
+			angle = 90;
+		*data = move_player(*data, angle);
+		raycasting(*data);
+	}
 	if (key == 123)
 	{
-		new_dir  = new_direction(*data, data->player.direction_x, data->player.direction_y, -3);
+		new_dir = rotate_direction(data->player.direction_x, data->player.direction_y, -3);
 		data->player.direction_x = new_dir[0];
 		data->player.direction_y = new_dir[1];
 		//mlx_destroy_image (data.mlx.mlx_ptr, data.mlx.image);
@@ -52,16 +58,19 @@ int		key_hook(int key, t_data *data)
 	}
 	if (key == 124)
 	{
-		new_dir  = new_direction(*data, data->player.direction_x, data->player.direction_y, 3);
+		new_dir = rotate_direction(data->player.direction_x, data->player.direction_y, 3);
 		data->player.direction_x = new_dir[0];
 		data->player.direction_y = new_dir[1];
 		//mlx_destroy_image (data.mlx.mlx_ptr, data.mlx.image);
 		raycasting(*data);
 	}
+	if (key == 257)
+	{
+		data->player.speed = 3;
+		raycasting(*data);
+	}
 	if (key == 46)
 		write(1, "Toogle map\n", 11);
-	if (key == 49)
-		fill_new_image(*data);
 	write(1, "Key\n", 4);
 	return (1);
 }

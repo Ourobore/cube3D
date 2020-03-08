@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 09:58:37 by lchapren          #+#    #+#             */
-/*   Updated: 2020/03/06 14:29:39 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/03/08 15:29:50 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,43 @@ t_player	get_player(char c, int i, int j)
 		player.direction_x = 1.0;
 	else if (c == 'W')
 		player.direction_y = -1.0;
+	player.speed = 1;
 	return (player);
+}
+
+t_data	new_image(t_data data)
+{
+	int bpp;
+	int line_length;
+	int endian;
+
+	if (data.mlx.image)
+		mlx_destroy_image (data.mlx.mlx_ptr, data.mlx.image);
+	data.mlx.image = mlx_new_image(data.mlx.mlx_ptr, data.map.resolution[0], data.map.resolution[1]);
+	data.mlx.image_data = (int*)mlx_get_data_addr(data.mlx.image, &bpp, &line_length, &endian);
+	return (data);
+}
+
+float *rotate_direction(float direction_x, float direction_y, float angle)
+{
+	float *new_direction;
+
+	if (!(new_direction = ft_calloc(sizeof(float), 2)))
+		calloc_error();
+	new_direction[0] = (direction_x * cos((angle * PI) / 180.0) -
+						(direction_y * sin((angle * PI) / 180.0)));
+	new_direction[1] = (direction_x * sin((angle * PI) / 180.0)) +
+					   (direction_y * cos((angle * PI) / 180.0));
+	return (new_direction);
+}
+
+t_data	move_player(t_data data, float angle)
+{
+	float	*new_direction;
+	new_direction = \
+	rotate_direction(data.player.direction_x, data.player.direction_y, angle);
+	data.player.position_x += new_direction[0] * 0.1 * data.player.speed;
+	data.player.position_y += new_direction[1] * 0.1 * data.player.speed;
+	free(new_direction);
+	return (data);
 }

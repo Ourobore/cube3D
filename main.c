@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 11:36:22 by lchapren          #+#    #+#             */
-/*   Updated: 2020/03/05 10:47:57 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/03/08 14:58:46 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int main(int ac, char **av)
 	data.map = map;
 	data.player = player;
 	raycasting(data);
+	mlx_hook(data.mlx.window_ptr, KEYPRESS, KEYPRESSMASK, key_hook, &data);
+	mlx_loop(data.mlx.mlx_ptr);
 	//main_mlx_loop(data);
 	printf("\n======================================\n");
 	//system("leaks Cube3D");
