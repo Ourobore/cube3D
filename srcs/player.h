@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 13:36:00 by lchapren          #+#    #+#             */
-/*   Updated: 2020/03/08 14:46:55 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/03/12 18:26:47 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,20 @@ typedef struct	s_player
 	float	direction_x;
 	float	direction_y;
 	
-	int		dda_x;
-	int		dda_y;
 	float	speed;
-	float	crouch;
+	float	rotation_angle;
+	int		crouch;
+	int		foward;
+	int		left;
+	int		right;
+	int		backward;
+	int		turn_left;
+	int		turn_right;
+
+	float 	last_pos_x;
+	float	last_pos_y;
+	float	last_dir_x;
+	float	last_dir_y;
 }				t_player;
 
 # define PLAYER_X data->player.position_x

@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 09:58:37 by lchapren          #+#    #+#             */
-/*   Updated: 2020/03/08 15:29:50 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/03/12 18:43:09 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,10 @@ t_player	get_player(char c, int i, int j)
 	else if (c == 'W')
 		player.direction_y = -1.0;
 	player.speed = 1;
+	player.last_pos_x = 1.0;
+	player.last_pos_y = 1.0;
+	player.last_dir_x = 1.0;
+	player.last_dir_y = 1.0;
 	return (player);
 }
 
@@ -60,11 +64,21 @@ t_data	new_image(t_data data)
 	int line_length;
 	int endian;
 
-	if (data.mlx.image)
-		mlx_destroy_image (data.mlx.mlx_ptr, data.mlx.image);
 	data.mlx.image = mlx_new_image(data.mlx.mlx_ptr, data.map.resolution[0], data.map.resolution[1]);
 	data.mlx.image_data = (int*)mlx_get_data_addr(data.mlx.image, &bpp, &line_length, &endian);
 	return (data);
+}
+
+int		raycasting_loop(t_data *data)
+{
+	printf("loop\n");
+	player_control(data);
+	if (player_moved(data))
+	{
+		raycasting(data);
+		mlx_destroy_image (data->mlx.mlx_ptr, data->mlx.image);
+	}
+	return (1);
 }
 
 float *rotate_direction(float direction_x, float direction_y, float angle)
@@ -80,13 +94,27 @@ float *rotate_direction(float direction_x, float direction_y, float angle)
 	return (new_direction);
 }
 
-t_data	move_player(t_data data, float angle)
+t_data init_player(t_data data)
 {
-	float	*new_direction;
-	new_direction = \
-	rotate_direction(data.player.direction_x, data.player.direction_y, angle);
-	data.player.position_x += new_direction[0] * 0.1 * data.player.speed;
-	data.player.position_y += new_direction[1] * 0.1 * data.player.speed;
-	free(new_direction);
+	data.player.foward = 0;
+	data.player.left = 0;
+	data.player.right = 0;
+	data.player.backward = 0;
+	data.player.turn_left = 0;
+	data.player.turn_right = 0;
+	data.player.speed = 1;
+	data.player.rotation_angle = 3;
+	data.player.crouch = 0;
 	return (data);
+}
+
+int		player_moved(t_data *data)
+{
+	if (data->player.last_pos_x == data->player.position_x && \
+		data->player.last_pos_y == data->player.position_y && \
+		data->player.last_dir_x == data->player.direction_x && \
+		data->player.last_dir_y == data->player.direction_y)
+		return (0);
+	else
+		return (1);
 }

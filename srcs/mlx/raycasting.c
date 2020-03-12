@@ -6,34 +6,40 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 09:51:49 by lchapren          #+#    #+#             */
-/*   Updated: 2020/03/08 16:19:43 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/03/12 18:41:27 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mymlx.h"
 
-void raycasting(t_data data)
+void raycasting(t_data *data)
 {
 	int column;
 	float *camera_plane;
 	float camera_x;
 
 	column = 0;
-	data = new_image(data);
-	while (column < data.map.resolution[0])
+	*data = new_image(*data);
+	printf("==============ray_loop=======");
+	while (column < data->map.resolution[0])
 	{
-		camera_x = 2 * column / (float)(data.map.resolution[0]) - 1;
-		data.ray.camera_plane = rotate_direction(data.player.direction_x, data.player.direction_y, 90);
-		data.ray.raydir_x = data.player.direction_x + data.ray.camera_plane[0] * camera_x;
-		data.ray.raydir_y = data.player.direction_y + data.ray.camera_plane[1] * camera_x;
-		data.ray.delta_x = fabs(1 / data.ray.raydir_x);
-		data.ray.delta_y = fabs(1 / data.ray.raydir_y);
-		data.ray.map_x = (int)data.player.position_x;
-		data.ray.map_y = (int)data.player.position_y;
-		side_calculus(&data, column);
+		camera_x = 2 * column / (float)(data->map.resolution[0]) - 1;
+		data->ray.camera_plane = rotate_direction(data->player.direction_x, data->player.direction_y, 90);
+		data->ray.raydir_x = data->player.direction_x + data->ray.camera_plane[0] * camera_x;
+		data->ray.raydir_y = data->player.direction_y + data->ray.camera_plane[1] * camera_x;
+		free(data->ray.camera_plane);
+		data->ray.delta_x = fabs(1 / data->ray.raydir_x);
+		data->ray.delta_y = fabs(1 / data->ray.raydir_y);
+		data->ray.map_x = (int)data->player.position_x;
+		data->ray.map_y = (int)data->player.position_y;
+		side_calculus(data, column);
 		column++;
 	}
-	mlx_put_image_to_window(data.mlx.mlx_ptr, data.mlx.window_ptr, data.mlx.image, 0, 0);
+	data->player.last_pos_x = data->player.position_x;
+	data->player.last_pos_y = data->player.position_y;
+	data->player.last_dir_x = data->player.direction_x;
+	data->player.last_dir_y = data->player.direction_y;
+	mlx_put_image_to_window(data->mlx.mlx_ptr, data->mlx.window_ptr, data->mlx.image, 0, 0);
 }
 
 void side_calculus(t_data *data, int column)
@@ -81,7 +87,7 @@ void wall_hit_calculus(t_data *data, int column)
 		}
 		// si le rayon rencontre un mur
 		if (data->map.map[MAP_X][MAP_Y] == '1')
-			break ;
+			break;
 	}
 	if (side == 0)
 		DISTANCE = fabs((MAP_X - PLAYER_X + (1.0 - STEP_X) / 2.0) / data->ray.raydir_x);
@@ -92,10 +98,10 @@ void wall_hit_calculus(t_data *data, int column)
 
 void draw_wall(t_data *data, int side, int column)
 {
-	int	i;
-	int	draw_length;
-	int	draw_start;
-	int	draw_end;
+	int i;
+	int draw_length;
+	int draw_start;
+	int draw_end;
 
 	draw_length = (int)(data->map.resolution[1] / DISTANCE);
 	draw_start = (int)(-draw_length / 2.0 + data->map.resolution[1] / 2.0);

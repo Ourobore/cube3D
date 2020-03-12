@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 11:36:22 by lchapren          #+#    #+#             */
-/*   Updated: 2020/03/08 14:58:46 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/03/12 17:58:31 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,11 @@ int main(int ac, char **av)
 	data.mlx = start_mlx(map);
 	data.map = map;
 	data.player = player;
-	raycasting(data);
-	mlx_hook(data.mlx.window_ptr, KEYPRESS, KEYPRESSMASK, key_hook, &data);
+	data = init_player(data);
+	raycasting(&data);
+	mlx_hook(data.mlx.window_ptr, KEYPRESS, KEYPRESSMASK, key_press_hook, &data);
+	mlx_hook(data.mlx.window_ptr, KEYRELEASE, KEYRELEASEMASK, key_release_hook, &data);
+	mlx_loop_hook(data.mlx.mlx_ptr, raycasting_loop, &data);
 	mlx_loop(data.mlx.mlx_ptr);
 	//main_mlx_loop(data);
 	printf("\n======================================\n");

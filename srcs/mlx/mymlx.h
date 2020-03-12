@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:05:46 by lchapren          #+#    #+#             */
-/*   Updated: 2020/03/08 16:07:42 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/03/12 18:29:58 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 # include "../../cube3d.h"
 
 # define KEYPRESS 2
+# define KEYRELEASE 3
 # define KEYPRESSMASK 1
+# define KEYRELEASEMASK 10
 # define DESTROYNOTIFY 17
 # define LEAVEWINDOWMASK 32
 
@@ -36,6 +38,7 @@ typedef struct	s_data
 */
 t_mlx		start_mlx(t_map map);
 t_data		main_mlx_loop(t_data data);
+t_data		init_player(t_data data);
 t_player	initial_player_position(char **map);
 t_player	get_player(char c, int i, int j);
 void		free_mlx(t_mlx window);
@@ -43,12 +46,16 @@ void		free_mlx(t_mlx window);
 /*
 *** Control functions
 */
-int			key_hook(int key, t_data *data);
+int			key_press_hook(int key, t_data *data);
+int			key_release_hook(int key, t_data *data);
+int			raycasting_loop(t_data *data);
 int			mouse_hook(int key, t_mlx *param);
-t_data		move_player(t_data data, float angle);
+void		player_control(t_data *data);
+void		move_player(t_data *data, float angle);
+void		rotate_player(t_data *data, float angle);
+int			player_moved(t_data *data);
 float		*rotate_direction(float direction_x, float direction_y, float angle);
 
-char		*fill_new_image(t_data data);
 
 /*
 ** Raycasting functions
@@ -58,9 +65,8 @@ t_data	new_image(t_data data);
 float		get_distance(t_data *data, float *direction, int x, float angle);
 float		vertical_wall(t_data *data, float *direction);
 float		horizontal_wall(t_data *data, float *direction);
-void	rendering(t_data data, float distance);
 
-void raycasting(t_data data);
+void raycasting(t_data *data);
 void side_calculus(t_data *data, int column);
 void wall_hit_calculus(t_data *data, int column);
 void draw_wall(t_data *data, int side, int column);
