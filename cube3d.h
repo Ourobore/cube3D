@@ -37,7 +37,7 @@
 # include <stdio.h>
 # include <errno.h>
 # include <math.h>
-# include <mlx.h>
+# include "./minilibx-linux/mlx.h"
 
 # define NB_ELEMENTS 8
 # define FOV 90

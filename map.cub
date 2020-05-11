@@ -1,20 +1,15 @@
-R  901        751
-    NO    ./path_to_the_north_texture  
-
+R 500 500
+F 50,100,50
+C 100,50,100
+NO ./path_to_the_north_texture
 SO ./path_to_the_south_texture
-     WE 	./path_to_the_west_texture		 
+WE ./path_to_the_west_texture
 EA ./path_to_the_east_texture
-
-	S ./path_to_the_sprite_texture    	
-F 50,100,     50
-
-
-C 100,      50,100
-
+S ./path_to_the_sprite_texture
 1111111
 1010101
 1000001
 1000001
 100N001
 1000001
-111111
+1111111

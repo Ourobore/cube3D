@@ -29,24 +29,28 @@ t_map	parse_file(char **map_file)
 
 t_map	call_parsing(t_map map, char *line)
 {
+	printf("[%s]\n", line);
 	if (line[0] == 'R')
 		map.resolution = get_values(&line[1], ' ', 2);
 	else if (line[0] == 'F')
 		map.floor_color = get_values(&line[1], ',', 3);
 	else if (line[0] == 'C')
 		map.ceiling_color = get_values(&line[1], ',', 3);
-	else if (line[0] == 'N' && line[1] == 'O' && !map.north_texture)
+	else if (line[0] == 'N' && line[1] == 'O' /*&& !map.north_texture*/)
 		map.north_texture = get_texture_path(line, ' ');
-	else if (line[0] == 'S' && line[1] == 'O' && !map.south_texture)
+	else if (line[0] == 'S' && line[1] == 'O' /*&& !map.south_texture*/)
 		map.south_texture = get_texture_path(line, ' ');
-	else if (line[0] == 'W' && line[1] == 'E' && !map.west_texture)
+	else if (line[0] == 'W' && line[1] == 'E' /*&& !map.west_texture*/)
 		map.west_texture = get_texture_path(line, ' ');
-	else if (line[0] == 'E' && line[1] == 'A' && !map.east_texture)
+	else if (line[0] == 'E' && line[1] == 'A' /*&& !map.east_texture*/)
 		map.east_texture = get_texture_path(line, ' ');
-	else if (line[0] == 'S' && !map.sprite_texture)
+	else if (line[0] == 'S' /*&& !map.sprite_texture*/)
 		map.sprite_texture = get_texture_path(line, ' ');
 	else
+	{
+		printf ("out\n");
 		map_error();
+	}
 	return (map);
 }
 
@@ -60,8 +64,12 @@ char	*get_texture_path(char *line, char sep)
 	split = ft_split(line, sep);
 	while (split[i])
 		i++;
+	printf("i: %d\n", i);
 	if (i != 2)
+	{
+		printf("texture\n");
 		map_error();
+	}
 	path = space_trim(ft_strdup(split[1]));
 	free_double_array(split);
 	return (path);
@@ -80,9 +88,15 @@ int		*get_values(char *line, char sep, int nb_values)
 	i = 0;
 	while (split[i])
 		if ((split[i] = ft_strtrim(split[i], " ")) && !only_number(split[i++]))
+		{
+			printf("values\n");
 			map_error();
+		}
 	if (i != nb_values)
+	{
+		printf("values2\n");
 		map_error();
+	}
 	i = -1;
 	if (!(values = ft_calloc(sizeof(int), nb_values)))
 		calloc_error();
@@ -108,6 +122,9 @@ char	**get_map(char **map_file)
 	while (map_file[i])
 		map[j++] = ft_strdup(map_file[i++]);
 	if (!only_map_characters(map))
+	{
+		printf("map\n");
 		map_error();
+	}
 	return (map);
 }

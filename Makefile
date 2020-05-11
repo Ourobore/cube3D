@@ -22,22 +22,29 @@ LIB		=	libcube3d.a
 
 LIBFT	=	./libft/libft.a
 
+LIBMLX	=	./minilibx-linux/libmlx.a
+
 FLAGS	=	-Wall -Werror -Wextra
 
-.c.o:   
+.c.o:
 			$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) $(INCLUDES)
 
 all		:	$(NAME)
 
 $(NAME)	:	$(OBJS)
 			@make -C ./libft
+			@make -C ./minilibx-linux
+			#cp $(LIBMLX) /usr/local/lib/liblmx_Linux.a
+			#cp ./minilibx-linux/mlx.h /usr/local/include/mlx.h
 			cp $(LIBFT) ./$(LIB)
 			ar -rcs $(LIB) $(OBJS)
-			gcc $(FLAGS) -g3 -fsanitize=address main.c $(LIB) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
+			gcc $(FLAGS) -g3  main.c $(LIB) $(LIBMLX) -o $(NAME) -L$(LIBMLX) -lXext -lX11 -lm
+			#gcc $(FLAGS) -g3  main.c $(LIB) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
 
 clean	:	
 			rm -rf $(OBJS)
 			@make clean -C ./libft
+			@make clean -C ./minilibx-linux
 
 fclean	:	clean
 			rm -rf $(LIB) $(NAME)

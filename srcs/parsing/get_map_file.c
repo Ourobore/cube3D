@@ -27,12 +27,17 @@ char	**get_map_file(char *map_path)
 	while ((r = get_next_line(fd, &line)))
 	{
 		if (i > NB_ELEMENTS && blank_line(line))
+		{
+			printf("ici\n");
 			map_error();
+		}
 		if (!blank_line(line))
 			map[i++] = space_trim(ft_strdup(line));
 		free(line);
 	}
-	(blank_line(line) ? map_error() : (map[i] = space_trim(ft_strdup(line))));
+	printf("?\n");
+	//(blank_line(line) ? map_error() : (map[i] = space_trim(ft_strdup(line))));
+	printf("running\n");
 	free(line);
 	i = NB_ELEMENTS;
 	while (map[i])
