@@ -19,7 +19,6 @@ int	key_press_hook(int key, t_data *data)
 	{
 		mlx_destroy_window(data->mlx.mlx_ptr, data->mlx.window_ptr);
 		write(1, "Clean exit (escape button)\n", 27);
-		//system("leaks Cube3D");
 		exit(0);
 	}
 	if (key == FOWARD)

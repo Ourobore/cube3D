@@ -28,9 +28,9 @@ int		only_number(char *s)
 
 int		is_map_character(char c)
 {
-	if (c == '0' || c == '1' || c == '2' || \
-		c == 'N' || c == 'S' || c == 'W' || \
-		c == 'E')
+	if (c == ' ' || c == '0' || c == '1' || \
+		c == '2' || c == 'N' || c == 'S' || \
+		c == 'W' || c == 'E')
 		return (c);
 	return (0);
 }
@@ -52,18 +52,25 @@ int		only_map_characters(char **map_file)
 	return (1);
 }
 
-int		map_verification(char **map, int i, int j, int len)
+int		map_verification(char **map, int i, int j, int nb_lines)
 {
 	int	line_len;
 
 	line_len = ft_strlen(map[i]);
+	if (i == 0 || i == nb_lines - 1 || j == 0 || j == line_len - 1 || \
+		map[i][j - 1] == ' ' || map[i][j + 1] == ' ' || \
+		map[i - 1][j] == ' ' || map[i + 1][j] == ' ')
+		return (0);
+	/*
 	if ((i == 0 && map[i][j] != '1') || \
-		(i == len - 1 && map[i][j] != '1') || \
+		(i == nb_lines - 1 && map[i][j] != '1') || \
 		(j == 0 && map[i][j] != '1') || \
 		(j == line_len - 1 && map[i][j] != '1') || \
-		(i != 0 && i != len - 1 && map[i][j] != '1' && \
+		(i != 0 && i != nb_lines - 1 && map[i][j] != '1' && \
 		(j >= ft_strlen(map[i - 1]) || j >= ft_strlen(map[i + 1]))))
 		return (0);
+		*/
+	printf("carac: %c\n", map[i][j]);
 	return (1);
 }
 

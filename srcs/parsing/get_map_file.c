@@ -32,7 +32,8 @@ char	**get_map_file(char *map_path)
 			map_error();
 		}
 		if (!blank_line(line))
-			map[i++] = space_trim(ft_strdup(line));
+			map[i++] = ft_strdup(line);
+		printf("map: %s\n", line);
 		free(line);
 	}
 	printf("?\n");
@@ -40,8 +41,8 @@ char	**get_map_file(char *map_path)
 	printf("running\n");
 	free(line);
 	i = NB_ELEMENTS;
-	while (map[i])
-		((map[i] = rm_map_spaces(map[i])) && i++);
+	//while (map[i])
+	//	((map[i] = rm_map_spaces(map[i])) && i++);
 	close(fd);
 	return (map);
 }

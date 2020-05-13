@@ -75,8 +75,9 @@ int		raycasting_loop(t_data *data)
 	player_control(data);
 	if (player_moved(data))
 	{
-		raycasting(data);
 		mlx_destroy_image (data->mlx.mlx_ptr, data->mlx.image);
+		raycasting(data);
+		//mlx_destroy_image (data->mlx.mlx_ptr, data->mlx.image);
 	}
 	return (1);
 }

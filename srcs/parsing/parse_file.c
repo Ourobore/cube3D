@@ -79,6 +79,7 @@ int		*get_values(char *line, char sep, int nb_values)
 {
 	int		i;
 	int		*values;
+	char		*tmp;
 	char	**split;
 
 	i = 0;

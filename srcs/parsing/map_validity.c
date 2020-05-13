@@ -65,19 +65,20 @@ int		closed_map(char **map, int error_number)
 {
 	int i;
 	int j;
-	int len;
-	int line_len;
+	int nb_lines;
+	//int line_len;
 
 	i = 0;
-	len = 0;
-	while (map[len])
-		len++;
+	nb_lines = 0;
+	while (map[nb_lines])
+		nb_lines++;
 	while (map[i])
 	{
 		j = 0;
 		while (map[i][j])
 		{
-			if (!map_verification(map, i, j, len))
+			if (map[i][j] != '1' && map[i][j] != ' ' && \
+				!map_verification(map, i, j, nb_lines))
 				map_validity_error(error_number);
 			j++;
 		}
