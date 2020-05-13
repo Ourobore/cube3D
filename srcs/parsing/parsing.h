@@ -33,8 +33,8 @@ int		only_map_characters(char **map_file);
 /*
 **Map validity functions
 */
-int		map_validity(t_map map);
-int		valid_resolution(int *resolution, int error_number);
+int		map_validity(t_data data);
+int		valid_resolution(t_data data, int *resolution, int err_num);
 int		valid_color(int	*values, int error_number);
 int		valid_path(char *path, int error_number);
 int		valid_map_path(char *map_path);

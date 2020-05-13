@@ -15,31 +15,31 @@
 int	key_press_hook(int key, t_data *data)
 {	
 	ft_putnbr_fd(key, 1);
-	if (key == 53)
+	if (key == ESC)
 	{
 		mlx_destroy_window(data->mlx.mlx_ptr, data->mlx.window_ptr);
 		write(1, "Clean exit (escape button)\n", 27);
 		//system("leaks Cube3D");
 		exit(0);
 	}
-	if (key == 13)
+	if (key == FOWARD)
 		data->player.foward = 1;
-	if (key == 0)
+	if (key == LEFT)
 		data->player.left = 1;
-	if (key == 1)
+	if (key == BACKWARD)
 		data->player.backward = 1;
-	if (key == 2)
+	if (key == RIGHT)
 		data->player.right = 1;
-	if (key == 123)
+	if (key == TURNLEFT)
 		data->player.turn_left = 1;
-	if (key == 124)
+	if (key == TURNRIGHT)
 		data->player.turn_right = 1;
-	if (key == 257)
+	if (key == SHIFT)
 	{
 		data->player.speed *= SPRINT;
 		data->player.rotation_angle *= SPRINT;
 	}
-	if (key == 46)
+	if (key == M)
 		write(1, "Toogle map\n", 11);
 	write(1, "Key\n", 4);
 	return(key);
@@ -47,19 +47,19 @@ int	key_press_hook(int key, t_data *data)
 
 int		key_release_hook(int key, t_data *data)
 {
-	if (key == 13)
+	if (key == FOWARD)
 		data->player.foward = 0;
-	if (key == 0)
+	if (key == LEFT)
 		data->player.left = 0;
-	if (key == 1)
+	if (key == BACKWARD)
 		data->player.backward = 0;
-	if (key == 2)
+	if (key == RIGHT)
 		data->player.right = 0;
-	if (key == 123)
+	if (key == TURNLEFT)
 		data->player.turn_left = 0;
-	if (key == 124)
+	if (key == TURNRIGHT)
 		data->player.turn_right = 0;
-	if (key == 257)
+	if (key == SHIFT)
 	{
 		data->player.speed /= SPRINT;
 		data->player.rotation_angle /= SPRINT;

@@ -71,7 +71,7 @@ t_data	new_image(t_data data)
 
 int		raycasting_loop(t_data *data)
 {
-	printf("loop\n");
+	//printf("loop\n");
 	player_control(data);
 	if (player_moved(data))
 	{

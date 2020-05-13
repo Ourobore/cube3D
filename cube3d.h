@@ -20,6 +20,7 @@
 # include "srcs/window.h"
 # include "srcs/player.h"
 # include "srcs/ray.h"
+# include "srcs/data.h"
 
 /*
 *** .h project files

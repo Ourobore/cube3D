@@ -22,16 +22,17 @@
 # define DESTROYNOTIFY 17
 # define LEAVEWINDOWMASK 32
 
-# define PI 3.14159265359
+# define FOWARD 119
+# define BACKWARD 115
+# define LEFT 97
+# define RIGHT 100
+# define SHIFT 65505
+# define ESC 65307
+# define M 109
+# define TURNLEFT 65361
+# define TURNRIGHT 65363
 
-typedef struct	s_data
-{
-	t_mlx		mlx;
-	t_map		map;
-	t_player	player;
-	t_ray		ray;
-	int			bonus;
-}				t_data;
+# define PI 3.14159265359
 
 /*
 ** Initialization functions

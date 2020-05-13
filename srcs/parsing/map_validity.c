@@ -12,33 +12,33 @@
 
 #include "parsing.h"
 
-int		map_validity(t_map map)
+int		map_validity(t_data data)
 {
-	valid_resolution(map.resolution, 1);
-	valid_color(map.floor_color, 2);
-	valid_color(map.ceiling_color, 3);
-	valid_path(map.north_texture, 11);
-	valid_path(map.south_texture, 12);
-	valid_path(map.west_texture, 13);
-	valid_path(map.east_texture, 14);
-	valid_path(map.sprite_texture, 15);
-	closed_map(map.map, 4);
-	player_verification(map.map, 5);
+	valid_resolution(data, data.map.resolution, 1);
+	valid_color(data.map.floor_color, 2);
+	valid_color(data.map.ceiling_color, 3);
+	valid_path(data.map.north_texture, 11);
+	valid_path(data.map.south_texture, 12);
+	valid_path(data.map.west_texture, 13);
+	valid_path(data.map.east_texture, 14);
+	valid_path(data.map.sprite_texture, 15);
+	closed_map(data.map.map, 4);
+	player_verification(data.map.map, 5);
 	return (1);
 }
 
-int		valid_resolution(int *resolution, int error_number)
+int		valid_resolution(t_data data, int *resolution, int err_num)
 {
+	int	size_x;
+	int	size_y;
+
 	if (resolution[0] < 1 || resolution[1] < 1)
-		map_validity_error(error_number);
-	if (resolution[0] < 500)
-		resolution[0] = 500;
-	if (resolution[1] < 500)
-		resolution[1] = 500;
-	if (resolution[0] > 2560)
-		resolution[0] = 2560;
-	if (resolution[1] > 1440)
-		resolution[1] = 1440;
+		map_validity_error(err_num);
+	mlx_get_screen_size(data.mlx.mlx_ptr, &size_x, &size_y);
+	if (resolution[0] > size_x)
+		resolution[0] = size_x;
+	if (resolution[1] > size_y)
+		resolution[1] = size_y;
 	return (1);
 }
 

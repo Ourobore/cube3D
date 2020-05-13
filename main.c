@@ -41,17 +41,19 @@ int main(int ac, char **av)
 		printf("%s\n", map.map[i]);
 		i++;
 	}
+
+	t_data data;
+
+	data.mlx = start_mlx(map);
+	data.map = map;
 	printf("###############################################\n");
-	printf("MAP_VALIDITY: [%d]\n", map_validity(map));
+	printf("MAP_VALIDITY: [%d]\n", map_validity(data));
 	printf("###############################################\n");
 
 	t_player player;
 	player = initial_player_position(map.map);
 	printf("[%f][%f][%f][%f]\n", player.position_x, player.position_y, player.direction_x, player.direction_y);
-
-	t_data data;
-	data.mlx = start_mlx(map);
-	data.map = map;
+	
 	data.player = player;
 	data = init_player(data);
 	raycasting(&data);

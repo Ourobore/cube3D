@@ -20,7 +20,7 @@ void raycasting(t_data *data)
 
 	column = 0;
 	*data = new_image(*data);
-	printf("==============ray_loop=======");
+	printf("=========ray_loop=======\n");
 	while (column < data->map.resolution[0])
 	{
 		camera_x = 2 * column / (float)(data->map.resolution[0]) - 1;
