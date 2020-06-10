@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:41:55 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/21 09:45:21 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/06/10 12:26:35 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ t_map	parse_file(char **map_file)
 
 t_map	call_parsing(t_map map, char *line)
 {
-	printf("[%s]\n", line);
 	if (line[0] == 'R')
 		map.resolution = get_values(&line[1], ' ', 2);
 	else if (line[0] == 'F')
@@ -48,7 +47,6 @@ t_map	call_parsing(t_map map, char *line)
 		map.sprite_texture = get_texture_path(line, ' ');
 	else
 	{
-		printf ("out\n");
 		map_error();
 	}
 	return (map);
@@ -64,12 +62,8 @@ char	*get_texture_path(char *line, char sep)
 	split = ft_split(line, sep);
 	while (split[i])
 		i++;
-	printf("i: %d\n", i);
 	if (i != 2)
-	{
-		printf("texture\n");
 		map_error();
-	}
 	path = space_trim(ft_strdup(split[1]));
 	free_double_array(split);
 	return (path);
@@ -89,15 +83,9 @@ int		*get_values(char *line, char sep, int nb_values)
 	i = 0;
 	while (split[i])
 		if ((split[i] = ft_strtrim(split[i], " ")) && !only_number(split[i++]))
-		{
-			printf("values\n");
 			map_error();
-		}
 	if (i != nb_values)
-	{
-		printf("values2\n");
 		map_error();
-	}
 	i = -1;
 	if (!(values = ft_calloc(sizeof(int), nb_values)))
 		calloc_error();
@@ -123,9 +111,6 @@ char	**get_map(char **map_file)
 	while (map_file[i])
 		map[j++] = ft_strdup(map_file[i++]);
 	if (!only_map_characters(map))
-	{
-		printf("map\n");
 		map_error();
-	}
 	return (map);
 }

@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 09:58:37 by lchapren          #+#    #+#             */
-/*   Updated: 2020/03/12 18:43:09 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/06/10 14:21:12 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ int		raycasting_loop(t_data *data)
 {
 	//printf("loop\n");
 	player_control(data);
-	if (player_moved(data))
+	if (player_moved(data) && data->mlx.rendered == 1)
 	{
+		data->mlx.rendered = 0;
 		mlx_destroy_image (data->mlx.mlx_ptr, data->mlx.image);
-		raycasting(data);
-		//mlx_destroy_image (data->mlx.mlx_ptr, data->mlx.image);
+		my_raycasting(data);
 	}
 	return (1);
 }

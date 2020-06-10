@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 10:39:44 by lchapren          #+#    #+#             */
-/*   Updated: 2020/03/12 14:43:03 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/06/10 12:18:46 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # include "./minilibx-linux/mlx.h"
 
 # define NB_ELEMENTS 8
-# define FOV 90
+# define FOV 60
 # define ROTATION_ANGLE 3
 # define BASE_SPEED 1
 # define SPRINT 3

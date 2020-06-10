@@ -9,6 +9,7 @@ SRCS	=	$(RSRCS)/parsing/get_map_file.c \
 			$(RSRCS)/parsing/error.c \
 			$(RSRCS)/mlx/mlx.c \
 			$(RSRCS)/mlx/raycasting.c \
+			$(RSRCS)/mlx/my_raycasting.c \
 			$(RSRCS)/mlx/controls.c \
 			$(RSRCS)/mlx/utils.c
 
@@ -22,7 +23,9 @@ LIB		=	libcube3d.a
 
 LIBFT	=	./libft/libft.a
 
-LIBMLX	=	./minilibx-linux/libmlx.a
+#LIBMLX	=	./minilibx-linux/libmlx.a
+
+LIBMLX	=	./minilibx-opengl/libmlx.a
 
 FLAGS	=	-Wall -Werror -Wextra
 
@@ -33,18 +36,18 @@ all		:	$(NAME)
 
 $(NAME)	:	$(OBJS)
 			@make -C ./libft
-			@make -C ./minilibx-linux
-			#cp $(LIBMLX) /usr/local/lib/liblmx_Linux.a
-			#cp ./minilibx-linux/mlx.h /usr/local/include/mlx.h
+			#@make -C ./minilibx-linux
+			@make -C ./minilibx-opengl
 			cp $(LIBFT) ./$(LIB)
 			ar -rcs $(LIB) $(OBJS)
-			gcc $(FLAGS) -g3 -fsanitize=address main.c $(LIB) $(LIBMLX) -o $(NAME) -L$(LIBMLX) -lXext -lX11 -lm
-			#gcc $(FLAGS) -g3  main.c $(LIB) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
+			#gcc $(FLAGS) -g3 -fsanitize=address main.c $(LIB) $(LIBMLX) -o $(NAME) -L$(LIBMLX) -lXext -lX11 -lm
+			gcc $(FLAGS) -g3 main.c $(LIB) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
 
 clean	:	
 			rm -rf $(OBJS)
 			@make clean -C ./libft
-			@make clean -C ./minilibx-linux
+			#@make clean -C ./minilibx-linux
+			@make clean -C ./minilibx-opengl
 
 fclean	:	clean
 			rm -rf $(LIB) $(NAME)

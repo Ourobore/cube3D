@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:41:02 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/19 10:26:49 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/06/10 10:51:34 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int		only_spaces(char *s);
 int		only_number(char *s);
 int		nb_lines(char *map_path);
 int		blank_line(char *line);
+int		is_solid_cell(t_data data, int x, int y);
 void	free_double_array(char **double_array);
 
 /*

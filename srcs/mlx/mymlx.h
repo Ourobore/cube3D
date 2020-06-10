@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:05:46 by lchapren          #+#    #+#             */
-/*   Updated: 2020/03/12 18:29:58 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/06/10 14:18:47 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ float		*rotate_direction(float direction_x, float direction_y, float angle);
 */
 t_data	new_image(t_data data);
 //t_data	raycasting(t_data data);
-float		get_distance(t_data *data, float *direction, int x, float angle);
+//float		get_distance(t_data *data, float *direction, int x, float angle);
 float		vertical_wall(t_data *data, float *direction);
 float		horizontal_wall(t_data *data, float *direction);
 
@@ -72,6 +72,12 @@ void side_calculus(t_data *data, int column);
 void wall_hit_calculus(t_data *data, int column);
 void draw_wall(t_data *data, int side, int column);
 
+/*
+** Tests fumctions
+*/
 
-
+void	my_raycasting(t_data *data);
+float	get_distance(t_data *data, float *ray_dir);
+float	wall_hit(t_data *data, float distance, float side_x, float side_y);
+void	draw_column(t_data data);
 #endif

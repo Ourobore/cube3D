@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 17:01:29 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/13 13:50:07 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/06/10 12:29:11 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,6 @@ int		map_verification(char **map, int i, int j, int nb_lines)
 		map[i][j - 1] == ' ' || map[i][j + 1] == ' ' || \
 		map[i - 1][j] == ' ' || map[i + 1][j] == ' ')
 		return (0);
-	/*
-	if ((i == 0 && map[i][j] != '1') || \
-		(i == nb_lines - 1 && map[i][j] != '1') || \
-		(j == 0 && map[i][j] != '1') || \
-		(j == line_len - 1 && map[i][j] != '1') || \
-		(i != 0 && i != nb_lines - 1 && map[i][j] != '1' && \
-		(j >= ft_strlen(map[i - 1]) || j >= ft_strlen(map[i + 1]))))
-		return (0);
-		*/
-	printf("carac: %c\n", map[i][j]);
 	return (1);
 }
 
@@ -99,4 +89,11 @@ int		player_verification(char **map, int error_number)
 	if (player != 1)
 		map_validity_error(error_number);
 	return (1);
+}
+
+int		is_solid_cell(t_data data, int x, int y)
+{
+	if (data.map.map[x][y] == '1' || data.map.map[x][y] == '2')
+		return (1);
+	return (0);
 }
