@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 12:57:51 by lchapren          #+#    #+#             */
-/*   Updated: 2020/06/10 11:47:50 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/06/17 12:58:39 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,14 @@ typedef struct	s_ray
 	int		step_y;
 	int		map_x;
 	int		map_y;
+	int		wall_hit;
 	int		hit_side;
 	int		column;
 
+	float	hor_x;
+	float	hor_y;
+	float	ver_x;
+	float	ver_y;
 	float	delta_x;
 	float	delta_y;
 	float	side_x;

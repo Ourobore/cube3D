@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 09:58:37 by lchapren          #+#    #+#             */
-/*   Updated: 2020/06/10 14:21:12 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/06/17 12:58:37 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,21 @@ int		raycasting_loop(t_data *data)
 	return (1);
 }
 
+float *rotate_direction(float raydir[], float angle)
+{
+	float direction_x;
+	float direction_y;
+
+	direction_x = raydir[0];
+	direction_y = raydir[1];
+	raydir[0] = (direction_x * cos((angle * PI) / 180.0) -
+				(direction_y * sin((angle * PI) / 180.0)));
+	raydir[1] = (direction_x * sin((angle * PI) / 180.0)) +
+				(direction_y * cos((angle * PI) / 180.0));
+	return (raydir);
+}
+
+/*
 float *rotate_direction(float direction_x, float direction_y, float angle)
 {
 	float *new_direction;
@@ -94,7 +109,7 @@ float *rotate_direction(float direction_x, float direction_y, float angle)
 					   (direction_y * cos((angle * PI) / 180.0));
 	return (new_direction);
 }
-
+*/
 t_data init_player(t_data data)
 {
 	data.player.foward = 0;

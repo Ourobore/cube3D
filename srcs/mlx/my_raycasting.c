@@ -6,12 +6,46 @@
 /*   By: lchapren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 09:34:40 by lchapren          #+#    #+#             */
-/*   Updated: 2020/06/10 14:29:07 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/06/17 12:58:46 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mymlx.h"
 
+t_data *my_raycasting(t_data *data)
+{
+	int		column;
+	float	raydir[2];
+
+	column = 0;
+	raydir[0] = data->player.direction_x;
+	raydir[1] = data->player.direction_y;
+	data->ray.hor_x = data->player
+	raydir = rotate_direction(raydir, -1 * (float)FOV / 2);
+	while (column < data->map.resolution[0])
+	{
+		data->ray.hor_x = data->player.position_x;
+		data->ray.hor_y = data->player.position_y;
+		data->ray.ver_x = data->player.position_x;
+		data->ray.ver_y = data->player.position_y;
+		while (!data->ray.wall_hit)
+		{
+			horizontal_hit(data, raydir);
+			vertical_hit(data, raydir);
+		}
+		raydir = rotate_direction(raydir, (float)FOV/data->map.resolution[0]);
+		column++;
+	}
+}
+
+t_data horizontal_hit(t_data *data, float raydir[])
+{
+	data->ray.hor_x *= fabs(raydir[1] / raydir[0]);
+	data->ray.hor_y *= fabs(raydir)
+	data->ray.hor_y = (data->ray.hor_y == data->player.position_y ? int()
+}
+
+/*
 void	my_raycasting(t_data *data)
 {
 	float	*ray_dir;
@@ -130,3 +164,4 @@ void	draw_column(t_data data)
         i++;
     }
 }
+*/
