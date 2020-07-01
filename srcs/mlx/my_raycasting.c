@@ -6,12 +6,12 @@
 /*   By: lchapren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 09:34:40 by lchapren          #+#    #+#             */
-/*   Updated: 2020/06/17 12:58:46 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/01 11:35:10 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mymlx.h"
-
+/*
 t_data *my_raycasting(t_data *data)
 {
 	int		column;
@@ -45,7 +45,7 @@ t_data horizontal_hit(t_data *data, float raydir[])
 	data->ray.hor_y = (data->ray.hor_y == data->player.position_y ? int()
 }
 
-/*
+*/
 void	my_raycasting(t_data *data)
 {
 	float	*ray_dir;
@@ -164,4 +164,4 @@ void	draw_column(t_data data)
         i++;
     }
 }
-*/
+

@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:05:46 by lchapren          #+#    #+#             */
-/*   Updated: 2020/06/10 14:18:47 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/01 11:55:13 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,16 @@
 # define DESTROYNOTIFY 17
 # define LEAVEWINDOWMASK 32
 
-# define FOWARD 119
-# define BACKWARD 115
-# define LEFT 97
-# define RIGHT 100
-# define SHIFT 65505
-# define ESC 65307
-# define M 109
-# define TURNLEFT 65361
-# define TURNRIGHT 65363
+# define FOWARD 13/*119*/
+# define BACKWARD 1/*115*/
+# define LEFT 0/*97*/
+# define RIGHT 2/*100*/
+# define SHIFT 257/*65505*/
+# define ESC 53/*65307*/
+# define M 46/*109*/
+# define TEXTURE 17
+# define TURNLEFT 123/*65361*/
+# define TURNRIGHT 124/*65363*/
 
 # define PI 3.14159265359
 

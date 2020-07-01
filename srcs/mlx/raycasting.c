@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 09:51:49 by lchapren          #+#    #+#             */
-/*   Updated: 2020/06/10 09:34:07 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/01 11:53:53 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void wall_hit_calculus(t_data *data, int column)
 			data->ray.tex_x = data->player.position_x + ((data->ray.map_y - data->player.position_y +     (1 - data->ray.step_y) / 2) / data->player.position_y) * data->player.position_x;
 		}
 		// si le rayon rencontre un mur
-		if (data->map.map[MAP_X][MAP_Y] == '1')
+		if (data->map.map[(int)MAP_X][(int)MAP_Y] == '1')
 			break;
 	}
 	if (side == 0)
