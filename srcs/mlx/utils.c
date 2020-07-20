@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 09:58:37 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/01 11:41:27 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/20 10:45:43 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_player	initial_player_position(char **map)
 			if (map[i][j] == 'N' || map[i][j] == 'E' || \
 				map[i][j] == 'S' || map[i][j] == 'W')
 				player = get_player(map[i][j], i, j);
+				player = get_plane(map[i][j]);
 			j++;
 		}
 		i++;
@@ -55,7 +56,32 @@ t_player	get_player(char c, int i, int j)
 	player.last_pos_y = 1.0;
 	player.last_dir_x = 1.0;
 	player.last_dir_y = 1.0;
+
 	return (player);
+}
+
+void get_plane(char spawn_dir)
+{
+    if (spawn_dir == 'N')
+    {
+        player.plane_x = 1;
+        player.plane_y = 0;
+    }
+    else if (spawn_dir = 'S')
+    {
+        player.plane_x = -1;
+        player.plane_y = 0;
+    }
+    else if (spawn_dir = 'W')
+    {
+        player.plane_x = 0;
+        player.plane_y = -1;
+    }
+    else if (spawn_dir = 'E')
+    {
+        player.plane_x = 0;
+        player.plane-y = 0;
+    }
 }
 
 t_data	new_image(t_data data)
@@ -77,7 +103,7 @@ int		raycasting_loop(t_data *data)
 	{
 		data->mlx.rendered = 0;
 		mlx_destroy_image (data->mlx.mlx_ptr, data->mlx.image);
-		raycasting(data);
+		raycasting(data, data->ray, data->player, data->map);
 	}
 	return (1);
 }

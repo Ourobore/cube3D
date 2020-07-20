@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 09:51:49 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/01 11:53:53 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/20 09:48:14 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,12 @@ void wall_hit_calculus(t_data *data, int column)
 			SIDE_X += DELTA_X; // agrandis le rayon
 			MAP_X += STEP_X;   // prochaine case ou case précédente sur X
 			side = 0;		   // orientation du mur
-			data->ray.tex_x = data->player.position_y + ((data->ray.map_x - data->player.position_x + (1 - data->ray.step_x) / 2) / data->player.position_x) * data->player.position_y;  
 		}
 		else
 		{
 			SIDE_Y += DELTA_Y; // agrandis le rayon
 			MAP_Y += STEP_Y;   // prochaine case ou case précédente sur Y
 			side = 1;		   // orientation du mur
-			data->ray.tex_x = data->player.position_x + ((data->ray.map_y - data->player.position_y +     (1 - data->ray.step_y) / 2) / data->player.position_y) * data->player.position_x;
 		}
 		// si le rayon rencontre un mur
 		if (data->map.map[(int)MAP_X][(int)MAP_Y] == '1')
@@ -99,8 +97,7 @@ void wall_hit_calculus(t_data *data, int column)
 }
 
 void draw_wall(t_data *data, int side, int column)
-{
-	int i;
+		int i;
 	int draw_length;
 	int draw_start;
 	int draw_end;

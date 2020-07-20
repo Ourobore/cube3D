@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 10:39:44 by lchapren          #+#    #+#             */
-/*   Updated: 2020/06/10 12:18:46 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/20 12:32:04 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 
 # define NB_ELEMENTS 8
 # define FOV 60
+# define TEXTURES 0
 # define ROTATION_ANGLE 3
 # define BASE_SPEED 1
 # define SPRINT 3

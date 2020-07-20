@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 12:57:51 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/01 11:47:22 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/20 12:30:28 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,15 @@ typedef struct	s_ray
 	int		hit_side;
 	int		column;
 
-	float	hor_x;
-	float	hor_y;
-	float	ver_x;
-	float	ver_y;
 	float	delta_x;
 	float	delta_y;
 	float	side_x;
 	float	side_y;
 	float	tex_x;
 	float	tex_y;
-	float	distance;
+	float	wall_distance;
+	int		wall_height;
+	int 	textures;
 }				t_ray;
 
 # define DELTA_X data->ray.delta_x
