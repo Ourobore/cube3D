@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 10:29:58 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/21 11:44:45 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/21 14:41:33 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,54 +66,64 @@ int		key_release_hook(int key, t_data *data)
 	return(key);
 }
 
-void	player_control(t_data *data)
+void	player_control(t_player *player, t_map map)
 {
-	if (data->player.foward == 1)
-		move_player(data, 0);
-	if (data->player.left == 1)
-		move_player(data, 90);
-	if (data->player.right == 1)
-		move_player(data, -90);
-	if (data->player.backward == 1)
-		move_player(data, 180);
-	if (data->player.turn_left && ! data->player.turn_right)
-		rotate_player(data, -data->player.rotation_angle);
-	if (data->player.turn_right && !data->player.turn_left)
-		rotate_player(data, data->player.rotation_angle);
+	if (player->foward == 1)
+		move_player(player, map,  0);
+	if (player->left == 1)
+		move_player(player, map, 90);
+	if (player->right == 1)
+		move_player(player, map, -90);
+	if (player->backward == 1)
+		move_player(player, map, 180);
+	if (player->turn_left && ! player->turn_right)
+		rotate_player(player, player->rotation_angle);
+	if (player->turn_right && !player->turn_left)
+		rotate_player(player, -player->rotation_angle);
 }
 
-void	move_player(t_data *data, float angle)
+void	move_player(t_player *player, t_map map, float angle)
 {
 	float	new_pos_x;
 	float	new_pos_y;
 	float	diff_x;
 	float	diff_y;
-
-	new_pos_x = data->player.position_x + (((data->player.direction_x * \
-				cos((angle * PI) / 180.0)) - (data->player.direction_y * \
-				sin((angle * PI) / 180.0))) * 0.1 * data->player.speed);
-	new_pos_y = data->player.position_y + (((data->player.direction_x * \
-				sin((angle * PI) / 180.0)) + (data->player.direction_y * \
-				cos((angle * PI) / 180.0))) * 0.1 * data->player.speed);
-	diff_x = fabs(new_pos_x - data->player.position_x);
-	diff_y = fabs(new_pos_y - data->player.position_y);
-	if (data->map.map[(int)(new_pos_x)][(int)(data->player.position_y)] != '1')
-		data->player.position_x = new_pos_x;
-	if (data->map.map[(int)(data->player.position_x)][(int)(new_pos_y)] != '1')
-		data->player.position_y = new_pos_y;
+	
+	new_pos_x = player->position_x + (((player->direction_x * \
+				cos((angle * PI) / 180.0)) - (player->direction_y * \
+				sin((angle * PI) / 180.0))) * 0.1 * player->speed);
+	new_pos_y = player->position_y + (((player->direction_x * \
+				sin((angle * PI) / 180.0)) + (player->direction_y * \
+				cos((angle * PI) / 180.0))) * 0.1 * player->speed);
+	diff_x = fabs(new_pos_x - player->position_x);
+	diff_y = fabs(new_pos_y - player->position_y);
+	if (map.map[(int)(new_pos_x)][(int)(player->position_y)] != '1')
+		player->position_x = new_pos_x;
+	if (map.map[(int)(player->position_x)][(int)(new_pos_y)] != '1')
+		player->position_y = new_pos_y;
 }
 
 
-void	rotate_player(t_data *data, float angle)
+void	rotate_player(t_player *player, float angle)
 {
-	float	direction_x;
-	float	direction_y;
+	float	old_dir_x;
+	float	old_plane_x;
 
-	direction_x = data->player.direction_x;
-	direction_y = data->player.direction_y;
-	data->player.direction_x = (direction_x * cos((angle * PI) / 180.0)) \
+	old_dir_x = player->direction_x;
+	old_plane_x = player->plane_x;
+	player->direction_x = old_dir_x * cos((angle * PI) / 180.0) \
+						  - player->direction_y * sin((angle * PI) / 180.0);
+	player->direction_y = old_dir_x * sin((angle * PI) / 180.0) \
+						  + player->direction_y * cos((angle * PI) / 180.0);
+	player->plane_x = old_plane_x * cos((angle * PI) / 180.0) \
+						  - player->plane_y * sin((angle * PI) / 180.0);
+	player->plane_y = old_plane_x * sin((angle * PI) / 180.0) \
+						  + player->plane_y * cos((angle * PI) / 180.0);
+/*	
+	player->direction_x = (direction_x * cos((angle * PI) / 180.0)) \
 				- (direction_y * sin((angle * PI) / 180.0));
-	data->player.direction_y = (direction_x * sin((angle * PI) / 180.0)) \
-				+ (direction_y * cos((angle * PI) / 180.0));
+	player->direction_y = (direction_x * sin((angle * PI) / 180.0)) \
+	+ (direction_y * cos((angle * PI) / 180.0));
+*/
 }
 

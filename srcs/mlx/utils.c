@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 09:58:37 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/21 11:50:11 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/21 14:29:20 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ t_player	initial_player_position(char **map)
 			{
 				player = get_player(map[i][j], i, j);
 				player = get_plane(player, map[i][j]);
-				player.height = PLAYER_HEIGHT;
 			}
 			j++;
 		}
 		i++;
 	}
+	player = init_player(player);
 	return (player);
 }
 
@@ -67,27 +67,41 @@ t_player get_plane(t_player player, char spawn_dir)
 {
     if (spawn_dir == 'N')
     {
-        player.plane_x = 1;
-        player.plane_y = 0;
+        player.plane_x = 1.0;
+        player.plane_y = 0.0;
     }
     else if (spawn_dir == 'S')
     {
-        player.plane_x = -1;
-        player.plane_y = 0;
+        player.plane_x = -1.0;
+        player.plane_y = 0.0;
     }
     else if (spawn_dir == 'W')
     {
-        player.plane_x = 0;
-        player.plane_y = -1;
+        player.plane_x = 0.0;
+        player.plane_y = -1.0;
     }
     else if (spawn_dir == 'E')
     {
-        player.plane_x = 0;
-        player.plane_y = 0;
+        player.plane_x = 0.0;
+        player.plane_y = 1.0;
     }
 	return (player);
 }
 
+t_player	init_player(t_player player)
+{
+	player.foward = 0;
+	player.left = 0;
+	player.right = 0;
+	player.backward = 0;
+	player.turn_left = 0;
+	player.turn_right = 0;
+	player.speed = 1;
+	player.rotation_angle = 3;
+	player.height = 2;
+	return (player);
+}
+//ces deux fonctions peuvent aller dans mlx.c
 t_data	new_image(t_data data)
 {
 	int bpp;
@@ -102,13 +116,13 @@ t_data	new_image(t_data data)
 int		raycasting_loop(t_data *data)
 {
 	//printf("loop\n");
-	player_control(data);
-//	if (player_moved(data)/* && data->mlx.rendered == 1*/)
-//	{
+	player_control(&(data->player), data->map);
+	if (player_moved(data)/* && data->mlx.rendered == 1*/)
+	{
 		data->mlx.rendered = 0;
 		mlx_destroy_image (data->mlx.mlx_ptr, data->mlx.image);
-		raycasting(data, data->player, data->ray, data->map);
-//	}
+		raycasting(data, &(data->player), data->ray, data->map);
+	}
 	return (1);
 }
 /*
@@ -133,25 +147,11 @@ float *rotate_direction(float direction_x, float direction_y, float angle)
 
 	if (!(new_direction = ft_calloc(sizeof(float), 2)))
 		calloc_error();
-	new_direction[0] = (direction_x * cos((angle * PI) / 180.0) -
-						(direction_y * sin((angle * PI) / 180.0)));
+	new_direction[0] = (direction_x * cos((angle * PI) / 180.0)) -
+						(direction_y * sin((angle * PI) / 180.0));
 	new_direction[1] = (direction_x * sin((angle * PI) / 180.0)) +
 					   (direction_y * cos((angle * PI) / 180.0));
 	return (new_direction);
-}
-
-t_data init_player(t_data data)
-{
-	data.player.foward = 0;
-	data.player.left = 0;
-	data.player.right = 0;
-	data.player.backward = 0;
-	data.player.turn_left = 0;
-	data.player.turn_right = 0;
-	data.player.speed = 1;
-	data.player.rotation_angle = 3;
-	data.player.crouch = 0;
-	return (data);
 }
 
 int		player_moved(t_data *data)

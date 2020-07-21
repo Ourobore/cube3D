@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:05:46 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/21 10:34:25 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/21 13:56:16 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 */
 t_mlx		start_mlx(t_map map);
 t_data		main_mlx_loop(t_data data);
-t_data		init_player(t_data data);
+t_player	init_player(t_player player);
 t_player	initial_player_position(char **map);
 t_player	get_player(char c, int i, int j);
 void		free_mlx(t_mlx window);
@@ -52,9 +52,9 @@ int			key_press_hook(int key, t_data *data);
 int			key_release_hook(int key, t_data *data);
 int			raycasting_loop(t_data *data);
 int			mouse_hook(int key, t_mlx *param);
-void		player_control(t_data *data);
-void		move_player(t_data *data, float angle);
-void		rotate_player(t_data *data, float angle);
+void		player_control(t_player *player, t_map map);
+void		move_player(t_player *player, t_map map, float angle);
+void		rotate_player(t_player *player, float angle);
 int			player_moved(t_data *data);
 float		*rotate_direction(float direction_x, float direction_y, float angle);
 
@@ -68,7 +68,7 @@ t_data	new_image(t_data data);
 float		vertical_wall(t_data *data, float *direction);
 float		horizontal_wall(t_data *data, float *direction);
 
-void	raycasting(t_data *data, t_player player, t_ray ray, t_map map);
+void	raycasting(t_data *data, t_player *player, t_ray ray, t_map map);
 
 t_player	get_plane(t_player player, char spawn_dir);
 void	get_steps(t_player *player, t_ray *ray);

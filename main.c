@@ -6,14 +6,14 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 11:36:22 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/21 11:41:09 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/21 13:56:53 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
 int main(int ac, char **av)
-{
+{/*
 	char *map_path;
 	t_map map;
 	int i = 0;
@@ -40,33 +40,45 @@ int main(int ac, char **av)
 	{
 		printf("%s\n", map.map[i]);
 		i++;
-	}
+	}*/
 	//faire une init propre de tous les modules!
-	t_data data;
-	t_ray ray;
+	
+	t_data		data;
+	t_ray		ray;
+	t_map		map;
+	t_player	player;
+
+	printf("\n===================MAIN===============\n");
+	(void)ac;
+	valid_map_path(av[1]);
+	map = parse_file(get_map_file(ft_strdup(av[1])));
+	player = initial_player_position(map.map);
+	data.mlx = start_mlx(map);
 	ray.textures = TEXTURES;
 	data.ray = ray;
-	data.bonus = BONUS;
-
-	data.mlx = start_mlx(map);
+	data.player = player;
 	data.map = map;
-	printf("###############################################\n");
-	printf("MAP_VALIDITY: [%d]\n", map_validity(data));
-	printf("###############################################\n");
+	data.bonus = BONUS;
+	if (!map_validity(data))
+		perror("Map validity error\n");
 
-	t_player player;
-	player = initial_player_position(map.map);
-	printf("[%f][%f][%f][%f]\n", player.position_x, player.position_y, player.direction_x, player.direction_y);
-
-	data = init_player(data);
-	raycasting(&data, player, ray, map);
-	printf("\n\n\nFIRST ITERATION DONE\n\n\n");
+	raycasting(&data, &player, ray, map);
 	mlx_hook(data.mlx.window_ptr, KEYPRESS, KEYPRESSMASK, key_press_hook, &data);
 	mlx_hook(data.mlx.window_ptr, KEYRELEASE, KEYRELEASEMASK, key_release_hook, &data);
 	mlx_loop_hook(data.mlx.mlx_ptr, raycasting_loop, &data);
 	mlx_loop(data.mlx.mlx_ptr);
-	//main_mlx_loop(data);
 	printf("\n======================================\n");
 	//system("leaks Cube3D");
 	
 }
+/*
+t_map	get_map_file(char *map_path)
+{
+	t_map map;
+
+	valid_map_path(map_path);
+	//map = ini_map(); fonction a supprimer
+	map = parse_file(get_map_file(map_path));
+	ft_putstr_fd(map.north_texture, 0);
+
+}*/

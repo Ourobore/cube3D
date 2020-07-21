@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 10:14:06 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/19 14:14:43 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/21 12:54:38 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	map_validity_error(int error)
 		perror("Invalid sprite texture path");
 	else if (error == 16)
 		perror("Invalid map file path");
-	system("leaks Cube3D");
+	//system("leaks Cube3D");
 	exit(3);
 }
 

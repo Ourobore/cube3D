@@ -6,13 +6,13 @@
 /*   By: lchapren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 09:34:40 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/21 11:43:04 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/21 14:31:26 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mymlx.h"
 
-void	raycasting(t_data *data, t_player player, t_ray ray, t_map map)
+void	raycasting(t_data *data, t_player *player, t_ray ray, t_map map)
 {
 	int column;
 	float camera_x;
@@ -21,28 +21,27 @@ void	raycasting(t_data *data, t_player player, t_ray ray, t_map map)
 	*data = new_image(*data);
 	while (column < map.resolution[0])
 	{
-		camera_x = 2 * column / (float)map.resolution[0] - 1;
-		ray.raydir_x = player.direction_x + 0/*player.plane_x*/ * camera_x;
-		ray.raydir_y = player.direction_y + 0.66/*player.plane_y*/ * camera_x;
+		camera_x = 2.0 * column / (float)map.resolution[0] - 1.0; //puis je enlever la -> sur player?
+		ray.raydir_x = player->direction_x + /*0.0*/player->plane_x * camera_x;
+		ray.raydir_y = player->direction_y + /*0.66*/player->plane_y * camera_x;
 		ray.delta_x = fabs(1 / ray.raydir_x);
 		ray.delta_y = fabs(1 / ray.raydir_y);
-		ray.map_x = (int)player.position_x;
-		ray.map_y = (int)player.position_y;
-		get_steps(&player, &ray);
-		get_wall(&ray, map, player);
+		ray.map_x = (int)player->position_x;
+		ray.map_y = (int)player->position_y;
+		get_steps(player, &ray);
+		get_wall(&ray, map, *player);
 		if (!ray.textures && data->bonus)
-			draw_untextured(&(data->mlx), ray, player, map, column);
+			draw_untextured(&(data->mlx), ray, *player, map, column);
 		else
 			printf("YAPASDEPANNEAUX!!!\n");
 			//draw_textured(ray);
 		//draw_sprites();
 		column++;
 	}
-	player.last_pos_x = player.position_x; // faire une fonction qui actualise la position
-    player.last_pos_y = player.position_y;
-    player.last_dir_x = player.direction_x;
-    player.last_dir_y = player.direction_y;
-	data->player = player;
+	player->last_pos_x = player->position_x; // faire une fonction qui actualise la position
+    player->last_pos_y = player->position_y;
+    player->last_dir_x = player->direction_x;
+    player->last_dir_y = player->direction_y;
     mlx_put_image_to_window(data->mlx.mlx_ptr, data->mlx.window_ptr, \
 							data->mlx.image, 0, 0);
 }
