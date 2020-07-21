@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 10:29:58 by lchapren          #+#    #+#             */
-/*   Updated: 2020/03/12 17:58:05 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/21 11:44:45 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ void	player_control(t_data *data)
 	if (data->player.foward == 1)
 		move_player(data, 0);
 	if (data->player.left == 1)
-		move_player(data, -90);
-	if (data->player.right == 1)
 		move_player(data, 90);
+	if (data->player.right == 1)
+		move_player(data, -90);
 	if (data->player.backward == 1)
 		move_player(data, 180);
 	if (data->player.turn_left && ! data->player.turn_right)

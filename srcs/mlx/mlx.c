@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:05:37 by lchapren          #+#    #+#             */
-/*   Updated: 2020/03/12 11:15:59 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/21 11:14:39 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_mlx	start_mlx(t_map map)
 	t_mlx w;
 
 	w.mlx_ptr = mlx_init();
+	w.test = 1;
 	w.window_ptr = \
 	mlx_new_window(w.mlx_ptr, map.resolution[0], map.resolution[1], "Cube3D");
 	return (w);

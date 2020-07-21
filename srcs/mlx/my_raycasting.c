@@ -6,40 +6,43 @@
 /*   By: lchapren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 09:34:40 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/20 13:01:02 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/21 11:43:04 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mymlx.h"
 
-t_data	raycasting(t_data *data, t_player player, t_ray ray, t_map map)
+void	raycasting(t_data *data, t_player player, t_ray ray, t_map map)
 {
 	int column;
 	float camera_x;
 
 	column = 0;
+	*data = new_image(*data);
 	while (column < map.resolution[0])
 	{
 		camera_x = 2 * column / (float)map.resolution[0] - 1;
-		ray.raydir_x = player.direction_x + player.plane_x * camera_x;
-		ray.raydir_y = player.direction_y + player.plane_y * camera_x;
+		ray.raydir_x = player.direction_x + 0/*player.plane_x*/ * camera_x;
+		ray.raydir_y = player.direction_y + 0.66/*player.plane_y*/ * camera_x;
 		ray.delta_x = fabs(1 / ray.raydir_x);
 		ray.delta_y = fabs(1 / ray.raydir_y);
 		ray.map_x = (int)player.position_x;
 		ray.map_y = (int)player.position_y;
-		get_steps(*player, *ray);
-		get_wall(*ray, map, player);
+		get_steps(&player, &ray);
+		get_wall(&ray, map, player);
 		if (!ray.textures && data->bonus)
-			draw_untextured(ray);
+			draw_untextured(&(data->mlx), ray, player, map, column);
 		else
-			draw_textured(ray);
-		draw_sprites();
+			printf("YAPASDEPANNEAUX!!!\n");
+			//draw_textured(ray);
+		//draw_sprites();
 		column++;
 	}
 	player.last_pos_x = player.position_x; // faire une fonction qui actualise la position
     player.last_pos_y = player.position_y;
     player.last_dir_x = player.direction_x;
     player.last_dir_y = player.direction_y;
+	data->player = player;
     mlx_put_image_to_window(data->mlx.mlx_ptr, data->mlx.window_ptr, \
 							data->mlx.image, 0, 0);
 }
@@ -68,9 +71,9 @@ void	get_steps(t_player *player, t_ray *ray)
 	}
 }
 
-int		get_wall(t_ray *ray, t_map map, t_player player,  int side_hit)
+void	get_wall(t_ray *ray, t_map map, t_player player)
 {
-	while (map.map[ray->map_x][ray->map_y] == '1') // si probleme peut etre ici
+	while (1)
 	{
 		if (ray->side_x < ray->side_y)
 		{
@@ -84,17 +87,44 @@ int		get_wall(t_ray *ray, t_map map, t_player player,  int side_hit)
 			ray->map_y += ray->step_y;
 			ray->hit_side = 1;
 		}
-		if (side_hit == 0)
-			ray->wall_distance = fabs((ray->map_x - player.position_x + \
-							(1.0 - ray->step_x) / 2.0) / ray->raydir_x);
-		else
-			ray->wall_distance = fabs((ray->map_y - player.position_y + \
-							(1.0 - ray->step_y) / 2.0) / ray->raydir_y);
-		ray->wall_height = (int)(map->resolution[1] / 2);
+		if (map.map[ray->map_x][ray->map_y] == '1')
+			break;
 	}
+	if (ray->hit_side == 0)
+		ray->wall_distance = fabs((ray->map_x - player.position_x + \
+						(1.0 - ray->step_x) / 2.0) / ray->raydir_x);
+	else
+		ray->wall_distance = fabs((ray->map_y - player.position_y + \
+						(1.0 - ray->step_y) / 2.0) / ray->raydir_y);
+	ray->wall_height = (int)(map.resolution[1] / ray->wall_distance);
 }
 
-void	draw_wall(t_mlx *mlx, t_ray ray, t_map map)
+void	draw_untextured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column)
 {
-	
+	int		i;
+	int 	draw_start;
+	int		draw_end;
+
+	//printf("column %d\n", column);
+	if ((draw_start = -ray.wall_height / player.height + map.resolution[1] / player.height) < 0)
+		draw_start = 0;
+	if ((draw_end = ray.wall_height / player.height + map.resolution[1] / player.height) < 0)
+		draw_end = map.resolution[1] - 1;
+	i = 0;
+	//printf("draw start=%d draw_end=%d\n", draw_start, draw_end);
+	while (i < map.resolution[1])
+    {
+        if (i > draw_start && i < draw_end && ray.hit_side == 0)
+            mlx->image_data[column + (i * map.resolution[0])] = 16777215;
+        else if (i > draw_start && i < draw_end && ray.hit_side == 1)
+            mlx->image_data[column + (i * map.resolution[0])] = 13158600;
+        else
+        {
+            if (i < map.resolution[1] / 2)
+                mlx->image_data[column + (i * map.resolution[0])] = (map.ceiling_color[2] * 65536) + (map.ceiling_color[1] * 256) + map.ceiling_color[0];
+            else
+                mlx->image_data[column + (i * map.resolution[0])] = (map.floor_color[2] * 65536) + (map.floor_color[1] * 256) + map.floor_color[0];
+		}
+        i++;
+    }
 }

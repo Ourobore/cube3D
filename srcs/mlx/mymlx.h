@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:05:46 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/01 11:55:13 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/21 10:34:25 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,19 @@ t_data	new_image(t_data data);
 float		vertical_wall(t_data *data, float *direction);
 float		horizontal_wall(t_data *data, float *direction);
 
-void raycasting(t_data *data);
+void	raycasting(t_data *data, t_player player, t_ray ray, t_map map);
+
+t_player	get_plane(t_player player, char spawn_dir);
+void	get_steps(t_player *player, t_ray *ray);
+void	get_wall(t_ray *ray, t_map map, t_player player);
+void	draw_untextured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column);
+
 void side_calculus(t_data *data, int column);
 void wall_hit_calculus(t_data *data, int column);
 void draw_wall(t_data *data, int side, int column);
 
 /*
-** Tests fumctions
+** Tests functions
 */
 
 void	my_raycasting(t_data *data);

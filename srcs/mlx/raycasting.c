@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 09:51:49 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/20 09:48:14 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/21 10:10:44 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,12 @@ void wall_hit_calculus(t_data *data, int column)
 		// si le rayon rencontre un mur
 		if (data->map.map[(int)MAP_X][(int)MAP_Y] == '1')
 			break;
-	}
+	}/*
 	if (side == 0)
 		DISTANCE = fabs((MAP_X - PLAYER_X + (1.0 - STEP_X) / 2.0) / data->ray.raydir_x);
 	else
 		DISTANCE = fabs((MAP_Y - PLAYER_Y + (1.0 - STEP_Y) / 2.0) / data->ray.raydir_y);
-	draw_wall(data, side, column);
+	draw_wall(data, side, column);*/
 }
 
 void draw_wall(t_data *data, int side, int column)

@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 11:36:22 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/01 11:41:36 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/21 11:41:09 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,12 @@ int main(int ac, char **av)
 		printf("%s\n", map.map[i]);
 		i++;
 	}
-
+	//faire une init propre de tous les modules!
 	t_data data;
+	t_ray ray;
+	ray.textures = TEXTURES;
+	data.ray = ray;
+	data.bonus = BONUS;
 
 	data.mlx = start_mlx(map);
 	data.map = map;
@@ -53,10 +57,10 @@ int main(int ac, char **av)
 	t_player player;
 	player = initial_player_position(map.map);
 	printf("[%f][%f][%f][%f]\n", player.position_x, player.position_y, player.direction_x, player.direction_y);
-	
-	data.player = player;
+
 	data = init_player(data);
-	raycasting(&data);
+	raycasting(&data, player, ray, map);
+	printf("\n\n\nFIRST ITERATION DONE\n\n\n");
 	mlx_hook(data.mlx.window_ptr, KEYPRESS, KEYPRESSMASK, key_press_hook, &data);
 	mlx_hook(data.mlx.window_ptr, KEYRELEASE, KEYRELEASEMASK, key_release_hook, &data);
 	mlx_loop_hook(data.mlx.mlx_ptr, raycasting_loop, &data);
