@@ -6,32 +6,34 @@
 /*   By: lchapren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 09:34:40 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/21 14:31:26 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/22 10:33:57 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mymlx.h"
 
-void	raycasting(t_data *data, t_player *player, t_ray ray, t_map map)
+void	raycasting(t_data *data, t_player *player, t_ray *ray, t_map map)
 {
 	int column;
 	float camera_x;
 
 	column = 0;
 	*data = new_image(*data);
+	//player->plane_x = 0.0;
+	//player->plane_y = 0.66;
 	while (column < map.resolution[0])
 	{
-		camera_x = 2.0 * column / (float)map.resolution[0] - 1.0; //puis je enlever la -> sur player?
-		ray.raydir_x = player->direction_x + /*0.0*/player->plane_x * camera_x;
-		ray.raydir_y = player->direction_y + /*0.66*/player->plane_y * camera_x;
-		ray.delta_x = fabs(1 / ray.raydir_x);
-		ray.delta_y = fabs(1 / ray.raydir_y);
-		ray.map_x = (int)player->position_x;
-		ray.map_y = (int)player->position_y;
-		get_steps(player, &ray);
-		get_wall(&ray, map, *player);
-		if (!ray.textures && data->bonus)
-			draw_untextured(&(data->mlx), ray, *player, map, column);
+		camera_x = (2.0 * column / (float)map.resolution[0]) - 1.0; //puis je enlever la -> sur player?
+		ray->raydir_x = player->direction_x + /*0.0*/player->plane_x * camera_x;
+		ray->raydir_y = player->direction_y + /*0.66*/player->plane_y * camera_x;
+		ray->delta_x = fabs(1 / ray->raydir_x);
+		ray->delta_y = fabs(1 / ray->raydir_y);
+		ray->map_x = (int)player->position_x;
+		ray->map_y = (int)player->position_y;
+		get_steps(player, ray);
+		get_wall(ray, map, *player);
+		if (!ray->textures && data->bonus)
+			draw_untextured(&(data->mlx), *ray, *player, map, column);
 		else
 			printf("YAPASDEPANNEAUX!!!\n");
 			//draw_textured(ray);

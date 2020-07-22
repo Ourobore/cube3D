@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:05:46 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/21 13:56:16 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/22 09:33:10 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_data	new_image(t_data data);
 float		vertical_wall(t_data *data, float *direction);
 float		horizontal_wall(t_data *data, float *direction);
 
-void	raycasting(t_data *data, t_player *player, t_ray ray, t_map map);
+void	raycasting(t_data *data, t_player *player, t_ray *ray, t_map map);
 
 t_player	get_plane(t_player player, char spawn_dir);
 void	get_steps(t_player *player, t_ray *ray);

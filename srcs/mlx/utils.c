@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 09:58:37 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/21 14:29:20 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/22 10:45:51 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,23 +67,23 @@ t_player get_plane(t_player player, char spawn_dir)
 {
     if (spawn_dir == 'N')
     {
-        player.plane_x = 1.0;
-        player.plane_y = 0.0;
+        player.plane_y = 1.0;
+        player.plane_x = 0.0;
     }
     else if (spawn_dir == 'S')
     {
-        player.plane_x = -1.0;
-        player.plane_y = 0.0;
+        player.plane_y = -1.0;
+        player.plane_x = 0.0;
     }
     else if (spawn_dir == 'W')
     {
-        player.plane_x = 0.0;
-        player.plane_y = -1.0;
+        player.plane_y = 0.0;
+        player.plane_x = -1.0;
     }
     else if (spawn_dir == 'E')
     {
-        player.plane_x = 0.0;
-        player.plane_y = 1.0;
+        player.plane_y = 0.0;
+        player.plane_x = 1.0;
     }
 	return (player);
 }
@@ -97,7 +97,7 @@ t_player	init_player(t_player player)
 	player.turn_left = 0;
 	player.turn_right = 0;
 	player.speed = 1;
-	player.rotation_angle = 3;
+	player.rotation_angle = 3; // ici en degre, a changer en 0.3
 	player.height = 2;
 	return (player);
 }
@@ -121,7 +121,7 @@ int		raycasting_loop(t_data *data)
 	{
 		data->mlx.rendered = 0;
 		mlx_destroy_image (data->mlx.mlx_ptr, data->mlx.image);
-		raycasting(data, &(data->player), data->ray, data->map);
+		raycasting(data, &(data->player), &(data->ray), data->map);
 	}
 	return (1);
 }
