@@ -1,11 +1,11 @@
 R 1500 1000
-F 50,100,50
-C 100,50,100
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
-S ./path_to_the_sprite_texture
+F 225, 180, 65
+C 65, 180, 225
+NO ./brick_dark0.XPM
+SO ./brick_gray0.XPM
+WE ./brick_brown0.XPM
+EA ./brick_brown-vines1.XPM
+S ./grape.XPM
   1111111
   1010101
   1011101

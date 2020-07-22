@@ -6,7 +6,7 @@
 /*   By: lchapren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 09:34:40 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/22 10:33:57 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/22 12:55:11 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ void	raycasting(t_data *data, t_player *player, t_ray *ray, t_map map)
 	int column;
 	float camera_x;
 
-	column = 0;
+	column = 0; // est present dans t_ray sous le nom de wall_x;
 	*data = new_image(*data);
-	//player->plane_x = 0.0;
-	//player->plane_y = 0.66;
 	while (column < map.resolution[0])
 	{
 		camera_x = (2.0 * column / (float)map.resolution[0]) - 1.0; //puis je enlever la -> sur player?
@@ -106,13 +104,11 @@ void	draw_untextured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int colu
 	int 	draw_start;
 	int		draw_end;
 
-	//printf("column %d\n", column);
 	if ((draw_start = -ray.wall_height / player.height + map.resolution[1] / player.height) < 0)
 		draw_start = 0;
 	if ((draw_end = ray.wall_height / player.height + map.resolution[1] / player.height) < 0)
 		draw_end = map.resolution[1] - 1;
 	i = 0;
-	//printf("draw start=%d draw_end=%d\n", draw_start, draw_end);
 	while (i < map.resolution[1])
     {
         if (i > draw_start && i < draw_end && ray.hit_side == 0)
@@ -121,7 +117,7 @@ void	draw_untextured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int colu
             mlx->image_data[column + (i * map.resolution[0])] = 13158600;
         else
         {
-            if (i < map.resolution[1] / 2)
+            if (i > map.resolution[1] / 2)
                 mlx->image_data[column + (i * map.resolution[0])] = (map.ceiling_color[2] * 65536) + (map.ceiling_color[1] * 256) + map.ceiling_color[0];
             else
                 mlx->image_data[column + (i * map.resolution[0])] = (map.floor_color[2] * 65536) + (map.floor_color[1] * 256) + map.floor_color[0];
