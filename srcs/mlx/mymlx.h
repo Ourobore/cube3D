@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:05:46 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/23 11:51:26 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/23 14:14:05 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	draw_untextured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int colu
 void	draw_textured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column);
 void	get_textures(t_data *data, t_ray *ray, t_map map);
 void	texture_error(t_data *data, t_ray *ray);
+int		*get_img_addr(void *ptr);
 
 /*
 ** Tests functions

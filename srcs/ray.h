@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 12:57:51 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/23 11:39:01 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/23 14:05:51 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,17 @@ typedef struct	s_ray
 	float	tex_y;
 	int		tex_width;
 	int		tex_height;
-	void	*texture;
-	void	*tex_north;
-	void	*tex_south;
-	void	*tex_west;
-	void	*tex_east;
-	void	*tex_sprite;
+	int		*texture;
+	int		*tex_north;
+	int		*tex_south;
+	int		*tex_west;
+	int		*tex_east;
+	int		*tex_sprite;
+	void	*ptr_north;
+	void	*ptr_south;
+	void	*ptr_west;
+	void	*ptr_east;
+	void	*ptr_sprite;
 
 	float	wall_distance;
 	int		wall_height;

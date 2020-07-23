@@ -6,7 +6,7 @@
 /*   By: lchapren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 09:34:40 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/23 12:40:20 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/23 14:33:39 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ void	draw_textured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column
 {
 	float	wall_x;
 	float	step;
+	float	tex_pos;
 	int		draw_start;
 	int		draw_end;
 	int		i;
@@ -144,12 +145,13 @@ void	draw_textured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column
 	if (ray.hit_side == 1 && ray.raydir_y < 0)
 		ray.tex_x = ray.tex_width - ray.tex_x - 1;
 	//calcul draw_start draw_end
-	if ((draw_start = -ray.wall_height / player.height + map.resolution[1] / player.height) < 0)
+	if ((draw_start = -ray.wall_height / 2 + map.resolution[1] / player.height) < 0)
 		draw_start = 0;
-	if ((draw_end = ray.wall_height / player.height + map.resolution[1] / player.height) < 0)
+	if ((draw_end = ray.wall_height / 2 + map.resolution[1] / player.height) < 0)
 		draw_end = map.resolution[1] - 1;
 	//calcul step pour tex_y
 	step = 1.0 * ray.tex_height / ray.wall_height;
+	tex_pos = (draw_start - map.resolution[1] / player.height + ray.wall_height / player.height) * step;
 	//prendre la bonne texture
 	if (ray.hit_side == 1)
 	{
@@ -169,7 +171,7 @@ void	draw_textured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column
 	//boucle draw
 	while (i < map.resolution[1] - 1)
 	{
-		if (i < draw_start && i >= draw_end)	//sol plafond
+		if (i < draw_start || i >= draw_end)	//sol plafond
 		{
 			if (i < map.resolution[1] / player.height)
 				mlx->image_data[column + (i * map.resolution[0])] = (map.ceiling_color[2] * 65536) + (map.ceiling_color[1] * 256) + map.ceiling_color[0];
@@ -178,10 +180,11 @@ void	draw_textured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column
 		}
 		else	//texture
 		{
-			ray.tex_y = (int)((draw_start - map.resolution[1] / player.height + ray.wall_height / player.height) * step);
-			mlx->image_data[i * map.resolution[0] + column] = &ray.texture[(int)(ray.tex_height * ray.tex_y + ray.tex_x)];
-			ray.tex_y += step;
+			ray.tex_y = (int)tex_pos & (ray.tex_height - 1);
+			tex_pos += step;
+			mlx->image_data[i * map.resolution[0] + column] = ray.texture[(int)(ray.tex_height * ray.tex_y + ray.tex_x)];
+			//ray.tex_y += step;
 		}	
-	i++;
+		i++;
 	}
 }

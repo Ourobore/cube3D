@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 11:36:22 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/23 12:41:47 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/23 13:46:29 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int main(int ac, char **av)
 	data.bonus = BONUS;
 	if (!map_validity(data))
 		perror("Map validity error\n");
+	//printf("TEX WIDTH:%d TEX HEIGHT: %d", )
 	get_textures(&data, &(data.ray), data.map);
 	raycasting(&data, &(data.player), &(data.ray), map);
 	mlx_hook(data.mlx.window_ptr, KEYPRESS, KEYPRESSMASK, key_press_hook, &data);
