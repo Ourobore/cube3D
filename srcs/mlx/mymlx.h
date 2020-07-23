@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:05:46 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/22 09:33:10 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/23 11:51:26 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@
 # define LEFT 0/*97*/
 # define RIGHT 2/*100*/
 # define SHIFT 257/*65505*/
+# define CONTROL 256
 # define ESC 53/*65307*/
 # define M 46/*109*/
-# define TEXTURE 17
+# define T 17
 # define TURNLEFT 123/*65361*/
 # define TURNRIGHT 124/*65363*/
 
@@ -63,10 +64,6 @@ float		*rotate_direction(float direction_x, float direction_y, float angle);
 ** Raycasting functions
 */
 t_data	new_image(t_data data);
-//t_data	raycasting(t_data data);
-//float		get_distance(t_data *data, float *direction, int x, float angle);
-float		vertical_wall(t_data *data, float *direction);
-float		horizontal_wall(t_data *data, float *direction);
 
 void	raycasting(t_data *data, t_player *player, t_ray *ray, t_map map);
 
@@ -74,10 +71,9 @@ t_player	get_plane(t_player player, char spawn_dir);
 void	get_steps(t_player *player, t_ray *ray);
 void	get_wall(t_ray *ray, t_map map, t_player player);
 void	draw_untextured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column);
-
-void side_calculus(t_data *data, int column);
-void wall_hit_calculus(t_data *data, int column);
-void draw_wall(t_data *data, int side, int column);
+void	draw_textured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column);
+void	get_textures(t_data *data, t_ray *ray, t_map map);
+void	texture_error(t_data *data, t_ray *ray);
 
 /*
 ** Tests functions

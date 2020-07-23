@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 11:36:22 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/22 10:44:19 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/23 12:41:47 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,14 @@ int main(int ac, char **av)
 	map = parse_file(get_map_file(ft_strdup(av[1])));
 	player = initial_player_position(map.map);
 	data.mlx = start_mlx(map);
-	ray.textures = TEXTURES;
+	ray.textures = 1;
 	data.ray = ray;
-	//player.plane_x = 0.0;
-	//player.plane_y = 0.66;
 	data.player = player;
 	data.map = map;
 	data.bonus = BONUS;
 	if (!map_validity(data))
 		perror("Map validity error\n");
-
+	get_textures(&data, &(data.ray), data.map);
 	raycasting(&data, &(data.player), &(data.ray), map);
 	mlx_hook(data.mlx.window_ptr, KEYPRESS, KEYPRESSMASK, key_press_hook, &data);
 	mlx_hook(data.mlx.window_ptr, KEYRELEASE, KEYRELEASEMASK, key_release_hook, &data);

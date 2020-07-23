@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 13:36:00 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/22 09:43:03 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/23 12:22:37 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct	s_player
 	
 	float	speed;
 	float	rotation_angle;
-	int		height;
+	float	height;
 	
 	int		foward;
 	int		left;

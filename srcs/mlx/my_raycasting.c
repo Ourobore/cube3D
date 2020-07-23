@@ -6,7 +6,7 @@
 /*   By: lchapren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 09:34:40 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/22 12:55:11 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/23 12:40:20 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,10 @@ void	raycasting(t_data *data, t_player *player, t_ray *ray, t_map map)
 		ray->map_y = (int)player->position_y;
 		get_steps(player, ray);
 		get_wall(ray, map, *player);
-		if (!ray->textures && data->bonus)
+		if (ray->textures < 0)
 			draw_untextured(&(data->mlx), *ray, *player, map, column);
 		else
-			printf("YAPASDEPANNEAUX!!!\n");
-			//draw_textured(ray);
+			draw_textured(&(data->mlx), *ray, *player, map, column);
 		//draw_sprites();
 		column++;
 	}
@@ -104,9 +103,9 @@ void	draw_untextured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int colu
 	int 	draw_start;
 	int		draw_end;
 
-	if ((draw_start = -ray.wall_height / player.height + map.resolution[1] / player.height) < 0)
+	if ((draw_start = -ray.wall_height / 2 + map.resolution[1] / player.height) < 0)
 		draw_start = 0;
-	if ((draw_end = ray.wall_height / player.height + map.resolution[1] / player.height) < 0)
+	if ((draw_end = ray.wall_height / 2 + map.resolution[1] / player.height) < 0)
 		draw_end = map.resolution[1] - 1;
 	i = 0;
 	while (i < map.resolution[1])
@@ -117,11 +116,72 @@ void	draw_untextured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int colu
             mlx->image_data[column + (i * map.resolution[0])] = 13158600;
         else
         {
-            if (i > map.resolution[1] / 2)
+            if (i > map.resolution[1] / player.height)
                 mlx->image_data[column + (i * map.resolution[0])] = (map.ceiling_color[2] * 65536) + (map.ceiling_color[1] * 256) + map.ceiling_color[0];
             else
                 mlx->image_data[column + (i * map.resolution[0])] = (map.floor_color[2] * 65536) + (map.floor_color[1] * 256) + map.floor_color[0];
 		}
         i++;
     }
+}
+
+void	draw_textured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column)
+{
+	float	wall_x;
+	float	step;
+	int		draw_start;
+	int		draw_end;
+	int		i;
+
+	if (ray.hit_side == 0)	//calcul wall_x
+		wall_x = player.position_y + ray.wall_distance * ray.raydir_y;
+	else
+		wall_x = player.position_x + ray.wall_distance * ray.raydir_x;
+	wall_x -= floor(wall_x);
+	ray.tex_x = (int)(wall_x * (float)(ray.tex_width));
+	if (ray.hit_side == 0 && ray.raydir_x > 0)	//calcul tex_x
+		ray.tex_x = ray.tex_width - ray.tex_x - 1;
+	if (ray.hit_side == 1 && ray.raydir_y < 0)
+		ray.tex_x = ray.tex_width - ray.tex_x - 1;
+	//calcul draw_start draw_end
+	if ((draw_start = -ray.wall_height / player.height + map.resolution[1] / player.height) < 0)
+		draw_start = 0;
+	if ((draw_end = ray.wall_height / player.height + map.resolution[1] / player.height) < 0)
+		draw_end = map.resolution[1] - 1;
+	//calcul step pour tex_y
+	step = 1.0 * ray.tex_height / ray.wall_height;
+	//prendre la bonne texture
+	if (ray.hit_side == 1)
+	{
+		if (ray.map_x > player.position_y)
+			ray.texture = ray.tex_north;
+		else
+			ray.texture = ray.tex_south;
+	}
+	else
+	{
+		if (ray.map_y > player.position_x)
+			ray.texture = ray.tex_east;
+		else
+			ray.texture = ray.tex_west;
+	}
+	i = 0;
+	//boucle draw
+	while (i < map.resolution[1] - 1)
+	{
+		if (i < draw_start && i >= draw_end)	//sol plafond
+		{
+			if (i < map.resolution[1] / player.height)
+				mlx->image_data[column + (i * map.resolution[0])] = (map.ceiling_color[2] * 65536) + (map.ceiling_color[1] * 256) + map.ceiling_color[0];
+            else
+				mlx->image_data[column + (i * map.resolution[0])] = (map.floor_color[2] * 65536) + (map.floor_color[1] * 256) + map.floor_color[0];
+		}
+		else	//texture
+		{
+			ray.tex_y = (int)((draw_start - map.resolution[1] / player.height + ray.wall_height / player.height) * step);
+			mlx->image_data[i * map.resolution[0] + column] = &ray.texture[(int)(ray.tex_height * ray.tex_y + ray.tex_x)];
+			ray.tex_y += step;
+		}	
+	i++;
+	}
 }

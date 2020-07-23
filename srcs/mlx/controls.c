@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 10:29:58 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/22 10:20:44 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/23 12:41:50 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	key_press_hook(int key, t_data *data)
 	{
 		mlx_destroy_window(data->mlx.mlx_ptr, data->mlx.window_ptr);
 		write(1, "Clean exit (escape button)\n", 27);
+		//system("leaks Cube3D");
 		exit(0);
 	}
 	if (key == FOWARD)
@@ -33,13 +34,35 @@ int	key_press_hook(int key, t_data *data)
 		data->player.turn_left = 1;
 	if (key == TURNRIGHT)
 		data->player.turn_right = 1;
-	if (key == SHIFT)
+	if (key == SHIFT && data->bonus)
 	{
 		data->player.speed *= SPRINT;
 		data->player.rotation_angle *= SPRINT;
 	}
+	if (key == T && data->bonus)
+	{
+		data->ray.textures *= -1; // relancer un raycast pour actualiser sans bouger
+		raycasting(data, &(data->player), &(data->ray), data->map);
+		write(1, "Untextured raycasting toogled\n", 30);
+	}
+	if (key == CONTROL && data->bonus)
+	{
+		if (data->player.height != PLAYER_HEIGHT)
+		{
+			data->player.height = PLAYER_HEIGHT;
+			data->player.speed = BASE_SPEED;
+			write(1, "Player now standing\n", 21);
+		}
+		else
+		{
+			data->player.height += 2;
+			data->player.speed /= 2;
+			write(1, "Player now couching\n", 22);
+		}
+		raycasting(data, &(data->player), &(data->ray), data->map);
+	}
 	if (key == M)
-		write(1, "Toogle map\n", 11);
+		write(1, "Toogled map\n", 12);
 	write(1, "Key\n", 4);
 	return(key);
 }
