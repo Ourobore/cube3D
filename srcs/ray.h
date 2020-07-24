@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 12:57:51 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/23 14:05:51 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/24 14:00:39 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,12 @@ typedef struct	s_ray
 	float	side_x;
 	float	side_y;
 
-	int		wall_x;
+	int		wall_x; // a remplacer dans le code
+	float		*sprite_list;
+
+	float	sprite_x;
+	float	sprite_y;
+	int		sprite_height;
 
 	float	tex_x;
 	float	tex_y;
@@ -49,7 +54,7 @@ typedef struct	s_ray
 	int		wall_height;
 	int		wall_hit;
 	int		hit_side;
-	int		column; // a enlever remplacer par wall_x
+	int		column;
 	int 	textures;
 }				t_ray;
 

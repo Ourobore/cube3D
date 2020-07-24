@@ -41,7 +41,7 @@ $(NAME)	:	$(OBJS)
 			cp $(LIBFT) ./$(LIB)
 			ar -rcs $(LIB) $(OBJS)
 			#gcc $(FLAGS) -g3 -fsanitize=address main.c $(LIB) $(LIBMLX) -o $(NAME) -L$(LIBMLX) -lXext -lX11 -lm
-			gcc $(FLAGS) -g3 main.c $(LIB) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
+			gcc $(FLAGS) -g3 -fsanitize=address main.c $(LIB) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
 
 clean	:	
 			rm -rf $(OBJS)

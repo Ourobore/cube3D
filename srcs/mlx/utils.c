@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 09:58:37 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/22 10:45:51 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/24 10:51:48 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,23 +67,23 @@ t_player get_plane(t_player player, char spawn_dir)
 {
     if (spawn_dir == 'N')
     {
-        player.plane_y = 1.0;
+        player.plane_y = 0.77;
         player.plane_x = 0.0;
     }
     else if (spawn_dir == 'S')
     {
-        player.plane_y = -1.0;
+        player.plane_y = -0.77;
         player.plane_x = 0.0;
     }
     else if (spawn_dir == 'W')
     {
         player.plane_y = 0.0;
-        player.plane_x = -1.0;
+        player.plane_x = -0.77;
     }
     else if (spawn_dir == 'E')
     {
         player.plane_y = 0.0;
-        player.plane_x = 1.0;
+        player.plane_x = 0.77;
     }
 	return (player);
 }

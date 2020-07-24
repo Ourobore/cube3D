@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 11:36:22 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/23 13:46:29 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/24 12:21:16 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int main(int ac, char **av)
 	player = initial_player_position(map.map);
 	data.mlx = start_mlx(map);
 	ray.textures = 1;
+	ray.sprite_list = ft_calloc(sizeof(int*), map.sprites_count);
+	printf("SPRITES COUNT: %d\n", map.sprites_count);
 	data.ray = ray;
 	data.player = player;
 	data.map = map;
