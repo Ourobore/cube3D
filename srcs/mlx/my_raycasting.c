@@ -6,7 +6,7 @@
 /*   By: lchapren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 09:34:40 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/24 14:57:00 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/25 13:49:54 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,11 @@ void	raycasting(t_data *data, t_player *player, t_ray *ray, t_map map)
 			draw_untextured(&(data->mlx), *ray, *player, map, column);
 		else
 			draw_textured(&(data->mlx), *ray, *player, map, column);
-		draw_sprite(&(data->mlx), *ray, *player, map, column);
+		if (ray->sprite_list[0] != 0)
+			draw_sprite(&(data->mlx), *ray, *player, map, column);
 		ft_bzero(ray->sprite_list, map.sprites_count);
+		ft_bzero(ray->sprite_map_x, map.sprites_count);
+		ft_bzero(ray->sprite_map_y, map.sprites_count);
 		column++;
 	}
 	player->last_pos_x = player->position_x; // faire une fonction qui actualise la position
@@ -98,7 +101,8 @@ void	get_wall(t_data data, t_ray *ray, t_map map, t_player player)
 			else
 				ray->sprite_list[i] = fabs((ray->map_y - player.position_y + \
 						(1.0 - ray->step_y) / 2.0) / ray->raydir_y);
-			printf("SPRITE DETECTED: %f	I:%d\n", ray->sprite_list[i], i);
+			ray->sprite_map_x[i] = ray->map_x;
+			ray->sprite_map_y[i] = ray->map_y;
 			i++;
 		}
 		if (map.map[ray->map_x][ray->map_y] == '1' || (map.map[ray->map_x][ray->map_y] == '3' && data.bonus)) //get real wall or fake wall
@@ -121,7 +125,7 @@ void	draw_untextured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int colu
 
 	if ((draw_start = -ray.wall_height / 2 + map.resolution[1] / player.height) < 0)
 		draw_start = 0;
-	if ((draw_end = ray.wall_height / 2 + map.resolution[1] / player.height) < 0)
+	if ((draw_end = ray.wall_height / 2 + map.resolution[1] / player.height) > map.resolution[1])
 		draw_end = map.resolution[1] - 1;
 	i = 0;
 	while (i < map.resolution[1])
@@ -163,7 +167,7 @@ void	draw_textured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column
 	//calcul draw_start draw_end
 	if ((draw_start = -ray.wall_height / 2 + map.resolution[1] / player.height) < 0)
 		draw_start = 0;
-	if ((draw_end = ray.wall_height / 2 + map.resolution[1] / player.height) < 0)
+	if ((draw_end = ray.wall_height / 2 + map.resolution[1] / player.height) > map.resolution[1])
 		draw_end = map.resolution[1] - 1;
 	//calcul step pour tex_y
 	step = 1.0 * ray.tex_height / ray.wall_height;
@@ -208,18 +212,36 @@ void	draw_sprite(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column)
 {
 	int		i;
 	int		j;
-	int		step;
+	float		step;
 	int		draw_start;
 	int		draw_end;
 	float	wall_x;
 	float	sprite_pos;
+	float	invdet;
+	float	transform_x;
+	float	transform_y;
+	int		sprite_screen;
 
+	/*
 	i = 0;
-	while (ray.sprite_list[i] != 0)
-	{
-		printf("SPRITE LIST: %f		I: %d\n", ray.sprite_list[i], i);
+	while (ray.sprite_list[i + 1] != 0)
 		i++;
+	while (ray.sprite_list[i] >= 0)
+	{
+		ray.sprite_x = ray.sprite_map_x[i] - player.position_x;
+		ray.sprite_y = ray.sprite_map_y[i] - player.position_y;
+		invdet = 1.0 / (player.plane_x * player.direction_y - player.direction_x * player.plane_y);
+		transform_x = invdet * (player.direction_y * ray.sprite_x - player.direction_x * ray.sprite_y);
+		transform_y = invdet * (-player.plane_y * ray.sprite_x + player.plane_x * ray.sprite_y);
+		sprite_screen = (int)((w / 2) * (1 + transform_x / transform_y));
+		ray.sprite_height = abs(int(map.resolution[i] / transform_y));
+		draw_start
 	}
+
+	*/
+	i = 0;
+	while (ray.sprite_list[i + 1] != 0)
+		i++;
 	while (i >= 0)
 	{
 		if (ray.hit_side == 0)	//calcul wall_x
@@ -227,6 +249,7 @@ void	draw_sprite(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column)
 		else
 			wall_x = player.position_x + ray.sprite_list[i] * ray.raydir_x;
 		wall_x -= floor(wall_x);
+		//wall_x = fabs(wall_x);
 		ray.sprite_x = (int)(wall_x * (float)(ray.tex_width));	
 		ray.sprite_height = (int)(map.resolution[1] / ray.sprite_list[i]);
 		if (ray.hit_side == 0 && ray.raydir_x > 0)	//calcul tex_x
@@ -236,25 +259,19 @@ void	draw_sprite(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column)
 		//calcul draw_start draw_end
 		if ((draw_start = -ray.sprite_height / 2 + map.resolution[1] / player.height) < 0)
 			draw_start = 0;
-		if ((draw_end = ray.sprite_height / 2 + map.resolution[1] / player.height) < 0)
+		if ((draw_end = ray.sprite_height / 2 + map.resolution[1] / player.height) > map.resolution[1])
 			draw_end = map.resolution[1] - 1;
-		printf("start: %d	end:%d\n", draw_start, draw_end);
-		printf("before\n");
 		//calcul step pour tex_y
 		step = 1.0 * ray.tex_height / ray.sprite_height;
 		sprite_pos = (draw_start - map.resolution[1] / player.height + ray.sprite_height / 2) * step;
 		j = draw_start;
-		//printf("draw_start: %d	draw_end: %d\n", draw_start, draw_end);
-		ray.texture = ray.tex_sprite;
-		printf("after\n");
-		while (j < map.resolution[1] - 1)
+		ray.texture = ray.tex_north;
+		while (j < draw_end)
 		{
-			if (j >= draw_start && j < draw_end)
-			{
-				ray.sprite_y = (int)sprite_pos & (ray.sprite_height - 1);
-				sprite_pos +=step;
-				mlx->image_data[j * map.resolution[0] + column] = ray.texture[(int)(ray.tex_height * ray.sprite_y + ray.sprite_x)];
-			}
+			ray.sprite_y = (int)sprite_pos & (ray.tex_height - 1);
+			sprite_pos +=step;
+			if (ray.tex_sprite[(int)(ray.tex_height * ray.sprite_y + ray.sprite_x)] != 1)
+				mlx->image_data[j * map.resolution[0] + column] = ray.tex_sprite[(int)(ray.tex_height * ray.sprite_y + ray.sprite_x)];
 			j++;
 		}
 		i--;
