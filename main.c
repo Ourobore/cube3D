@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 11:36:22 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/25 10:39:09 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/27 12:37:16 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,15 @@ int main(int ac, char **av)
 
 	printf("\n===================MAIN===============\n");
 	(void)ac;
+	//(void)av;
+	//char *map_path = ft_strdup(av[1]);
 	valid_map_path(av[1]);
-	map = parse_file(get_map_file(ft_strdup(av[1])));
+	map = parse_file(get_map_file(av[1]));
 	player = initial_player_position(map.map);
 	data.mlx = start_mlx(map);
 	ray.textures = 1;
-	ray.sprite_list = ft_calloc(sizeof(float*), map.sprites_count);
-	ray.sprite_map_x = ft_calloc(sizeof(int*), map.sprites_count);
-	ray.sprite_map_y = ft_calloc(sizeof(int*), map.sprites_count);
-	printf("SPRITES COUNT: %d\n", map.sprites_count);
+	get_sprite_list(&ray, player, map);
+	printf("SPRITES COUNT: %d\n", map.sprite_count);
 	data.ray = ray;
 	data.player = player;
 	data.map = map;

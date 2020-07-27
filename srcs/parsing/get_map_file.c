@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 10:01:37 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/23 09:40:48 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/27 11:14:13 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	**get_map_file(char *map_path)
 	//while (map[i])
 	//	((map[i] = rm_map_spaces(map[i])) && i++);
 	close(fd);
-	free(map_path);
+	//free(map_path);
 	return (map);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 10:39:44 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/25 14:11:21 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/27 09:12:49 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include "srcs/map.h"
 # include "srcs/window.h"
 # include "srcs/player.h"
-# include "srcs/sprite,h"
+# include "srcs/sprite.h"
 # include "srcs/ray.h"
 # include "srcs/data.h"
 

@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 12:57:51 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/25 15:04:27 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/27 11:48:51 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct	s_ray
 	int		wall_x; // a remplacer dans le code
 	
 	t_sp	*sp_list;
+	float	*buff_dist;
 
 	float	tex_x;
 	float	tex_y;

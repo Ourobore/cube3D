@@ -6,7 +6,7 @@
 /*   By: lchapren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 09:34:40 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/25 13:49:54 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/27 12:50:34 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	raycasting(t_data *data, t_player *player, t_ray *ray, t_map map)
 
 	column = 0; // est present dans t_ray sous le nom de wall_x;
 	*data = new_image(*data);
+	ray->buff_dist = ft_calloc(sizeof(ray->buff_dist), map.resolution[0]);
 	while (column < map.resolution[0])
 	{
 		camera_x = (2.0 * column / (float)map.resolution[0]) - 1.0; //puis je enlever la -> sur player?
@@ -30,17 +31,17 @@ void	raycasting(t_data *data, t_player *player, t_ray *ray, t_map map)
 		ray->map_y = (int)player->position_y;
 		get_steps(player, ray);
 		get_wall(*data, ray, map, *player);
+		ray->buff_dist[column] = ray->wall_distance;
 		if (ray->textures < 0)
 			draw_untextured(&(data->mlx), *ray, *player, map, column);
 		else
 			draw_textured(&(data->mlx), *ray, *player, map, column);
-		if (ray->sprite_list[0] != 0)
-			draw_sprite(&(data->mlx), *ray, *player, map, column);
-		ft_bzero(ray->sprite_list, map.sprites_count);
-		ft_bzero(ray->sprite_map_x, map.sprites_count);
-		ft_bzero(ray->sprite_map_y, map.sprites_count);
+		//if (ray->sprite_list[0] != 0)
+		//	draw_sprite(&(data->mlx), *ray, *player, map, column);
 		column++;
 	}
+	draw_sprite(&(data->mlx), ray, *player, map);
+	free(ray->buff_dist);
 	player->last_pos_x = player->position_x; // faire une fonction qui actualise la position
     player->last_pos_y = player->position_y;
     player->last_dir_x = player->direction_x;
@@ -77,7 +78,6 @@ void	get_wall(t_data data, t_ray *ray, t_map map, t_player player)
 {
 	int	i;
 
-	i = 0;
 	while (1)
 	{
 		if (ray->side_x < ray->side_y)
@@ -95,15 +95,17 @@ void	get_wall(t_data data, t_ray *ray, t_map map, t_player player)
 		//faire une fonction qui donne la distance a la variable qu'on lui donne en entree
 		if (map.map[ray->map_x][ray->map_y] == '2') //get sprite list
 		{
-			if (ray->hit_side == 0)
-				ray->sprite_list[i] = fabs((ray->map_x - player.position_x + \
-						(1.0 - ray->step_x) / 2.0) / ray->raydir_x);
-			else
-				ray->sprite_list[i] = fabs((ray->map_y - player.position_y + \
-						(1.0 - ray->step_y) / 2.0) / ray->raydir_y);
-			ray->sprite_map_x[i] = ray->map_x;
-			ray->sprite_map_y[i] = ray->map_y;
-			i++;
+			i = get_sprite_index(ray->sp_list, map, ray->map_x, ray->map_y);
+			if (ray->sp_list[i].on_screen == 0)
+			{
+				if (ray->hit_side == 0)
+					ray->sp_list[i].distance = fabs((ray->map_x - player.position_x + \
+							(1.0 - ray->step_x) / 2.0) / ray->raydir_x);
+				else
+					ray->sp_list[i].distance = fabs((ray->map_y - player.position_y + \
+							(1.0 - ray->step_y) / 2.0) / ray->raydir_y);
+				ray->sp_list[i].on_screen = 1;
+			}
 		}
 		if (map.map[ray->map_x][ray->map_y] == '1' || (map.map[ray->map_x][ray->map_y] == '3' && data.bonus)) //get real wall or fake wall
 			break;
@@ -207,7 +209,7 @@ void	draw_textured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column
 		i++;
 	}
 }
-
+/*
 void	draw_sprite(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column)
 {
 	int		i;
@@ -222,23 +224,6 @@ void	draw_sprite(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column)
 	float	transform_y;
 	int		sprite_screen;
 
-	/*
-	i = 0;
-	while (ray.sprite_list[i + 1] != 0)
-		i++;
-	while (ray.sprite_list[i] >= 0)
-	{
-		ray.sprite_x = ray.sprite_map_x[i] - player.position_x;
-		ray.sprite_y = ray.sprite_map_y[i] - player.position_y;
-		invdet = 1.0 / (player.plane_x * player.direction_y - player.direction_x * player.plane_y);
-		transform_x = invdet * (player.direction_y * ray.sprite_x - player.direction_x * ray.sprite_y);
-		transform_y = invdet * (-player.plane_y * ray.sprite_x + player.plane_x * ray.sprite_y);
-		sprite_screen = (int)((w / 2) * (1 + transform_x / transform_y));
-		ray.sprite_height = abs(int(map.resolution[i] / transform_y));
-		draw_start
-	}
-
-	*/
 	i = 0;
 	while (ray.sprite_list[i + 1] != 0)
 		i++;
@@ -277,4 +262,4 @@ void	draw_sprite(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column)
 		i--;
 	}
 }
-
+*/

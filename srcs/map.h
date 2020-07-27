@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:54:05 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/24 12:22:00 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/27 09:22:42 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct	s_map
 	char	*west_texture;
 	char	*east_texture;
 
-	int		sprites_count;
+	int		sprite_count;
 
 	char	**map;
 }				t_map;

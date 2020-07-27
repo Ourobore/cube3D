@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:05:46 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/24 13:48:45 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/27 12:46:33 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,13 @@ void	get_steps(t_player *player, t_ray *ray);
 void	get_wall(t_data data, t_ray *ray, t_map map, t_player player);
 void	draw_untextured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column);
 void	draw_textured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column);
-void	draw_sprite(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column);
 void	get_textures(t_data *data, t_ray *ray, t_map map);
 void	texture_error(t_data *data, t_ray *ray);
 int		*get_img_addr(void *ptr);
+void	get_sprite_list(t_ray *ray, t_player player, t_map map);
+int		get_sprite_index(t_sp *list, t_map map, int map_x, int map_y);
+int		get_farest_visible_sprite(t_sp *list, t_map map);
+void	draw_sprite(t_mlx *mlx, t_ray *ray, t_player player, t_map map);
 
 /*
 ** Tests functions

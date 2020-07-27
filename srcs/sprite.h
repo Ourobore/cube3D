@@ -6,7 +6,7 @@
 /*   By: lchapren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 14:12:09 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/25 14:12:20 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/27 10:11:59 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ typedef struct  s_sp
 	float	map_y;
 	float	x;
 	float	y;
-	int		sp_height;
+	int		height;
+	//int		width;
+	int		on_screen;
 }               t_sp;
 
 #endif
