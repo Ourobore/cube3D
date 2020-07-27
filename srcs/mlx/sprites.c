@@ -6,7 +6,7 @@
 /*   By: lchapren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 12:23:51 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/27 13:10:15 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/27 15:07:51 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	draw_sprite(t_mlx *mlx, t_ray *ray, t_player player, t_map map)
 		transform_y = invdet * (-player.plane_y * ray->sp_list[i].x + player.plane_x * ray->sp_list[i].y);
 		sprite_screen_x = (int)((map.resolution[0] / 2) * (1 + transform_x / transform_y));
 		
-		ray->sp_list[i].height = abs((int)(map.resolution[1] / transform_y));
+		ray->sp_list[i].height = abs((int)(map.resolution[1] / transform_y)) / 2 ;// derniere divivion par deux pour changer la taille
 		draw_start_y = -ray->sp_list[i].height / 2 + map.resolution[1] / 2;
 		if (draw_start_y < 0)
 			draw_start_y = 0;

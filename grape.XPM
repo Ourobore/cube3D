@@ -16,6 +16,8 @@ static char *grape[] = {
 "* c #8000FF",
 /* pixels */
 "                                ",
+"                                ";
+"                                ",
 "                                ",
 "                                ",
 "            @@@                 ",
@@ -45,6 +47,4 @@ static char *grape[] = {
 "     oOO$oooo...                ",
 "      oooo.....                 ",
 "       ...                      ",
-"                                ",
-"                                "
 };

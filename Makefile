@@ -8,7 +8,7 @@ SRCS	=	$(RSRCS)/parsing/get_map_file.c \
 			$(RSRCS)/parsing/utils2.c \
 			$(RSRCS)/parsing/error.c \
 			$(RSRCS)/mlx/mlx.c \
-			$(RSRCS)/mlx/my_raycasting.c \
+			$(RSRCS)/mlx/raycasting.c \
 			$(RSRCS)/mlx/textures.c \
 			$(RSRCS)/mlx/sprites.c \
 			$(RSRCS)/mlx/controls.c \
@@ -42,7 +42,7 @@ $(NAME)	:	$(OBJS)
 			cp $(LIBFT) ./$(LIB)
 			ar -rcs $(LIB) $(OBJS)
 			#gcc $(FLAGS) -g3 -fsanitize=address main.c $(LIB) $(LIBMLX) -o $(NAME) -L$(LIBMLX) -lXext -lX11 -lm
-			gcc $(FLAGS) -g -fsanitize=address main.c $(LIB) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
+			gcc $(FLAGS) -g main.c $(LIB) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
 
 clean	:	
 			rm -rf $(OBJS)
