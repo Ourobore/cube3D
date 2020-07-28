@@ -6,7 +6,7 @@
 /*   By: lchapren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 13:57:58 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/27 13:58:06 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/28 11:08:45 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,57 +209,4 @@ void	draw_textured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column
 		i++;
 	}
 }
-/*
-void	draw_sprite(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column)
-{
-	int		i;
-	int		j;
-	float		step;
-	int		draw_start;
-	int		draw_end;
-	float	wall_x;
-	float	sprite_pos;
-	float	invdet;
-	float	transform_x;
-	float	transform_y;
-	int		sprite_screen;
 
-	i = 0;
-	while (ray.sprite_list[i + 1] != 0)
-		i++;
-	while (i >= 0)
-	{
-		if (ray.hit_side == 0)	//calcul wall_x
-			wall_x = player.position_y + ray.sprite_list[i] * ray.raydir_y;
-		else
-			wall_x = player.position_x + ray.sprite_list[i] * ray.raydir_x;
-		wall_x -= floor(wall_x);
-		//wall_x = fabs(wall_x);
-		ray.sprite_x = (int)(wall_x * (float)(ray.tex_width));	
-		ray.sprite_height = (int)(map.resolution[1] / ray.sprite_list[i]);
-		if (ray.hit_side == 0 && ray.raydir_x > 0)	//calcul tex_x
-			ray.sprite_x = ray.tex_width - ray.sprite_x - 1;
-		if (ray.hit_side == 1 && ray.raydir_y < 0)
-			ray.sprite_x = ray.tex_width - ray.sprite_x - 1;
-		//calcul draw_start draw_end
-		if ((draw_start = -ray.sprite_height / 2 + map.resolution[1] / player.height) < 0)
-			draw_start = 0;
-		if ((draw_end = ray.sprite_height / 2 + map.resolution[1] / player.height) > map.resolution[1])
-			draw_end = map.resolution[1] - 1;
-		//calcul step pour tex_y
-		step = 1.0 * ray.tex_height / ray.sprite_height;
-		sprite_pos = (draw_start - map.resolution[1] / player.height + ray.sprite_height / 2) * step;
-		j = draw_start;
-		ray.texture = ray.tex_north;
-		while (j < draw_end)
-		{
-			ray.sprite_y = (int)sprite_pos & (ray.tex_height - 1);
-			sprite_pos +=step;
-			if (ray.tex_sprite[(int)(ray.tex_height * ray.sprite_y + ray.sprite_x)] != 1)
-				mlx->image_data[j * map.resolution[0] + column] = ray.tex_sprite[(int)(ray.tex_height * ray.sprite_y + ray.sprite_x)];
-			j++;
-		}
-		i--;
-	}
-}
-*/
