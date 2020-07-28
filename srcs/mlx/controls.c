@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 10:29:58 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/24 12:05:07 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/28 14:10:57 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,9 @@ void	move_player(t_player *player, t_map map, float angle)
 				cos((angle * PI) / 180.0))) * 0.1 * player->speed);
 	diff_x = fabs(new_pos_x - player->position_x);
 	diff_y = fabs(new_pos_y - player->position_y);
-	if (map.map[(int)(new_pos_x)][(int)(player->position_y)] != '1')
+	if (!is_solid_cell(map, (int)(new_pos_x), (int)(player->position_y)))
 		player->position_x = new_pos_x;
-	if (map.map[(int)(player->position_x)][(int)(new_pos_y)] != '1')
+	if (!is_solid_cell(map, (int)(player->position_x), (int)(new_pos_y)))
 		player->position_y = new_pos_y;
 }
 

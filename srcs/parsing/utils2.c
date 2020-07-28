@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 17:01:29 by lchapren          #+#    #+#             */
-/*   Updated: 2020/06/10 12:29:11 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/28 14:08:42 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,10 @@ int		player_verification(char **map, int error_number)
 	return (1);
 }
 
-int		is_solid_cell(t_data data, int x, int y)
+int		is_solid_cell(t_map map, int x, int y)
 {
-	if (data.map.map[x][y] == '1' || data.map.map[x][y] == '2')
+	if (map.map[x][y] == '1' || map.map[x][y] == '2')
 		return (1);
 	return (0);
 }
+
