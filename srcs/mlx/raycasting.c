@@ -6,7 +6,7 @@
 /*   By: lchapren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 13:57:58 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/28 11:08:45 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/07/28 13:44:10 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,10 +138,10 @@ void	draw_untextured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int colu
             mlx->image_data[column + (i * map.resolution[0])] = 13158600;
         else
         {
-            if (i > map.resolution[1] / player.height)
-                mlx->image_data[column + (i * map.resolution[0])] = (map.ceiling_color[2] * 65536) + (map.ceiling_color[1] * 256) + map.ceiling_color[0];
+            if (i < map.resolution[1] / player.height)
+                mlx->image_data[column + (i * map.resolution[0])] = (map.ceiling_color[0] * 65536) + (map.ceiling_color[1] * 256) + map.ceiling_color[2];
             else
-                mlx->image_data[column + (i * map.resolution[0])] = (map.floor_color[2] * 65536) + (map.floor_color[1] * 256) + map.floor_color[0];
+                mlx->image_data[column + (i * map.resolution[0])] = (map.floor_color[0] * 65536) + (map.floor_color[1] * 256) + map.floor_color[2];
 		}
         i++;
     }
@@ -196,9 +196,9 @@ void	draw_textured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column
 		if (i < draw_start || i >= draw_end)	//sol plafond
 		{
 			if (i < map.resolution[1] / player.height)
-				mlx->image_data[column + (i * map.resolution[0])] = (map.ceiling_color[2] * 65536) + (map.ceiling_color[1] * 256) + map.ceiling_color[0];
+				mlx->image_data[column + (i * map.resolution[0])] = (map.ceiling_color[0] * 65536) + (map.ceiling_color[1] * 256) + map.ceiling_color[2];
             else
-				mlx->image_data[column + (i * map.resolution[0])] = (map.floor_color[2] * 65536) + (map.floor_color[1] * 256) + map.floor_color[0];
+				mlx->image_data[column + (i * map.resolution[0])] = (map.floor_color[0] * 65536) + (map.floor_color[1] * 256) + map.floor_color[2];
 		}
 		else	//texture
 		{
