@@ -6,7 +6,7 @@
 /*   By: lchapren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 13:57:58 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/12 14:05:48 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/12 14:30:38 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,23 +96,29 @@ void	get_wall(t_data data, t_ray *ray, t_map map, t_player player)
 void	draw_untextured(t_mlx *mlx, t_ray ray, t_player player, t_map map)
 {
 	int		i;
-	int 	draw_start;
-	int		draw_end;
+	int		start;
+	int		end;
 
-	if ((draw_start = -ray.wall_height / 2 + map.res[1] / player.height) < 0)
-		draw_start = 0;
-	if ((draw_end = ray.wall_height / 2 + map.res[1] / player.height) > map.res[1])
-		draw_end = map.res[1] - 1;
-	i = 0;
-	while (i < map.res[1])
+	if ((start = -ray.wall_height / 2 + map.res[1] / player.height) < 0)
+		start = 0;
+	if ((end = ray.wall_height / 2 + map.res[1] / player.height) > map.res[1])
+		end = map.res[1] - 1;
+	i = -1;
+	while (++i < map.res[1])
 	{
-		if (i > draw_start && i < draw_end && ray.hit_side == 0)
+		if (i > start && i < end && ray.hit_side == 0)
 			mlx->image_data[ray.column + (i * map.res[0])] = 16777215;
-		else if (i > draw_start && i < draw_end && ray.hit_side == 1)
+		else if (i > start && i < end && ray.hit_side == 1)
 			mlx->image_data[ray.column + (i * map.res[0])] = 13158600;
 		else
-			draw_ceiling_floor(mlx, ray, player, map, i);
-		i++;
+		{
+			if (i < map.res[1] / player.height)
+				mlx->image_data[ray.column + (i * map.res[0])] = \
+(map.ceil_color[0] << 16) + (map.ceil_color[1] << 8) + map.ceil_color[2];
+			else
+				mlx->image_data[ray.column + (i * map.res[0])] = \
+(map.floor_color[0] << 16) + (map.floor_color[1] << 8) + map.floor_color[2];
+		}
 	}
 }
 
@@ -121,8 +127,8 @@ void	draw_textured(t_mlx *mlx, t_ray ray, t_player player, t_map map)
 	float	wall_x;
 	float	step;
 	float	tex_pos;
-	int		draw_start;
-	int		draw_end;
+	int		start;
+	int		end;
 	int		i;
 
 	if (ray.hit_side == 0)	//calcul wall_x
@@ -136,13 +142,13 @@ void	draw_textured(t_mlx *mlx, t_ray ray, t_player player, t_map map)
 	if (ray.hit_side == 1 && ray.raydir_y < 0)
 		ray.tex_x = ray.tex_width - ray.tex_x - 1;
 	//calcul draw_start draw_end
-	if ((draw_start = -ray.wall_height / 2.0 + map.res[1] / player.height) < 0)
-		draw_start = 0;
-	if ((draw_end = ray.wall_height / 2.0 + map.res[1] / player.height) > map.res[1])
-		draw_end = map.res[1] - 1;
+	if ((start = -ray.wall_height / 2.0 + map.res[1] / player.height) < 0)
+		start = 0;
+	if ((end = ray.wall_height / 2.0 + map.res[1] / player.height) > map.res[1])
+		end = map.res[1] - 1;
 	//calcul step pour tex_y
 	step = 1.0 * ray.tex_height / ray.wall_height;
-	tex_pos = (draw_start - map.res[1] / player.height + ray.wall_height / 2.0) * step;
+	tex_pos = (start - map.res[1] / player.height + ray.wall_height / 2.0) * step;
 	//prendre la bonne texture
 	if (ray.hit_side == 0)
 	{
@@ -159,11 +165,18 @@ void	draw_textured(t_mlx *mlx, t_ray ray, t_player player, t_map map)
 			ray.texture = ray.tex_east;
 	}
 	i = 0;
-	//boucle draw
+	//boucle draw faire une seule function qui draw tout au lieu d'une fonction juste sol plafond
 	while (i < map.res[1])
 	{
-		if (i < draw_start || i > draw_end)	//sol plafond
-			draw_ceiling_floor(mlx, ray, player, map, i);
+		if (i < start || i > end)	//sol plafond
+		{
+			if (i < map.res[1] / player.height)
+	        	mlx->image_data[ray.column + (i * map.res[0])] = \
+				(map.ceil_color[0] << 16) + (map.ceil_color[1] << 8) + map.ceil_color[2];
+    		else
+	        	mlx->image_data[ray.column + (i * map.res[0])] = \
+				(map.floor_color[0] << 16) + (map.floor_color[1] << 8) + map.floor_color[2];	 
+		}
 		else	//texture
 		{
 			ray.tex_y = (int)tex_pos & (ray.tex_height - 1);

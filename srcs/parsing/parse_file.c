@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:41:55 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/12 10:53:57 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/12 14:27:23 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_map	call_parsing(t_map map, char *line)
 	else if (line[0] == 'F')
 		map.floor_color = get_values(&line[1], ',', 3);
 	else if (line[0] == 'C')
-		map.ceiling_color = get_values(&line[1], ',', 3);
+		map.ceil_color = get_values(&line[1], ',', 3);
 	else if (line[0] == 'N' && line[1] == 'O')
 		map.north_texture = get_texture_path(line, ' ');
 	else if (line[0] == 'S' && line[1] == 'O')

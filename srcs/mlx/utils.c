@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 09:58:37 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/12 14:04:41 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/12 14:28:41 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ void	get_sprite(t_ray *ray, t_player player, t_map map)
 }
 
 void	draw_ceiling_floor(t_mlx *mlx, t_ray ray, t_player player, t_map map, int i)
-{
+{//this function makes me lag really hard
 	if (i < map.res[1] / player.height)
 		mlx->image_data[ray.column + (i * map.res[0])] = \
-		(map.ceiling_color[0] << 16) + (map.ceiling_color[1] << 8) + map.ceiling_color[2];
+		(map.ceil_color[0] << 16) + (map.ceil_color[1] << 8) + map.ceil_color[2];
 	else
 		mlx->image_data[ray.column + (i * map.res[0])] = \
 		(map.floor_color[0] << 16) + (map.floor_color[1] << 8) + map.floor_color[2];

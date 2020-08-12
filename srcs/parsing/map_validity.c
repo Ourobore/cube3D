@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 13:23:38 by lchapren          #+#    #+#             */
-/*   Updated: 2020/06/10 12:27:37 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/12 14:27:42 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		map_validity(t_data data)
 {
 	//valid_resolution(data, data.map.resolution, 1);
 	valid_color(data.map.floor_color, 2);
-	valid_color(data.map.ceiling_color, 3);
+	valid_color(data.map.ceil_color, 3);
 	valid_path(data.map.north_texture, 11);
 	valid_path(data.map.south_texture, 12);
 	valid_path(data.map.west_texture, 13);
