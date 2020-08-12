@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:41:02 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/28 14:11:32 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/10 10:59:47 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 /*
 **Parsing functions
 */
-t_map	init_map();
 t_map	parse_file(char **map_file);
 t_map	call_parsing(t_map map, char *line);
 char	**get_map_file(char *map_path);
@@ -26,7 +25,6 @@ char	**get_map(char **map_file);
 char	*get_texture_path(char *line, char sep);
 int		*get_values(char *line, char sep, int nb_values);
 char	*space_trim(char *s);
-char	*rm_map_spaces(char *map_line);
 int		is_map_character(char c);
 int		only_map_characters(char **map_file);
 
@@ -55,10 +53,18 @@ int		is_solid_cell(t_map map, int x, int y);
 void	free_double_array(char **double_array);
 
 /*
+**Save functions
+*/
+void	fill_oct(char *str, int data);
+void	fill_save(t_mlx mlx, int *res, int fd, int end);
+void	write_bmp(t_data data, int fd);
+
+/*
 **Error functions
 */
 void	calloc_error();
 void	map_error();
+void	param_error(int ac, char *param);
 void	map_validity_error(int error);
 
 #endif

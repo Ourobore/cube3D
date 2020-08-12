@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 11:36:22 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/27 12:37:16 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/10 10:41:33 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ int main(int ac, char **av)
 	map_path = ft_strdup(av[1]);
 	valid_map_path(map_path);
 	
-	map = init_map();
-	printf("\n==================MAIN================\n");
+	intf("\n==================MAIN================\n");
 	map = parse_file(get_map_file(map_path));
 
 	printf("\n###############################################\n");
@@ -53,12 +52,16 @@ int main(int ac, char **av)
 	//(void)av;
 	//char *map_path = ft_strdup(av[1]);
 	valid_map_path(av[1]);
+	if (ac >= 3)
+	{
+		param_error(ac, av[2]);
+		data.save = 1;
+	}
 	map = parse_file(get_map_file(av[1]));
 	player = initial_player_position(map.map);
 	data.mlx = start_mlx(map);
 	ray.textures = 1;
 	get_sprite_list(&ray, player, map);
-	printf("SPRITES COUNT: %d\n", map.sprite_count);
 	data.ray = ray;
 	data.player = player;
 	data.map = map;
@@ -68,6 +71,13 @@ int main(int ac, char **av)
 	//printf("TEX WIDTH:%d TEX HEIGHT: %d", )
 	get_textures(&data, &(data.ray), data.map);
 	raycasting(&data, &(data.player), &(data.ray), map);
+	int	fd;
+	if (data.save == 1)
+	{
+		if (!(fd = open("./save.bmp", O_WRONLY | O_CREAT, 0644)))
+			exit(-1);
+		write_bmp(data, fd);
+	}
 	mlx_hook(data.mlx.window_ptr, KEYPRESS, KEYPRESSMASK, key_press_hook, &data);
 	mlx_hook(data.mlx.window_ptr, KEYRELEASE, KEYRELEASEMASK, key_release_hook, &data);
 	mlx_loop_hook(data.mlx.mlx_ptr, raycasting_loop, &data);

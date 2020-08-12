@@ -19,8 +19,6 @@ typedef struct	s_mlx
 	void	*window_ptr;
 	void	*image;
 	int		*image_data;
-	int test;
-	int		rendered;
 }				t_mlx;
 
 #endif

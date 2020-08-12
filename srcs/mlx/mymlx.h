@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:05:46 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/27 12:46:33 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/12 14:04:15 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,35 +57,31 @@ void		player_control(t_player *player, t_map map);
 void		move_player(t_player *player, t_map map, float angle);
 void		rotate_player(t_player *player, float angle);
 int			player_moved(t_data *data);
-float		*rotate_direction(float direction_x, float direction_y, float angle);
-
+float		*rotate_direction(float direction_x, float direction_y, \
+				float angle);
 
 /*
 ** Raycasting functions
 */
-t_data	new_image(t_data data);
+t_data		new_image(t_data data);
 
-void	raycasting(t_data *data, t_player *player, t_ray *ray, t_map map);
+void		raycasting(t_data *data, t_player *player, t_ray *ray, t_map map);
 
 t_player	get_plane(t_player player, char spawn_dir);
-void	get_steps(t_player *player, t_ray *ray);
-void	get_wall(t_data data, t_ray *ray, t_map map, t_player player);
-void	draw_untextured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column);
-void	draw_textured(t_mlx *mlx, t_ray ray, t_player player, t_map map, int column);
-void	get_textures(t_data *data, t_ray *ray, t_map map);
-void	texture_error(t_data *data, t_ray *ray);
-int		*get_img_addr(void *ptr);
-void	get_sprite_list(t_ray *ray, t_player player, t_map map);
-int		get_sprite_index(t_sp *list, t_map map, int map_x, int map_y);
-int		get_farest_visible_sprite(t_sp *list, t_map map);
-void	draw_sprite(t_mlx *mlx, t_ray *ray, t_player player, t_map map);
+void		get_steps(t_player *player, t_ray *ray);
+float		get_distance(t_ray ray, t_player player);
+void		get_sprite(t_ray *ray, t_player player, t_map map);
+void		get_wall(t_data data, t_ray *ray, t_map map, t_player player);
+void		draw_ceiling_floor(t_mlx *mlx, t_ray ray, t_player player, t_map map, int i);
+void		draw_untextured(t_mlx *mlx, t_ray ray, t_player player, t_map map);
+void		draw_textured(t_mlx *mlx, t_ray ray, t_player player, t_map map);
+void		get_textures(t_data *data, t_ray *ray, t_map map);
+void		texture_error(t_data *data, t_ray *ray);
+int			*get_img_addr(void *ptr);
+void		get_sprite_list(t_ray *ray, t_player player, t_map map);
+int			get_sprite_index(t_sp *list, t_map map, int map_x, int map_y);
+int			get_farest_visible_sprite(t_sp *list, t_map map);
+void		get_sprite_position(t_ray *ray, t_map map, t_player player, int i);
+void		draw_sprite(t_mlx *mlx, t_ray *ray, t_player player, t_map map);
 
-/*
-** Tests functions
-*/
-
-void	my_raycasting(t_data *data);
-float	get_distance(t_data *data, float *ray_dir);
-float	wall_hit(t_data *data, float distance, float side_x, float side_y);
-void	draw_column(t_data data);
 #endif

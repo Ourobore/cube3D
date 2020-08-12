@@ -6,7 +6,7 @@
 /*   By: lchapren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 12:23:51 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/28 12:36:51 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/12 13:02:24 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,63 +74,59 @@ int		get_farest_visible_sprite(t_sp *list, t_map map)
 	return (index);
 }
 
+void	get_sprite_position(t_ray *ray, t_map map, t_player player, int i)
+{
+	ray->invdet = 1.0 / (player.plane_x * player.dir_y - \
+					player.dir_x * player.plane_y);
+	ray->sp_list[i].x = ray->sp_list[i].map_x - player.pos_x;
+	ray->sp_list[i].y = ray->sp_list[i].map_y - player.pos_y;
+	ray->real_x = ray->invdet * (player.dir_y * ray->sp_list[i].x - \
+					player.dir_x * ray->sp_list[i].y);
+	ray->real_y = ray->invdet * (-player.plane_y * ray->sp_list[i].x + \
+					player.plane_x * ray->sp_list[i].y);
+	ray->sp_list[i].height = fabs((map.res[1] / ray->real_y) / 2);
+	ray->sprite_screen_x = (map.res[0] / 2) * (1 + ray->real_x / ray->real_y);
+	ray->move_sprite = (ray->tex_height / 110.0) * map.res[1] / ray->real_y;
+	ray->start_y = -ray->sp_list[i].height / 2 + map.res[1] / player.height + \
+					ray->move_sprite;
+	if (ray->start_y < 0)
+		ray->start_y = 0;
+	ray->end_y = ray->sp_list[i].height / 2 + map.res[1] / player.height + \
+					ray->move_sprite;
+	if (ray->end_y >= map.res[1])
+		ray->end_y = map.res[1];
+	ray->start_x = -ray->sp_list[i].height / 2 + ray->sprite_screen_x;
+	if (ray->start_x < 0)
+		ray->start_x = 0;
+	ray->end_x = ray->sp_list[i].height / 2 + ray->sprite_screen_x;
+	if (ray->end_x >= map.res[0])
+		ray->end_x = map.res[0];
+}
+
 void	draw_sprite(t_mlx *mlx, t_ray *ray, t_player player, t_map map)
 {
-	int	i;
-	int	x;
-	int	y;
-	int d;
-	int	movescreen;
-	int	draw_start_x;
-	int	draw_start_y;
-	int	draw_end_x;
-	int	draw_end_y;
-	int	sprite_screen_x;
-	float	invdet;
-	float	transform_x;
-	float	transform_y;
+	int		i;
 
-	invdet = 1.0 / (player.plane_x * player.direction_y - player.direction_x * player.plane_y);
 	while ((i = get_farest_visible_sprite(ray->sp_list, map)) != -1)
 	{
-		ray->sp_list[i].x = ray->sp_list[i].map_x - player.position_x;
-		ray->sp_list[i].y = ray->sp_list[i].map_y - player.position_y;
-		transform_x = invdet * (player.direction_y * ray->sp_list[i].x - player.direction_x * ray->sp_list[i].y);
-		transform_y = invdet * (-player.plane_y * ray->sp_list[i].x + player.plane_x * ray->sp_list[i].y);
-		sprite_screen_x = (int)((map.resolution[0] / 2) * (1 + transform_x / transform_y));
-		movescreen = (int)(/*(2 / player.height) * */(320.0 / transform_y));
-
-		ray->sp_list[i].height = abs((int)(map.resolution[1] / transform_y)) / 2;// derniere divivion par deux pour changer la taille
-		draw_start_y = -ray->sp_list[i].height / 2 + map.resolution[1] / player.height  + movescreen;
-		if (draw_start_y < 0)
-			draw_start_y = 0;
-		draw_end_y = ray->sp_list[i].height / 2 + map.resolution[1] / player.height + movescreen;
-		if (draw_end_y >= map.resolution[1])
-			draw_end_y = map.resolution[1] - 1;
-		draw_start_x = -ray->sp_list[i].height / 2 + sprite_screen_x;
-		if (draw_start_x < 0)
-			draw_start_x = 0;
-		draw_end_x = ray->sp_list[i].height / 2 + sprite_screen_x;
-		if (draw_end_x >= map.resolution[0])
-			draw_end_x = map.resolution[0] - 1;
-	
-		x = draw_start_x;
-		while (x < draw_end_x)
+		get_sprite_position(ray, map, player, i);
+		ray->x = ray->start_x - 1;
+		while (++ray->x < ray->end_x)
 		{
-			ray->tex_x = (int)(256 * (x - (-ray->sp_list[i].height / 2 + sprite_screen_x)) * ray->tex_width / ray->sp_list[i].height) / 256;
-			if (transform_y > 0 && x > 0 && x < map.resolution[0] && transform_y < ray->buff_dist[x])
-			{
-				y = draw_start_y;
-				while (y < draw_end_y)
+			ray->tex_x = (ray->x - (-ray->sp_list[i].height / 2 + \
+ray->sprite_screen_x)) * ray->tex_width / ray->sp_list[i].height;
+			if (ray->real_y > 0 && ray->x >= 0 && ray->x < map.res[0] && \
+ray->real_y < ray->buff_dist[ray->x] && (ray->y = ray->start_y - 1))
+				while (++ray->y < ray->end_y)
 				{
-					d = (y - movescreen) * 256 - map.resolution[1] * (2 / player.height) * 128 + ray->sp_list[i].height * 128;
-					ray->tex_y = ((d * ray->tex_height) / ray->sp_list[i].height) / 256;
-					if (ray->tex_sprite[(int)(ray->tex_width * ray->tex_y + ray->tex_x)] != 0x000001)
-						mlx->image_data[y * map.resolution[0] + x] = ray->tex_sprite[(int)(ray->tex_width * ray->tex_y + ray->tex_x)];
-					y++;
+					ray->tex_y = (((int)((ray->y - ray->move_sprite) * 256 - \
+map.res[1] * (2 / player.height) * 128 + ray->sp_list[i].height * 128) * \
+ray->tex_height) / ray->sp_list[i].height) / 256;
+					if (ray->tex_sprite[(int)(ray->tex_width * \
+ray->tex_y + ray->tex_x)] != 0x000001)
+						mlx->image_data[ray->y * map.res[0] + ray->x] = \
+ray->tex_sprite[(int)(ray->tex_width * ray->tex_y + ray->tex_x)];
 				}
-			}
-			x++;
 		}
 		ray->sp_list[i].on_screen = 0;
 	}

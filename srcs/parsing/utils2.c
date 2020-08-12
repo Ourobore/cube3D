@@ -90,11 +90,3 @@ int		player_verification(char **map, int error_number)
 		map_validity_error(error_number);
 	return (1);
 }
-
-int		is_solid_cell(t_map map, int x, int y)
-{
-	if (map.map[x][y] == '1' || map.map[x][y] == '2')
-		return (1);
-	return (0);
-}
-

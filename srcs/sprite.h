@@ -13,7 +13,7 @@
 #ifndef SPRITE_H
 # define SPRITE_H
 
-typedef struct  s_sp
+typedef struct	s_sp
 {
 	float	distance;
 	float	map_x;
@@ -21,8 +21,7 @@ typedef struct  s_sp
 	float	x;
 	float	y;
 	int		height;
-	//int		width;
 	int		on_screen;
-}               t_sp;
+}				t_sp;
 
 #endif

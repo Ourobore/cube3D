@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 10:14:06 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/27 11:21:14 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/10 10:40:54 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	calloc_error(void)
 {
 	write(1, "Error\n", 6);
 	perror("Memory allocation problem");
-	system("leaks Cube3D");
 	exit(1);
 }
 
@@ -24,7 +23,6 @@ void	map_error(void)
 {
 	write(1, "Error\n", 6);
 	perror("Parsing map problem");
-	system("leaks Cube3D");
 	exit(2);
 }
 
@@ -53,8 +51,25 @@ void	map_validity_error(int error)
 		perror("Invalid sprite texture path");
 	else if (error == 16)
 		perror("Invalid map file path");
-	//system("leaks Cube3D");
 	exit(3);
+}
+
+void	param_error(int ac, char *param)
+{
+	if (ac > 3)
+	{
+		write(1, "Error\n", 6);
+		perror("Wrong number of parameters");
+		exit(3);
+	}
+	if (ft_strlen(param) != 6 || param[0] != '-' || param[1] != '-' || \
+		param[2] != 's' || param[3] != 'a' || param[4] != 'v' || \
+		param[5] != 'e')
+	{
+		write(1, "Error\n", 6);
+		perror("Wrong argument for saving");
+		exit(4);
+	}
 }
 
 int		valid_map_path(char *map_path)

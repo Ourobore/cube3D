@@ -27,20 +27,14 @@ char	**get_map_file(char *map_path)
 	while ((r = get_next_line(fd, &line)))
 	{
 		if (i > NB_ELEMENTS && blank_line(line))
-		{
 			map_error();
-		}
 		if (!blank_line(line))
 			map[i++] = ft_strdup(line);
 		free(line);
 	}
-	//(blank_line(line) ? map_error() : (map[i] = space_trim(ft_strdup(line))));
 	free(line);
 	i = NB_ELEMENTS;
-	//while (map[i])
-	//	((map[i] = rm_map_spaces(map[i])) && i++);
 	close(fd);
-	//free(map_path);
 	return (map);
 }
 
@@ -77,29 +71,4 @@ int		nb_lines(char *map_path)
 	}
 	close(fd);
 	return (count);
-}
-
-char	*rm_map_spaces(char *map_line)
-{
-	int		i;
-	int		j;
-	char	*new_line;
-
-	i = 0;
-	j = 0;
-	while (map_line[i])
-		if (!is_whitespace(map_line[i++]))
-			j++;
-	if (!(new_line = ft_calloc(sizeof(char), j + 1)))
-		calloc_error();
-	i = 0;
-	j = 0;
-	while (map_line[i])
-	{
-		if (!is_whitespace(map_line[i]))
-			new_line[j++] = map_line[i];
-		i++;
-	}
-	free(map_line);
-	return (new_line);
 }

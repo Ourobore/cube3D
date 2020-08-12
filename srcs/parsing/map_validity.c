@@ -56,7 +56,6 @@ int		valid_path(char *path, int error_number)
 
 	if ((fd = open(path, O_RDONLY)) == -1)
 		map_validity_error(error_number);
-	//Check file type
 	close(fd);
 	return (1);
 }

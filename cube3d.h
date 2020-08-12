@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 10:39:44 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/27 09:12:49 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/10 10:28:29 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # include "./minilibx-linux/mlx.h"
 
 # define NB_ELEMENTS 8
-# define PLAYER_HEIGHT 2
+# define PLAYER_HEIGHT 2.0
 # define ROTATION_ANGLE 3
 # define BASE_SPEED 1
 # define SPRINT 3

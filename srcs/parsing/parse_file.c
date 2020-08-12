@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:41:55 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/27 09:49:26 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/12 10:53:57 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,20 @@ t_map	parse_file(char **map_file)
 t_map	call_parsing(t_map map, char *line)
 {
 	if (line[0] == 'R')
-		map.resolution = get_values(&line[1], ' ', 2);
+		map.res = get_values(&line[1], ' ', 2);
 	else if (line[0] == 'F')
 		map.floor_color = get_values(&line[1], ',', 3);
 	else if (line[0] == 'C')
 		map.ceiling_color = get_values(&line[1], ',', 3);
-	else if (line[0] == 'N' && line[1] == 'O' /*&& !map.north_texture*/)
+	else if (line[0] == 'N' && line[1] == 'O')
 		map.north_texture = get_texture_path(line, ' ');
-	else if (line[0] == 'S' && line[1] == 'O' /*&& !map.south_texture*/)
+	else if (line[0] == 'S' && line[1] == 'O')
 		map.south_texture = get_texture_path(line, ' ');
-	else if (line[0] == 'W' && line[1] == 'E' /*&& !map.west_texture*/)
+	else if (line[0] == 'W' && line[1] == 'E')
 		map.west_texture = get_texture_path(line, ' ');
-	else if (line[0] == 'E' && line[1] == 'A' /*&& !map.east_texture*/)
+	else if (line[0] == 'E' && line[1] == 'A')
 		map.east_texture = get_texture_path(line, ' ');
-	else if (line[0] == 'S' /*&& !map.sprite_texture*/)
+	else if (line[0] == 'S')
 		map.sprite_texture = get_texture_path(line, ' ');
 	else
 	{

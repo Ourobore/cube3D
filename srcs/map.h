@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:54:05 by lchapren          #+#    #+#             */
-/*   Updated: 2020/07/27 09:22:42 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/12 10:52:39 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 typedef struct	s_map
 {
-	int		*resolution;
+	int		*res;
 	int		*floor_color;
 	int		*ceiling_color;
 
