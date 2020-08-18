@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:05:46 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/12 14:04:15 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/18 14:41:50 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,11 @@ void		raycasting(t_data *data, t_player *player, t_ray *ray, t_map map);
 
 t_player	get_plane(t_player player, char spawn_dir);
 void		get_steps(t_player *player, t_ray *ray);
-float		get_distance(t_ray ray, t_player player);
+double		get_distance(t_ray ray, t_player player);
 void		get_sprite(t_ray *ray, t_player player, t_map map);
 void		get_wall(t_data data, t_ray *ray, t_map map, t_player player);
-void		draw_ceiling_floor(t_mlx *mlx, t_ray ray, t_player player, t_map map, int i);
+void		select_texture(t_ray *ray, t_player player);
+void		textured_loop(t_mlx *mlx, t_ray ray, t_player player, t_map map);
 void		draw_untextured(t_mlx *mlx, t_ray ray, t_player player, t_map map);
 void		draw_textured(t_mlx *mlx, t_ray ray, t_player player, t_map map);
 void		get_textures(t_data *data, t_ray *ray, t_map map);

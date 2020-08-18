@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 12:57:51 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/12 13:45:25 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/18 15:53:59 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,27 @@
 
 typedef struct	s_ray
 {
-	float	*camera_plane;
-	float	raydir_x;
-	float	raydir_y;
+	double	*camera_plane;
+	double	raydir_x;
+	double	raydir_y;
 	int		step_x;
 	int		step_y;
 	int		map_x;
 	int		map_y;
-	float	delta_x;
-	float	delta_y;
-	float	side_x;
-	float	side_y;
+	double	delta_x;
+	double	delta_y;
+	double	side_x;
+	double	side_y;
+	double	tex_pos;
+	double	tex_step;
 
-	int		wall_x; // a remplacer dans le code
+	//int		wall_x; // a remplacer dans le code
 
 	t_sp	*sp_list;
-	float	*buff_dist;
+	double	*buff_dist;
 
-	float	tex_x;
-	float	tex_y;
+	int		tex_x;
+	int		tex_y;
 	int		tex_width;
 	int		tex_height;
 	int		*texture;
@@ -60,9 +62,9 @@ typedef struct	s_ray
 	int		move_sprite;
 	int		sprite_screen_x;
 
-	float	wall_distance;
-	float	wall_height;
-	int		wall_hit;
+	double	wall_distance;
+	double	wall_height;
+	//int		wall_hit;
 	int		hit_side;
 	int		column;
 	int		textures;

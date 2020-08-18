@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 09:58:37 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/12 14:28:41 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/18 14:41:24 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,16 @@ int		player_moved(t_data *data)
 		return (1);
 }
 
-float	get_distance(t_ray ray, t_player player)
+double	get_distance(t_ray ray, t_player player)
 {
-	float distance;
+	double distance;
 
 	if (ray.hit_side == 0)
-		distance = fabs((ray.map_x - player.pos_x + \
-					(1.0 - ray.step_x) / 2.0) / ray.raydir_x);
+		distance = (double)fabs(((double)ray.map_x - player.pos_x + \
+					(1.0 - (double)ray.step_x) / 2.0) / ray.raydir_x);
 	else
-		distance = fabs((ray.map_y - player.pos_y + \
-					(1.0 - ray.step_y) / 2.0) / ray.raydir_y);
+		distance = (double)fabs(((double)ray.map_y - player.pos_y + \
+					(1.0 - (double)ray.step_y) / 2.0) / ray.raydir_y);
 	return (distance);
 }
 
@@ -59,14 +59,4 @@ void	get_sprite(t_ray *ray, t_player player, t_map map)
 		ray->sp_list[i].distance = get_distance(*ray, player);
 		ray->sp_list[i].on_screen = 1;
 	}
-}
-
-void	draw_ceiling_floor(t_mlx *mlx, t_ray ray, t_player player, t_map map, int i)
-{//this function makes me lag really hard
-	if (i < map.res[1] / player.height)
-		mlx->image_data[ray.column + (i * map.res[0])] = \
-		(map.ceil_color[0] << 16) + (map.ceil_color[1] << 8) + map.ceil_color[2];
-	else
-		mlx->image_data[ray.column + (i * map.res[0])] = \
-		(map.floor_color[0] << 16) + (map.floor_color[1] << 8) + map.floor_color[2];
 }

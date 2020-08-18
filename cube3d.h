@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 10:39:44 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/10 10:28:29 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/18 14:14:23 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,7 @@
 # define PLAYER_HEIGHT 2.0
 # define ROTATION_ANGLE 3
 # define BASE_SPEED 1
-# define SPRINT 3
+# define SPRINT 2
 # define BONUS 1
-
-
 
 #endif
