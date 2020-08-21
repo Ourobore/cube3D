@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:05:46 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/21 15:00:14 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/21 16:30:18 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define KEYPRESSMASK 1
 # define KEYRELEASEMASK 10
 # define DESTROYNOTIFY 17
-# define LEAVEWINDOWMASK 32
+# define STRUCTNOTIFYMASK 131072
 
 # define FOWARD 13/*119*/
 # define BACKWARD 1/*115*/
@@ -44,6 +44,7 @@ t_player	init_player(t_player player);
 t_player	initial_player_position(char **map);
 t_player	get_player(char c, int i, int j);
 void		free_mlx(t_mlx window);
+int			destroy_window(t_data *data);
 void		clean_exit(t_data *data, int exit_code);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:41:55 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/12 14:27:23 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/21 16:10:42 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ t_map	parse_file(char **map_file)
 {
 	int		i;
 	int		j;
-	char	**parse;
 	t_map	map;
 
 	i = 0;

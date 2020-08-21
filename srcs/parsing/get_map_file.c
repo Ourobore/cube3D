@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 10:01:37 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/21 14:19:11 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/21 16:00:37 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**get_map_file(char *map_path)
 	char	**map;
 
 	i = 0;
-	if ((fd = open(map_path, O_RDONLY)) == -1)
+	if (!map_path || (fd = open(map_path, O_RDONLY)) == -1)
 		return (NULL);
 	if (!(map = ft_calloc(sizeof(char*), nb_lines(map_path) + 1)))
 		calloc_error();

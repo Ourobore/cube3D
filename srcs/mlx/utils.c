@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 09:58:37 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/21 15:36:20 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/21 16:37:01 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,6 @@ void	clean_exit(t_data *data, int exit_code)
 		free(data->mlx.image);
 	if (data->mlx.image_data != NULL)
 		free(data->mlx.image_data);
+	system("leaks Cube3D");
 	exit(exit_code);
 }
