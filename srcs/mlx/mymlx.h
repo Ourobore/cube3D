@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:05:46 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/18 14:41:50 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/21 12:13:28 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@
 # define LEFT 0/*97*/
 # define RIGHT 2/*100*/
 # define SHIFT 257/*65505*/
-# define CONTROL 256
+# define SPACE 49
 # define ESC 53/*65307*/
-# define M 46/*109*/
 # define T 17
 # define TURNLEFT 123/*65361*/
 # define TURNRIGHT 124/*65363*/
@@ -51,12 +50,12 @@ void		free_mlx(t_mlx window);
 */
 int			key_press_hook(int key, t_data *data);
 int			key_release_hook(int key, t_data *data);
-int			raycasting_loop(t_data *data);
+void		bonus_key_press(int key, t_data *data);
+void		bonus_key_release(int key, t_data *data);
 int			mouse_hook(int key, t_mlx *param);
-void		player_control(t_player *player, t_map map);
+int			player_control(t_data *data);
 void		move_player(t_player *player, t_map map, float angle);
 void		rotate_player(t_player *player, float angle);
-int			player_moved(t_data *data);
 float		*rotate_direction(float direction_x, float direction_y, \
 				float angle);
 

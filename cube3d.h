@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 10:39:44 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/18 14:14:23 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/21 12:23:28 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,8 @@
 
 # define NB_ELEMENTS 8
 # define PLAYER_HEIGHT 2.0
-# define ROTATION_ANGLE 3
-# define BASE_SPEED 1
-# define SPRINT 2
-# define BONUS 1
+# define ROTATION_ANGLE 3.0
+# define BASE_SPEED 1.0
+# define SPRINT 1.7
 
 #endif

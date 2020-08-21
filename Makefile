@@ -14,6 +14,7 @@ SRCS	=	$(RSRCS)/parsing/get_map_file.c \
 			$(RSRCS)/mlx/textures.c \
 			$(RSRCS)/mlx/sprites.c \
 			$(RSRCS)/mlx/controls.c \
+			$(RSRCS)/mlx/bonus_controls.c \
 			$(RSRCS)/mlx/utils.c
 
 OBJS	:=	${SRCS:.c=.o}
@@ -43,8 +44,19 @@ $(NAME)	:	$(OBJS)
 			@make -C ./minilibx-opengl
 			cp $(LIBFT) ./$(LIB)
 			ar -rcs $(LIB) $(OBJS)
-			#gcc $(FLAGS) -g3 -fsanitize=address main.c $(LIB) $(LIBMLX) -o $(NAME) -L$(LIBMLX) -lXext -lX11 -lm
-			gcc $(FLAGS) -g3 -fsanitize=address main.c $(LIB) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
+			#gcc $(FLAGS) -g3 -fsanitize=address -D BONUS=0 main.c $(LIB) $(LIBMLX) -o $(NAME) -L$(LIBMLX) -lXext -lX11 -lm
+			gcc $(FLAGS) -g3 -fsanitize=address -D BONUS=0 main.c $(LIB) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
+
+bonus	:	$(OBJS)
+			@make -C ./libft
+			#@make -C ./minilibx-linux
+			@make -C ./minilibx-opengl
+			cp $(LIBFT) ./$(LIB)
+			ar -rcs $(LIB) $(OBJS)
+			#gcc $(FLAGS) -g3 -fsanitize=address -D BONUS=1 main.c $(LIB) $(LIBMLX) -o $(NAME) -L$(LIBMLX) -lXext -lX11 -lm
+			gcc $(FLAGS) -g3 -fsanitize=address -D BONUS=1 main.c $(LIB) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
+
+
 
 clean	:	
 			rm -rf $(OBJS)

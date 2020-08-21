@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:05:37 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/12 13:55:56 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/21 09:58:24 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,4 @@ t_data	new_image(t_data data)
 	data.mlx.image_data = (int*)mlx_get_data_addr(data.mlx.image, &bpp, \
 							&line_length, &endian);
 	return (data);
-}
-
-int		raycasting_loop(t_data *data)
-{
-	//printf("loop\n");
-	player_control(&(data->player), data->map);
-	if (player_moved(data))
-	{
-		mlx_destroy_image(data->mlx.mlx_ptr, data->mlx.image);
-		raycasting(data, &(data->player), &(data->ray), data->map);
-	}
-	return (1);
 }

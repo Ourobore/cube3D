@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 09:58:37 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/12 11:02:46 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/21 12:10:45 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,6 @@ t_player	get_player(char c, int i, int j)
 	else if (c == 'W')
 		player.dir_y = -1.0;
 	player.speed = 1;
-	player.last_pos_x = 1.0;
-	player.last_pos_y = 1.0;
-	player.last_dir_x = 1.0;
-	player.last_dir_y = 1.0;
 	return (player);
 }
 
@@ -95,8 +91,10 @@ t_player	init_player(t_player player)
 	player.backward = 0;
 	player.turn_left = 0;
 	player.turn_right = 0;
-	player.speed = 1;
-	player.rotation_angle = 3;
-	player.height = 2;
+	player.sprint = 0;
+	player.crouch = 0;
+	player.speed = BASE_SPEED;
+	player.rotation_angle = ROTATION_ANGLE;
+	player.height = PLAYER_HEIGHT;
 	return (player);
 }

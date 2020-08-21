@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 13:36:00 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/18 15:02:41 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/21 11:26:12 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ typedef struct	s_player
 	double	plane_x;
 	double	plane_y;
 
+	double	sprint;
+	double	crouch;
 	double	speed;
 	double	rotation_angle;
 	double	height;
@@ -32,11 +34,6 @@ typedef struct	s_player
 	int		backward;
 	int		turn_left;
 	int		turn_right;
-
-	float	last_pos_x;
-	float	last_pos_y;
-	float	last_dir_x;
-	float	last_dir_y;
 }				t_player;
 
 #endif

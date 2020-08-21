@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 09:58:37 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/18 14:41:24 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/21 11:09:18 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,6 @@ float	*rotate_direction(float direction_x, float direction_y, float angle)
 	new_direction[1] = (direction_x * sin((angle * PI) / 180.0)) +
 		(direction_y * cos((angle * PI) / 180.0));
 	return (new_direction);
-}
-
-int		player_moved(t_data *data)
-{
-	if (data->player.last_pos_x == data->player.pos_x && \
-			data->player.last_pos_y == data->player.pos_y && \
-			data->player.last_dir_x == data->player.dir_x && \
-			data->player.last_dir_y == data->player.dir_y)
-		return (0);
-	else
-		return (1);
 }
 
 double	get_distance(t_ray ray, t_player player)

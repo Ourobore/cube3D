@@ -6,7 +6,7 @@
 /*   By: lchapren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 12:55:54 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/18 15:38:34 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/21 09:13:21 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	select_texture(t_ray *ray, t_player player)
 	}
 }
 
-void    textured_loop(t_mlx *mlx, t_ray ray, t_player player, t_map map)
+void	textured_loop(t_mlx *mlx, t_ray ray, t_player player, t_map map)
 {
 	int i;
 

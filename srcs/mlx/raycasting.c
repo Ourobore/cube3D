@@ -6,7 +6,7 @@
 /*   By: lchapren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 13:57:58 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/18 15:49:56 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/21 09:14:31 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,14 +133,16 @@ void	draw_textured(t_mlx *mlx, t_ray ray, t_player player, t_map map)
 	wall_x -= floor(wall_x);
 	ray.tex_x = (int)(wall_x * (double)(ray.tex_width));
 	if ((ray.hit_side == 0 && ray.raydir_x > 0) || \
-	   (ray.hit_side == 1 && ray.raydir_y < 0))
+		(ray.hit_side == 1 && ray.raydir_y < 0))
 		ray.tex_x = ray.tex_width - ray.tex_x - 1;
 	if ((ray.start_y = -ray.wall_height / 2.0 + map.res[1] / player.height) < 0)
 		ray.start_y = 0;
-	if ((ray.end_y = ray.wall_height / 2.0 + map.res[1] / player.height) >= map.res[1])
+	if ((ray.end_y = ray.wall_height / 2.0 + map.res[1] / player.height) \
+															>= map.res[1])
 		ray.end_y = map.res[1] - 1;
 	ray.tex_step = 1.0 * (double)ray.tex_height / ray.wall_height;
-	ray.tex_pos = (ray.start_y - map.res[1] / player.height + ray.wall_height / 2.0) * ray.tex_step;
+	ray.tex_pos = (ray.start_y - map.res[1] / player.height + \
+					ray.wall_height / 2.0) * ray.tex_step;
 	select_texture(&ray, player);
 	textured_loop(mlx, ray, player, map);
 }
