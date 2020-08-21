@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:05:46 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/21 12:13:28 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/21 15:00:14 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_player	init_player(t_player player);
 t_player	initial_player_position(char **map);
 t_player	get_player(char c, int i, int j);
 void		free_mlx(t_mlx window);
+void		clean_exit(t_data *data, int exit_code);
 
 /*
 *** Control functions

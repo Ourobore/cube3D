@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 10:14:06 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/10 10:40:54 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/21 13:39:34 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int		valid_map_path(char *map_path)
 {
 	int fd;
 
+	if (!map_path)
+		return(0);
 	if (map_path[ft_strlen(map_path) - 4] != '.' || \
 		map_path[ft_strlen(map_path) - 3] != 'c' || \
 		map_path[ft_strlen(map_path) - 2] != 'u' || \

@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 11:36:22 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/21 09:34:32 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/21 14:25:51 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int main(int ac, char **av)
 		printf("%s\n", map.map[i]);
 		i++;
 	}*/
+
 	//faire une init propre de tous les modules!
 	
 	t_data		data;
@@ -49,8 +50,6 @@ int main(int ac, char **av)
 
 	printf("\n===================MAIN===============\n");
 	(void)ac;
-	//(void)av;
-	//char *map_path = ft_strdup(av[1]);
 	valid_map_path(av[1]);
 	if (ac >= 3)
 	{
@@ -68,7 +67,6 @@ int main(int ac, char **av)
 	data.bonus = BONUS;
 	if (!map_validity(data))
 		perror("Map validity error\n");
-	//printf("TEX WIDTH:%d TEX HEIGHT: %d", )
 	get_textures(&data, &(data.ray), data.map);
 	raycasting(&data, &(data.player), &(data.ray), map);
 	int	fd;
@@ -86,14 +84,3 @@ int main(int ac, char **av)
 	//system("leaks Cube3D");
 	
 }
-/*
-t_map	get_map_file(char *map_path)
-{
-	t_map map;
-
-	valid_map_path(map_path);
-	//map = ini_map(); fonction a supprimer
-	map = parse_file(get_map_file(map_path));
-	ft_putstr_fd(map.north_texture, 0);
-
-}*/

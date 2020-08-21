@@ -6,7 +6,7 @@
 /*   By: lchapren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 13:57:58 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/21 09:14:31 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/21 15:36:14 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	raycasting(t_data *data, t_player *player, t_ray *ray, t_map map)
 	}
 	draw_sprite(&(data->mlx), ray, *player, map);
 	free(ray->buff_dist);
+	ray->buff_dist = NULL;
 	mlx_put_image_to_window(data->mlx.mlx_ptr, data->mlx.window_ptr, \
 							data->mlx.image, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 10:29:58 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/21 12:13:04 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/21 15:37:43 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,8 @@ int		key_press_hook(int key, t_data *data)
 	printf("KEY: %d\n", key);
 	if (key == ESC)
 	{
-		//faire une fonction pour bien tout clean
-		mlx_destroy_window(data->mlx.mlx_ptr, data->mlx.window_ptr);
 		write(1, "Clean exit (escape button)\n", 27);
-		//system("leaks Cube3D");
-		exit(0);
+		clean_exit(data, 0);
 	}
 	if (key == FOWARD)
 		data->player.foward = 1;

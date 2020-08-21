@@ -6,7 +6,7 @@
 /*   By: lchapren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 12:55:54 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/21 09:13:21 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/21 15:00:31 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,7 @@ void	texture_error(t_data *data, t_ray *ray)
 		mlx_destroy_image(data->mlx.mlx_ptr, ray->ptr_east);
 	if (ray->ptr_sprite)
 		mlx_destroy_image(data->mlx.mlx_ptr, ray->ptr_sprite);
-	system("leaks Cube3D");
-	exit(-1);
-	// +free ray all modules and data
+	clean_exit(data, -1);
 }
 
 void	select_texture(t_ray *ray, t_player player)

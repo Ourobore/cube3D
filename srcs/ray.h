@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 12:57:51 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/18 15:53:59 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/21 14:37:43 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ typedef struct	s_ray
 	double	side_y;
 	double	tex_pos;
 	double	tex_step;
-
-	//int		wall_x; // a remplacer dans le code
 
 	t_sp	*sp_list;
 	double	*buff_dist;
@@ -64,7 +62,6 @@ typedef struct	s_ray
 
 	double	wall_distance;
 	double	wall_height;
-	//int		wall_hit;
 	int		hit_side;
 	int		column;
 	int		textures;
