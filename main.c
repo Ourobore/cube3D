@@ -44,14 +44,14 @@ int main(int ac, char **av)
 	//faire une init propre de tous les modules!
 	
 	t_data		data;
-	t_mlx		mlx;
 	t_ray		ray;
 	t_map		map;
 	t_player	player;
 	char		*map_path;
 
 	printf("\n===================MAIN===============\n");
-	if (av[1])
+	(int)ac;
+	if (av && av[1])
 		map_path = ft_strdup(av[1]);
 	else
 		exit(0);
@@ -61,14 +61,16 @@ int main(int ac, char **av)
 		param_error(ac, av[2]);
 		data.save = 1;
 	}
+	else
+		data.save = 0;
 	map = parse_file(get_map_file(map_path));
+	free(map_path);
 	player = initial_player_position(map);
 	printf("before\n");
-	mlx.mlx_ptr = mlx_init();
-	mlx.window_ptr = mlx_new_window(mlx.mlx_ptr, map.res[0], map.res[1], "Cube3D");
+	data.mlx.mlx_ptr = mlx_init();
+	data.mlx.window_ptr = mlx_new_window(data.mlx.mlx_ptr, map.res[0], map.res[1], "Cube3D");
 	//data.mlx = start_mlx(map);
 	printf("after\n");
-	data.mlx = mlx;
 	ray.textures = 1;
 	get_sprite_list(&ray, player, map);
 	data.ray = ray;

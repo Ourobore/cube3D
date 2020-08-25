@@ -39,7 +39,7 @@
 # include <stdio.h>
 # include <errno.h>
 # include <math.h>
-# include "./minilibx-opengl/mlx.h"
+# include "./minilibx-linux/mlx.h"
 
 # define NB_ELEMENTS 8
 # define PLAYER_HEIGHT 2.0

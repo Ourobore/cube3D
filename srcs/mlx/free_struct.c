@@ -22,12 +22,12 @@ void    clean_exit(t_data *data, int exit_code)
 	if (data->ray.buff_dist != NULL)
 		free(data->ray.buff_dist);
 	clean_texture(data);
-	if (data->mlx.window_ptr != NULL)
+	/*if (data->mlx.window_ptr != NULL)
 		free(data->mlx.window_ptr);
 	if (data->mlx.image != NULL)
 		free(data->mlx.image);
 	if (data->mlx.image_data != NULL)
-		free(data->mlx.image_data);
+		free(data->mlx.image_data);*/
 	system("leaks Cube3D");
 	exit(exit_code);
 }
@@ -56,9 +56,9 @@ void	clean_map(t_data *data)
 
 void	clean_texture(t_data *data)
 {
-	if (data->ray.texture != NULL)
-		free(data->ray.texture);
-	if (data->ray.tex_north != NULL)
+	//if (data->ray.texture != NULL)
+	//	free(data->ray.texture);
+	/*if (data->ray.tex_north != NULL)
 		free(data->ray.tex_north);
 	if (data->ray.tex_south != NULL)
 		free(data->ray.tex_south);
@@ -77,7 +77,7 @@ void	clean_texture(t_data *data)
 	if (data->ray.ptr_east != NULL)
 		free(data->ray.ptr_east);
 	if (data->ray.ptr_sprite != NULL)
-		free(data->ray.ptr_sprite);
+		free(data->ray.ptr_sprite);*/
 }
 
 void    free_double_array(char **double_array)

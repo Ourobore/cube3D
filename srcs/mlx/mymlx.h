@@ -22,16 +22,16 @@
 # define DESTROYNOTIFY 17
 # define STRUCTNOTIFYMASK 131072
 
-# define FOWARD 13/*119*/
-# define BACKWARD 1/*115*/
-# define LEFT 0/*97*/
-# define RIGHT 2/*100*/
-# define SHIFT 257/*65505*/
-# define SPACE 49
-# define ESC 53/*65307*/
-# define T 17
-# define TURNLEFT 123/*65361*/
-# define TURNRIGHT 124/*65363*/
+# define FOWARD /*13*/119
+# define BACKWARD /*1*/115
+# define LEFT /*0*/97
+# define RIGHT /*2*/100
+# define SHIFT /*257*/65505
+# define SPACE /*49*/32
+# define ESC /*53*/65307
+# define T /*17*/116
+# define TURNLEFT /*123*/65361
+# define TURNRIGHT /*124*/65363
 
 # define PI 3.14159265359
 

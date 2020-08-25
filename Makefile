@@ -28,9 +28,9 @@ LIB		=	libcube3d.a
 
 LIBFT	=	./libft/libft.a
 
-#LIBMLX	=	./minilibx-linux/libmlx.a
+LIBMLX	=	./minilibx-linux/libmlx.a
 
-LIBMLX	=	./minilibx-opengl/libmlx.a
+#LIBMLX	=	./minilibx-opengl/libmlx.a
 
 FLAGS	=	-Wall -Werror -Wextra
 
@@ -41,29 +41,29 @@ all		:	$(NAME)
 
 $(NAME)	:	$(OBJS)
 			@make -C ./libft
-			#@make -C ./minilibx-linux
-			@make -C ./minilibx-opengl
+			@make -C ./minilibx-linux
+			#@make -C ./minilibx-opengl
 			cp $(LIBFT) ./$(LIB)
 			ar -rcs $(LIB) $(OBJS)
-			#gcc $(FLAGS) -g3 -fsanitize=address -D BONUS=0 main.c $(LIB) $(LIBMLX) -o $(NAME) -L$(LIBMLX) -lXext -lX11 -lm
-			gcc $(FLAGS) -g -D BONUS=0 main.c $(LIB) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
+			gcc $(FLAGS) -g -fsanitize=address -D BONUS=0 main.c $(LIB) $(LIBMLX) -o $(NAME) -L$(LIBMLX) -lXext -lX11 -lm
+			#gcc $(FLAGS) -g -D BONUS=0 main.c $(LIB) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
 
 bonus	:	$(OBJS)
 			@make -C ./libft
-			#@make -C ./minilibx-linux
-			@make -C ./minilibx-opengl
+			@make -C ./minilibx-linux
+			#@make -C ./minilibx-opengl
 			cp $(LIBFT) ./$(LIB)
 			ar -rcs $(LIB) $(OBJS)
-			#gcc $(FLAGS) -g3 -fsanitize=address -D BONUS=1 main.c $(LIB) $(LIBMLX) -o $(NAME) -L$(LIBMLX) -lXext -lX11 -lm
-			gcc $(FLAGS) -g -D BONUS=1 main.c $(LIB) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
+			gcc $(FLAGS) -g -D BONUS=1 main.c $(LIB) $(LIBMLX) -o $(NAME) -L$(LIBMLX) -lXext -lX11 -lm
+			#gcc $(FLAGS) -g -D BONUS=1 main.c $(LIB) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
 
 
 
 clean	:	
 			rm -rf $(OBJS)
 			@make clean -C ./libft
-			#@make clean -C ./minilibx-linux
-			@make clean -C ./minilibx-opengl
+			@make clean -C ./minilibx-linux
+			#@make clean -C ./minilibx-opengl
 
 fclean	:	clean
 			rm -rf $(LIB) $(NAME)
