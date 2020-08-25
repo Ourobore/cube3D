@@ -6,7 +6,7 @@
 /*   By: lchapren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 12:23:51 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/12 13:02:24 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/25 12:09:08 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	get_sprite_list(t_ray *ray, t_player player, t_map map)
 
 	a = 0;
 	i = 0;
-	ray->sp_list = ft_calloc(sizeof(*ray->sp_list), map.sprite_count);
+	if (!(ray->sp_list = ft_calloc(sizeof(*ray->sp_list), map.sprite_count)))
+		calloc_error();
 	while (map.map[i])
 	{
 		j = 0;

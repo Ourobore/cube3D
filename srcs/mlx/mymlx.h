@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:05:46 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/21 16:30:18 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/25 12:54:41 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,14 @@
 ** Initialization functions
 */
 t_mlx		start_mlx(t_map map);
-t_data		main_mlx_loop(t_data data);
 t_player	init_player(t_player player);
-t_player	initial_player_position(char **map);
+t_player	initial_player_position(t_map map);
 t_player	get_player(char c, int i, int j);
-void		free_mlx(t_mlx window);
 int			destroy_window(t_data *data);
 void		clean_exit(t_data *data, int exit_code);
+void		clean_map(t_data *data);
+void		clean_texture(t_data *data);
+void		free_double_array(char **double_array);
 
 /*
 *** Control functions

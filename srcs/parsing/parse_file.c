@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 11:41:55 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/21 16:10:42 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/25 12:17:21 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ t_map	parse_file(char **map_file)
 
 	i = 0;
 	map.sprite_count = 0;
+	if (!map_file)
+		return (map);
 	while (map_file[i] && i < NB_ELEMENTS)
 		map = call_parsing(map, &map_file[i++][0]);
 	map.map = get_map(map_file);

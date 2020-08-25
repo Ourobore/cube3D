@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 13:55:35 by lchapren          #+#    #+#             */
-/*   Updated: 2020/02/13 13:50:02 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/25 12:01:53 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,4 @@ char	*space_trim(char *s)
 		trim[j++] = s[i++];
 	free(s);
 	return (trim);
-}
-
-void	free_double_array(char **double_array)
-{
-	int i;
-
-	i = 0;
-	while (double_array[i])
-	{
-		free(double_array[i]);
-		i++;
-	}
-	free(double_array);
 }

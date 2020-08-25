@@ -6,29 +6,30 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 09:58:37 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/21 12:10:45 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/25 12:57:14 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mymlx.h"
 
-t_player	initial_player_position(char **map)
+t_player	initial_player_position(t_map map)
 {
 	int			i;
 	int			j;
 	t_player	player;
 
 	i = 0;
-	while (map[i])
+	player.pos_x = 0;
+	while (map.map && map.map[i])
 	{
 		j = 0;
-		while (map[i][j])
+		while (map.map && map.map[i][j])
 		{
-			if (map[i][j] == 'N' || map[i][j] == 'E' || \
-					map[i][j] == 'S' || map[i][j] == 'W')
+			if (map.map[i][j] == 'N' || map.map[i][j] == 'E' || \
+				map.map[i][j] == 'S' || map.map[i][j] == 'W')
 			{
-				player = get_player(map[i][j], i, j);
-				player = get_plane(player, map[i][j]);
+				player = get_player(map.map[i][j], i, j);
+				player = get_plane(player, map.map[i][j]);
 			}
 			j++;
 		}

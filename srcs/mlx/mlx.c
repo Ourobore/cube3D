@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:05:37 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/21 15:35:53 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/25 11:32:58 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,6 @@ t_mlx	start_mlx(t_map map)
 	mlx.window_ptr = mlx_new_window(mlx.mlx_ptr, map.res[0], \
 					map.res[1], "Cube3D");
 	return (mlx);
-}
-
-int		deal_mouse(int key, t_mlx *param)
-{
-	ft_putnbr_fd(key, 1);
-	write(1, "Mouse\n", 6);
-	return (1);
-}
-
-void	free_mlx(t_mlx window)
-{
-	free(window.mlx_ptr);
-	free(window.mlx_ptr);
 }
 
 t_data	new_image(t_data data)

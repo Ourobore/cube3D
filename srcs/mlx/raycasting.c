@@ -6,7 +6,7 @@
 /*   By: lchapren <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 13:57:58 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/21 15:36:14 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/25 12:03:36 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ void	raycasting(t_data *data, t_player *player, t_ray *ray, t_map map)
 
 	ray->column = 0;
 	*data = new_image(*data);
-	ray->buff_dist = ft_calloc(sizeof(ray->buff_dist), map.res[0]);
+	if (!(ray->buff_dist = ft_calloc(sizeof(ray->buff_dist), map.res[0])))
+		calloc_error();
 	while (ray->column < map.res[0])
 	{
-		camera_x = (2.0 * (double)ray->column / map.res[0]) - 1.0;
+		camera_x = (2.0 * ray->column / map.res[0]) - 1;
 		ray->raydir_x = player->dir_x + player->plane_x * camera_x;
 		ray->raydir_y = player->dir_y + player->plane_y * camera_x;
 		get_steps(player, ray);
@@ -44,8 +45,8 @@ void	get_steps(t_player *player, t_ray *ray)
 {
 	ray->delta_x = fabs(1 / ray->raydir_x);
 	ray->delta_y = fabs(1 / ray->raydir_y);
-	ray->map_x = (int)player->pos_x;
-	ray->map_y = (int)player->pos_y;
+	ray->map_x = player->pos_x;
+	ray->map_y = player->pos_y;
 	if (ray->raydir_x < 0)
 	{
 		ray->step_x = -1;
@@ -91,7 +92,7 @@ void	get_wall(t_data data, t_ray *ray, t_map map, t_player player)
 			break ;
 	}
 	ray->wall_distance = get_distance(*ray, player);
-	ray->wall_height = (double)fabs((double)map.res[1] / ray->wall_distance);
+	ray->wall_height = fabs(map.res[1] / ray->wall_distance);
 }
 
 void	draw_untextured(t_mlx *mlx, t_ray ray, t_player player, t_map map)
@@ -100,9 +101,9 @@ void	draw_untextured(t_mlx *mlx, t_ray ray, t_player player, t_map map)
 	int		start;
 	int		end;
 
-	if ((start = -ray.wall_height / 2 + map.res[1] / player.height) < 0)
+	if ((start = -ray.wall_height / 2.0 + map.res[1] / player.height) < 0)
 		start = 0;
-	if ((end = ray.wall_height / 2 + map.res[1] / player.height) > map.res[1])
+	if ((end = ray.wall_height / 2.0 + map.res[1] / player.height) > map.res[1])
 		end = map.res[1] - 1;
 	i = -1;
 	while (++i < map.res[1])
@@ -125,23 +126,23 @@ void	draw_untextured(t_mlx *mlx, t_ray ray, t_player player, t_map map)
 
 void	draw_textured(t_mlx *mlx, t_ray ray, t_player player, t_map map)
 {
-	double	wall_x;
+	float	wall_x;
 
 	if (ray.hit_side == 0)
 		wall_x = player.pos_y + ray.wall_distance * ray.raydir_y;
 	else
 		wall_x = player.pos_x + ray.wall_distance * ray.raydir_x;
 	wall_x -= floor(wall_x);
-	ray.tex_x = (int)(wall_x * (double)(ray.tex_width));
+	ray.tex_x = wall_x * (ray.tex_width);
 	if ((ray.hit_side == 0 && ray.raydir_x > 0) || \
 		(ray.hit_side == 1 && ray.raydir_y < 0))
 		ray.tex_x = ray.tex_width - ray.tex_x - 1;
-	if ((ray.start_y = -ray.wall_height / 2.0 + map.res[1] / player.height) < 0)
+	if ((ray.start_y = -ray.wall_height / 2 + map.res[1] / player.height) < 0)
 		ray.start_y = 0;
-	if ((ray.end_y = ray.wall_height / 2.0 + map.res[1] / player.height) \
+	if ((ray.end_y = ray.wall_height / 2 + map.res[1] / player.height) \
 															>= map.res[1])
 		ray.end_y = map.res[1] - 1;
-	ray.tex_step = 1.0 * (double)ray.tex_height / ray.wall_height;
+	ray.tex_step = ray.tex_height / ray.wall_height;
 	ray.tex_pos = (ray.start_y - map.res[1] / player.height + \
 					ray.wall_height / 2.0) * ray.tex_step;
 	select_texture(&ray, player);

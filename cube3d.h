@@ -6,7 +6,7 @@
 /*   By: lchapren <lchapren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 10:39:44 by lchapren          #+#    #+#             */
-/*   Updated: 2020/08/21 12:23:28 by lchapren         ###   ########.fr       */
+/*   Updated: 2020/08/25 13:21:02 by lchapren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # include <stdio.h>
 # include <errno.h>
 # include <math.h>
-# include "./minilibx-linux/mlx.h"
+# include "./minilibx-opengl/mlx.h"
 
 # define NB_ELEMENTS 8
 # define PLAYER_HEIGHT 2.0

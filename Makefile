@@ -15,6 +15,7 @@ SRCS	=	$(RSRCS)/parsing/get_map_file.c \
 			$(RSRCS)/mlx/sprites.c \
 			$(RSRCS)/mlx/controls.c \
 			$(RSRCS)/mlx/bonus_controls.c \
+			$(RSRCS)/mlx/free_struct.c \
 			$(RSRCS)/mlx/utils.c
 
 OBJS	:=	${SRCS:.c=.o}
