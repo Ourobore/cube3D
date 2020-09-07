@@ -16,11 +16,11 @@ void	raycasting(t_data *data, t_player *player, t_ray *ray, t_map map)
 {
 	float	camera_x;
 
-	ray->column = 0;
-	*data = new_image(*data);
+	ray->column = -1;
+	new_image(data);
 	if (!(ray->buff_dist = ft_calloc(sizeof(ray->buff_dist), map.res[0])))
 		calloc_error();
-	while (ray->column < map.res[0])
+	while (++ray->column < map.res[0])
 	{
 		camera_x = (2.0 * ray->column / map.res[0]) - 1;
 		ray->raydir_x = player->dir_x + player->plane_x * camera_x;
@@ -32,13 +32,13 @@ void	raycasting(t_data *data, t_player *player, t_ray *ray, t_map map)
 			draw_untextured(&(data->mlx), *ray, *player, map);
 		else
 			draw_textured(&(data->mlx), *ray, *player, map);
-		ray->column++;
 	}
 	draw_sprite(&(data->mlx), ray, *player, map);
 	free(ray->buff_dist);
-	ray->buff_dist = NULL;
+	call_save(*data);
 	mlx_put_image_to_window(data->mlx.mlx_ptr, data->mlx.window_ptr, \
 							data->mlx.image, 0, 0);
+	mlx_destroy_image(data->mlx.mlx_ptr, data->mlx.image);
 }
 
 void	get_steps(t_player *player, t_ray *ray)

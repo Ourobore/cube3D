@@ -14,7 +14,7 @@
 
 int		map_validity(t_data data)
 {
-	//valid_resolution(data, data.map.resolution, 1);
+	valid_resolution(data, data.map.resolution, 1);
 	valid_color(data.map.floor_color, 2);
 	valid_color(data.map.ceil_color, 3);
 	valid_path(data.map.north_texture, 11);
@@ -34,7 +34,7 @@ int		valid_resolution(t_data data, int *resolution, int err_num)
 
 	if (resolution[0] < 1 || resolution[1] < 1)
 		map_validity_error(err_num);
-	//mlx_get_screen_size(data.mlx.mlx_ptr, &size_x, &size_y);
+	mlx_get_screen_size(data.mlx.mlx_ptr, &size_x, &size_y);
 	if (resolution[0] > size_x)
 		resolution[0] = size_x;
 	if (resolution[1] > size_y)

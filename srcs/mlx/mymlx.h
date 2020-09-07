@@ -22,16 +22,29 @@
 # define DESTROYNOTIFY 17
 # define STRUCTNOTIFYMASK 131072
 
-# define FOWARD /*13*/119
-# define BACKWARD /*1*/115
-# define LEFT /*0*/97
-# define RIGHT /*2*/100
-# define SHIFT /*257*/65505
-# define SPACE /*49*/32
-# define ESC /*53*/65307
-# define T /*17*/116
-# define TURNLEFT /*123*/65361
-# define TURNRIGHT /*124*/65363
+# define FOWARD 119
+# define BACKWARD 115
+# define LEFT 97
+# define RIGHT 100
+# define SHIFT 65505
+# define SPACE 32
+# define ESC 65307
+# define T 116
+# define TURNLEFT 65361
+# define TURNRIGHT 65363
+
+/*
+** # define FOWARD 13
+** # define BACKWARD 1
+** # define LEFT 0
+** # define RIGHT 2
+** # define SHIFT 257
+** # define SPACE 49
+** # define ESC 53
+** # define T 17
+** # define TURNLEFT 123
+** # define TURNRIGHT 124
+*/
 
 # define PI 3.14159265359
 
@@ -65,7 +78,7 @@ float		*rotate_direction(float direction_x, float direction_y, \
 /*
 ** Raycasting functions
 */
-t_data		new_image(t_data data);
+void		new_image(t_data *data);
 
 void		raycasting(t_data *data, t_player *player, t_ray *ray, t_map map);
 
@@ -86,5 +99,7 @@ int			get_sprite_index(t_sp *list, t_map map, int map_x, int map_y);
 int			get_farest_visible_sprite(t_sp *list, t_map map);
 void		get_sprite_position(t_ray *ray, t_map map, t_player player, int i);
 void		draw_sprite(t_mlx *mlx, t_ray *ray, t_player player, t_map map);
+void		loop_mlx(t_data data);
+void		call_save(t_data data);
 
 #endif

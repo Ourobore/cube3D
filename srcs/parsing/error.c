@@ -16,7 +16,6 @@ void	calloc_error(void)
 {
 	write(1, "Error\n", 6);
 	perror("Memory allocation problem");
-	system("leaks Cube3D");//
 	exit(1);
 }
 
@@ -24,7 +23,6 @@ void	map_error(void)
 {
 	write(1, "Error\n", 6);
 	perror("Parsing map problem");
-	system("leaks Cube3D");//
 	exit(2);
 }
 
@@ -53,7 +51,6 @@ void	map_validity_error(int error)
 		perror("Invalid sprite texture path");
 	else if (error == 16)
 		perror("Invalid map file path");
-	system("leaks Cube3D");//
 	exit(3);
 }
 
@@ -63,7 +60,6 @@ void	param_error(int ac, char *param)
 	{
 		write(1, "Error\n", 6);
 		perror("Wrong number of parameters");
-		system("leaks Cube3D");//
 		exit(3);
 	}
 	if (ft_strlen(param) != 6 || param[0] != '-' || param[1] != '-' || \
@@ -72,7 +68,6 @@ void	param_error(int ac, char *param)
 	{
 		write(1, "Error\n", 6);
 		perror("Wrong argument for saving");
-		system("leaks Cube3D");//
 		exit(4);
 	}
 }
@@ -82,7 +77,7 @@ int		valid_map_path(char *map_path)
 	int fd;
 
 	if (!map_path)
-		return(0);
+		return (0);
 	if (map_path[ft_strlen(map_path) - 4] != '.' || \
 		map_path[ft_strlen(map_path) - 3] != 'c' || \
 		map_path[ft_strlen(map_path) - 2] != 'u' || \

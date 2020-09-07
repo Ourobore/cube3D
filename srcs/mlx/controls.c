@@ -12,18 +12,8 @@
 
 #include "mymlx.h"
 
-int		destroy_window(t_data *data)
-{
-	mlx_destroy_window(data->mlx.mlx_ptr, data->mlx.window_ptr);
-	data->mlx.window_ptr = NULL;
-	write(1, "Clean exit (escape button)\n", 27);
-	clean_exit(data, 0);
-	return (0);
-}
-
 int		key_press_hook(int key, t_data *data)
 {
-	printf("KEY: %d\n", key);
 	if (key == ESC)
 		destroy_window(data);
 	if (key == FOWARD)
@@ -76,7 +66,6 @@ int		player_control(t_data *data)
 		rotate_player(&data->player, data->player.rotation_angle);
 	if (data->player.turn_right && !data->player.turn_left)
 		rotate_player(&data->player, -data->player.rotation_angle);
-	mlx_destroy_image(data->mlx.mlx_ptr, data->mlx.image);
 	raycasting(data, &data->player, &data->ray, data->map);
 	return (0);
 }

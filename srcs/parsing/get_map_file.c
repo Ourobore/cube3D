@@ -34,6 +34,7 @@ char	**get_map_file(char *map_path)
 		free(line);
 	}
 	free(line);
+	free(map_path);
 	i = NB_ELEMENTS;
 	close(fd);
 	return (map);

@@ -49,3 +49,27 @@ void	get_sprite(t_ray *ray, t_player player, t_map map)
 		ray->sp_list[i].on_screen = 1;
 	}
 }
+
+void	call_save(t_data data)
+{
+	int fd;
+
+	if (data.save == 1)
+	{
+		if (!(fd = open("./save.bmp", O_WRONLY | O_CREAT, 0644)))
+			exit(-1);
+		write_bmp(data, fd);
+	}
+}
+
+void	loop_mlx(t_data data)
+{
+	mlx_hook(data.mlx.window_ptr, KEYPRESS, KEYPRESSMASK, \
+		key_press_hook, &data);
+	mlx_hook(data.mlx.window_ptr, KEYRELEASE, KEYRELEASEMASK, \
+		key_release_hook, &data);
+	mlx_hook(data.mlx.window_ptr, DESTROYNOTIFY, STRUCTNOTIFYMASK, \
+		destroy_window, &data);
+	mlx_loop_hook(data.mlx.mlx_ptr, player_control, &data);
+	mlx_loop(data.mlx.mlx_ptr);
+}

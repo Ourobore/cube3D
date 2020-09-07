@@ -41,6 +41,8 @@
 # include <math.h>
 # include "./minilibx-linux/mlx.h"
 
+t_data	init_data(t_data data, char *map_path);
+
 # define NB_ELEMENTS 8
 # define PLAYER_HEIGHT 2.0
 # define ROTATION_ANGLE 3.0

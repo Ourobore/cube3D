@@ -12,45 +12,12 @@
 
 #include "cube3d.h"
 
-int main(int ac, char **av)
-{/*
-	char *map_path;
-	t_map map;
-	int i = 0;
+int		main(int ac, char **av)
+{
+	t_data	data;
+	char	*map_path;
 
-	(void)ac;
-	map_path = ft_strdup(av[1]);
-	valid_map_path(map_path);
-	
-	intf("\n==================MAIN================\n");
-	map = parse_file(get_map_file(map_path));
-
-	printf("\n###############################################\n");
-	printf("%s\n", map.north_texture);
-	printf("%s\n", map.south_texture);
-	printf("%s\n", map.west_texture);
-	printf("%s\n", map.east_texture);
-	printf("%s\n", map.sprite_texture);
-	printf("%d %d\n", map.resolution[0], map.resolution[1]);
-	printf("%d %d %d\n", map.floor_color[0], map.floor_color[1], map.floor_color[2]);
-	printf("%d %d %d\n", map.ceiling_color[0], map.ceiling_color[1], map.ceiling_color[2]);
-	i = 0;
-	while (map.map[i])
-	{
-		printf("%s\n", map.map[i]);
-		i++;
-	}*/
-
-	//faire une init propre de tous les modules!
-	
-	t_data		data;
-	t_ray		ray;
-	t_map		map;
-	t_player	player;
-	char		*map_path;
-
-	printf("\n===================MAIN===============\n");
-	(int)ac;
+	data.save = 0;
 	if (av && av[1])
 		map_path = ft_strdup(av[1]);
 	else
@@ -61,39 +28,30 @@ int main(int ac, char **av)
 		param_error(ac, av[2]);
 		data.save = 1;
 	}
-	else
-		data.save = 0;
+	data = init_data(data, map_path);
+	if (!map_validity(data))
+		perror("Map validity error\n");
+	get_textures(&data, &(data.ray), data.map);
+	raycasting(&data, &(data.player), &(data.ray), data.map);
+	loop_mlx(data);
+}
+
+t_data	init_data(t_data data, char *map_path)
+{
+	t_map		map;
+	t_ray		ray;
+	t_player	player;
+
 	map = parse_file(get_map_file(map_path));
-	free(map_path);
 	player = initial_player_position(map);
-	printf("before\n");
 	data.mlx.mlx_ptr = mlx_init();
-	data.mlx.window_ptr = mlx_new_window(data.mlx.mlx_ptr, map.res[0], map.res[1], "Cube3D");
-	//data.mlx = start_mlx(map);
-	printf("after\n");
+	data.mlx.window_ptr = mlx_new_window(data.mlx.mlx_ptr, \
+	map.res[0], map.res[1], "Cube3D");
 	ray.textures = 1;
 	get_sprite_list(&ray, player, map);
 	data.ray = ray;
 	data.player = player;
 	data.map = map;
 	data.bonus = BONUS;
-	if (!map_validity(data))
-		perror("Map validity error\n");
-	get_textures(&data, &(data.ray), data.map);
-	raycasting(&data, &(data.player), &(data.ray), map);
-	int	fd;
-	if (data.save == 1)
-	{
-		if (!(fd = open("./save.bmp", O_WRONLY | O_CREAT, 0644)))
-			exit(-1);
-		write_bmp(data, fd);
-	}
-	mlx_hook(data.mlx.window_ptr, KEYPRESS, KEYPRESSMASK, key_press_hook, &data);
-	mlx_hook(data.mlx.window_ptr, KEYRELEASE, KEYRELEASEMASK, key_release_hook, &data);
-	mlx_hook(data.mlx.window_ptr, DESTROYNOTIFY,STRUCTNOTIFYMASK, destroy_window, &data);
-	mlx_loop_hook(data.mlx.mlx_ptr, player_control, &data);
-	mlx_loop(data.mlx.mlx_ptr);
-	printf("\n======================================\n");
-	//system("leaks Cube3D");
-	
+	return (data);
 }
