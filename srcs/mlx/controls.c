@@ -55,13 +55,13 @@ int		key_release_hook(int key, t_data *data)
 int		player_control(t_data *data)
 {
 	if (data->player.foward == 1)
-		move_player(&data->player, data->map, 0);
+		move_player(*data, &data->player, data->map, 0);
 	if (data->player.left == 1)
-		move_player(&data->player, data->map, 90);
+		move_player(*data, &data->player, data->map, 90);
 	if (data->player.right == 1)
-		move_player(&data->player, data->map, -90);
+		move_player(*data, &data->player, data->map, -90);
 	if (data->player.backward == 1)
-		move_player(&data->player, data->map, 180);
+		move_player(*data, &data->player, data->map, 180);
 	if (data->player.turn_left && !data->player.turn_right)
 		rotate_player(&data->player, data->player.rotation_angle);
 	if (data->player.turn_right && !data->player.turn_left)
@@ -70,7 +70,7 @@ int		player_control(t_data *data)
 	return (0);
 }
 
-void	move_player(t_player *player, t_map map, float angle)
+void	move_player(t_data data, t_player *player, t_map map, float angle)
 {
 	float	new_pos_x;
 	float	new_pos_y;
@@ -85,9 +85,9 @@ void	move_player(t_player *player, t_map map, float angle)
 				cos((angle * PI) / 180.0))) * 0.1 * player->speed);
 	diff_x = fabs(new_pos_x - player->pos_x);
 	diff_y = fabs(new_pos_y - player->pos_y);
-	if (!is_solid_cell(map, (int)(new_pos_x), (int)(player->pos_y)))
+	if (!is_solid_cell(data, map, (int)(new_pos_x), (int)(player->pos_y)))
 		player->pos_x = new_pos_x;
-	if (!is_solid_cell(map, (int)(player->pos_x), (int)(new_pos_y)))
+	if (!is_solid_cell(data, map, (int)(player->pos_x), (int)(new_pos_y)))
 		player->pos_y = new_pos_y;
 }
 

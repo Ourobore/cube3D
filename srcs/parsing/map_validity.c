@@ -14,7 +14,6 @@
 
 int		map_validity(t_data data)
 {
-	valid_resolution(data, data.map.resolution, 1);
 	valid_color(data.map.floor_color, 2);
 	valid_color(data.map.ceil_color, 3);
 	valid_path(data.map.north_texture, 11);

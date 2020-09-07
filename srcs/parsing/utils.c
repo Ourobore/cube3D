@@ -35,9 +35,10 @@ int		only_spaces(char *s)
 	return (1);
 }
 
-int		is_solid_cell(t_map map, int x, int y)
+int		is_solid_cell(t_data data, t_map map, int x, int y)
 {
-	if (map.map[x][y] == '1' || map.map[x][y] == '2')
+	if (map.map[x][y] == '1' || map.map[x][y] == '2' || \
+			(!data.bonus && map.map[x][y] == '3'))
 		return (1);
 	return (0);
 }

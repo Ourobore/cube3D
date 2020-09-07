@@ -70,7 +70,7 @@ void		bonus_key_press(int key, t_data *data);
 void		bonus_key_release(int key, t_data *data);
 int			mouse_hook(int key, t_mlx *param);
 int			player_control(t_data *data);
-void		move_player(t_player *player, t_map map, float angle);
+void		move_player(t_data data, t_player *player, t_map map, float angle);
 void		rotate_player(t_player *player, float angle);
 float		*rotate_direction(float direction_x, float direction_y, \
 				float angle);

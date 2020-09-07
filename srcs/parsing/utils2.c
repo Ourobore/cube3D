@@ -29,8 +29,8 @@ int		only_number(char *s)
 int		is_map_character(char c)
 {
 	if (c == ' ' || c == '0' || c == '1' || \
-		c == '2' || c == 'N' || c == 'S' || \
-		c == 'W' || c == 'E')
+		c == '2' || c == '3' || c == 'N' || \
+		c == 'S' || c == 'W' || c == 'E')
 		return (c);
 	return (0);
 }

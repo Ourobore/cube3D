@@ -45,6 +45,7 @@ t_data	init_data(t_data data, char *map_path)
 	map = parse_file(get_map_file(map_path));
 	player = initial_player_position(map);
 	data.mlx.mlx_ptr = mlx_init();
+	valid_resolution(data, map.res, 1);
 	data.mlx.window_ptr = mlx_new_window(data.mlx.mlx_ptr, \
 	map.res[0], map.res[1], "Cube3D");
 	ray.textures = 1;

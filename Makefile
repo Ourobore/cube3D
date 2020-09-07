@@ -45,7 +45,7 @@ $(NAME)	:	$(OBJS)
 			#@make -C ./minilibx-opengl
 			cp $(LIBFT) ./$(LIB)
 			ar -rcs $(LIB) $(OBJS)
-			gcc $(FLAGS) -g -D BONUS=0 main.c $(LIB) $(LIBMLX) -o $(NAME) -L$(LIBMLX) -lXext -lX11 -lm
+			gcc $(FLAGS) -g -fsanitize=address -D BONUS=0 main.c $(LIB) $(LIBMLX) -o $(NAME) -L$(LIBMLX) -lXext -lX11 -lm
 			#gcc $(FLAGS) -g -D BONUS=0 main.c $(LIB) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
 
 bonus	:	$(OBJS)

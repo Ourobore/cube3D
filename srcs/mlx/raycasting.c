@@ -88,7 +88,7 @@ void	get_wall(t_data data, t_ray *ray, t_map map, t_player player)
 		if (map.map[ray->map_x][ray->map_y] == '2')
 			get_sprite(ray, player, map);
 		if (map.map[ray->map_x][ray->map_y] == '1' || \
-			(map.map[ray->map_x][ray->map_y] == '3' && data.bonus))
+			map.map[ray->map_x][ray->map_y] == '3')
 			break ;
 	}
 	ray->wall_distance = get_distance(*ray, player);
