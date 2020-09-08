@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-t_map	parse_file(char **map_file)
+t_map	parse_file(char **map_file, int bonus)
 {
 	int		i;
 	int		j;
@@ -24,7 +24,7 @@ t_map	parse_file(char **map_file)
 		return (map);
 	while (map_file[i] && i < NB_ELEMENTS)
 		map = call_parsing(map, &map_file[i++][0]);
-	map.map = get_map(map_file);
+	map.map = get_map(map_file, bonus);
 	i = 0;
 	while (map.map[i])
 	{
@@ -109,7 +109,7 @@ int		*get_values(char *line, char sep, int nb_values)
 	return (values);
 }
 
-char	**get_map(char **map_file)
+char	**get_map(char **map_file, int bonus)
 {
 	int		i;
 	int		j;
@@ -124,7 +124,7 @@ char	**get_map(char **map_file)
 	i = NB_ELEMENTS;
 	while (map_file[i])
 		map[j++] = ft_strdup(map_file[i++]);
-	if (!only_map_characters(map))
+	if (!only_map_characters(map, bonus))
 		map_error();
 	return (map);
 }

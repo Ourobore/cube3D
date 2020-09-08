@@ -26,16 +26,17 @@ int		only_number(char *s)
 	return (1);
 }
 
-int		is_map_character(char c)
+int		is_map_character(char c, int bonus)
 {
 	if (c == ' ' || c == '0' || c == '1' || \
-		c == '2' || c == '3' || c == 'N' || \
-		c == 'S' || c == 'W' || c == 'E')
+		c == '2' || c == 'N' || \
+		c == 'S' || c == 'W' || c == 'E' || \
+		(bonus && c == '3'))
 		return (c);
 	return (0);
 }
 
-int		only_map_characters(char **map_file)
+int		only_map_characters(char **map_file, int bonus)
 {
 	int i;
 	int j;
@@ -45,7 +46,7 @@ int		only_map_characters(char **map_file)
 	{
 		j = 0;
 		while (map_file[i][j])
-			if (!is_map_character(map_file[i][j++]))
+			if (!is_map_character(map_file[i][j++], bonus))
 				return (0);
 		i++;
 	}
@@ -77,10 +78,10 @@ int		player_verification(char **map, int error_number)
 		j = 0;
 		while (map[i][j])
 		{
-			if (is_map_character(map[i][j]) == 'N' || \
-				is_map_character(map[i][j]) == 'S' || \
-				is_map_character(map[i][j]) == 'W' || \
-				is_map_character(map[i][j]) == 'E')
+			if (is_map_character(map[i][j], 0) == 'N' || \
+				is_map_character(map[i][j], 0) == 'S' || \
+				is_map_character(map[i][j], 0) == 'W' || \
+				is_map_character(map[i][j], 0) == 'E')
 				player++;
 			j++;
 		}

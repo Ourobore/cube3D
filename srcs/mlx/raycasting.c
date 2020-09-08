@@ -133,7 +133,7 @@ void	draw_textured(t_mlx *mlx, t_ray ray, t_player player, t_map map)
 	else
 		wall_x = player.pos_x + ray.wall_distance * ray.raydir_x;
 	wall_x -= floor(wall_x);
-	ray.tex_x = wall_x * (ray.tex_width);
+	ray.tex_x = wall_x * ray.tex_width;
 	if ((ray.hit_side == 0 && ray.raydir_x > 0) || \
 		(ray.hit_side == 1 && ray.raydir_y < 0))
 		ray.tex_x = ray.tex_width - ray.tex_x - 1;

@@ -42,7 +42,7 @@ t_data	init_data(t_data data, char *map_path)
 	t_ray		ray;
 	t_player	player;
 
-	map = parse_file(get_map_file(map_path));
+	map = parse_file(get_map_file(map_path), BONUS);
 	player = initial_player_position(map);
 	data.mlx.mlx_ptr = mlx_init();
 	valid_resolution(data, map.res, 1);
@@ -53,6 +53,5 @@ t_data	init_data(t_data data, char *map_path)
 	data.ray = ray;
 	data.player = player;
 	data.map = map;
-	data.bonus = BONUS;
 	return (data);
 }

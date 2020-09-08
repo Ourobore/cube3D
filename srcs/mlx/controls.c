@@ -74,8 +74,6 @@ void	move_player(t_data data, t_player *player, t_map map, float angle)
 {
 	float	new_pos_x;
 	float	new_pos_y;
-	float	diff_x;
-	float	diff_y;
 
 	new_pos_x = player->pos_x + (((player->dir_x * \
 				cos((angle * PI) / 180.0)) - (player->dir_y * \
@@ -83,8 +81,6 @@ void	move_player(t_data data, t_player *player, t_map map, float angle)
 	new_pos_y = player->pos_y + (((player->dir_x * \
 				sin((angle * PI) / 180.0)) + (player->dir_y * \
 				cos((angle * PI) / 180.0))) * 0.1 * player->speed);
-	diff_x = fabs(new_pos_x - player->pos_x);
-	diff_y = fabs(new_pos_y - player->pos_y);
 	if (!is_solid_cell(data, map, (int)(new_pos_x), (int)(player->pos_y)))
 		player->pos_x = new_pos_x;
 	if (!is_solid_cell(data, map, (int)(player->pos_x), (int)(new_pos_y)))

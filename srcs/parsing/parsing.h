@@ -18,15 +18,15 @@
 /*
 **Parsing functions
 */
-t_map	parse_file(char **map_file);
+t_map	parse_file(char **map_file, int bonus);
 t_map	call_parsing(t_map map, char *line);
 char	**get_map_file(char *map_path);
-char	**get_map(char **map_file);
+char	**get_map(char **map_file, int bonus);
 char	*get_texture_path(char *line, char sep);
 int		*get_values(char *line, char sep, int nb_values);
 char	*space_trim(char *s);
-int		is_map_character(char c);
-int		only_map_characters(char **map_file);
+int		is_map_character(char c, int bonus);
+int		only_map_characters(char **map_file, int bonus);
 
 /*
 **Map validity functions
